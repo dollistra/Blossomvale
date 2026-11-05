@@ -35,7 +35,20 @@ const server = http.createServer(async (request, response) => {
     return;
   }
 
-  const relativePath = pathname === "/" ? "/index.html" : pathname;
+  // Clean URLs: /shop serves shop.html, /wiki serves wiki.html, and /shop.html redirects to /shop.
+  if (pathname.endsWith(".html")) {
+    const clean = pathname.replace(/\/index\.html$/, "/").replace(/\.html$/, "");
+    if (clean !== "/404") {
+      response.writeHead(301, { Location: (clean || "/") + new URL(request.url, "http://localhost").search }).end();
+      return;
+    }
+  }
+  let relativePath = pathname === "/" ? "/index.html" : pathname;
+  if (path.extname(relativePath) === "" && relativePath !== "/index.html") {
+    try {
+      if ((await fs.promises.stat(path.resolve(root, `.${relativePath}.html`))).isFile()) relativePath += ".html";
+    } catch {}
+  }
   const filePath = path.resolve(root, `.${relativePath}`);
   if (!filePath.startsWith(`${root}${path.sep}`)) {
     response.writeHead(404).end("Not found");

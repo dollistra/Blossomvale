@@ -1,7 +1,7 @@
 // Edit these values; the Shop page reads them.
 window.SHOP_CONFIG = {
   // Where "Discord" links on the Shop page go.
-  discord: "https://discord.gg/nMWU7eXFz8",
+  discord: "https://discord.gg/YCUe6CXVaB",
   // Java address shown in "How it works" (with a Copy button).
   javaAddress: "play.blossomvale.world",
   // Ribbon on the Bloom card. Use "" to hide it. Switch to "Most popular" once you have real sales to back it up.
