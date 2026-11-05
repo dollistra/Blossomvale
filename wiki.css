@@ -2,16 +2,16 @@
 .wiki-main{width:min(1120px,100%);margin:36px auto 0}
 .board{--k:.62;position:relative;width:100%;margin:0 auto;filter:drop-shadow(0 7px 5px rgba(26,20,26,.35))}
 .board-top,.board-bottom{position:relative}
-.board-top{height:calc(195px*var(--k));background:url("./wiki-assets/board-tl.png?v=4") left top/calc(280px*var(--k)) 100% no-repeat,url("./wiki-assets/board-tr.png?v=4") right top/calc(178px*var(--k)) 100% no-repeat}
+.board-top{height:calc(195px*var(--k));background:url("./board-tl.png?v=4") left top/calc(280px*var(--k)) 100% no-repeat,url("./board-tr.png?v=4") right top/calc(178px*var(--k)) 100% no-repeat}
 .board-top::before,.board-bottom::before{content:"";position:absolute;top:0;bottom:0;left:calc(280px*var(--k));right:calc(178px*var(--k))}
-.board-top::before{background:url("./wiki-assets/board-top.png?v=4") left top/calc(490px*var(--k)) 100% repeat-x}
-.board-bottom{height:calc(212px*var(--k));background:url("./wiki-assets/board-bl.png?v=4") left top/calc(238px*var(--k)) 100% no-repeat,url("./wiki-assets/board-br.png?v=4") right top/calc(210px*var(--k)) 100% no-repeat}
-.board-bottom::before{left:calc(238px*var(--k));right:calc(210px*var(--k));background:url("./wiki-assets/board-bottom.png?v=4") left top/calc(510px*var(--k)) 100% repeat-x}
+.board-top::before{background:url("./board-top.png?v=4") left top/calc(490px*var(--k)) 100% repeat-x}
+.board-bottom{height:calc(212px*var(--k));background:url("./board-bl.png?v=4") left top/calc(238px*var(--k)) 100% no-repeat,url("./board-br.png?v=4") right top/calc(210px*var(--k)) 100% no-repeat}
+.board-bottom::before{left:calc(238px*var(--k));right:calc(210px*var(--k));background:url("./board-bottom.png?v=4") left top/calc(510px*var(--k)) 100% repeat-x}
 .board-body{position:relative;isolation:isolate;padding:0 calc(62px*var(--k) + 22px) calc(26px*var(--k));color:#fff3df;text-shadow:1px 2px 0 #512b27}
 /* wood only between the frame rails (the art has empty margins outside them), then the rails on top */
 .board-body::before,.board-body::after{content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none}
-.board-body::before{left:calc(33px*var(--k));right:calc(38px*var(--k));background:url("./wiki-assets/board-wood.png?v=4") 0 calc(63.5px*var(--k))/calc(1110px*var(--k)) calc(87px*var(--k)) repeat}
-.board-body::after{left:0;right:0;background:url("./wiki-assets/board-left.png?v=4") left top/calc(62px*var(--k)) calc(100px*var(--k)) repeat-y,url("./wiki-assets/board-right.png?v=4") right top/calc(75px*var(--k)) calc(100px*var(--k)) repeat-y}
+.board-body::before{left:calc(33px*var(--k));right:calc(38px*var(--k));background:url("./board-wood.png?v=4") 0 calc(63.5px*var(--k))/calc(1110px*var(--k)) calc(87px*var(--k)) repeat}
+.board-body::after{left:0;right:0;background:url("./board-left.png?v=4") left top/calc(62px*var(--k)) calc(100px*var(--k)) repeat-y,url("./board-right.png?v=4") right top/calc(75px*var(--k)) calc(100px*var(--k)) repeat-y}
 .board-body>:first-child{margin-top:calc(-62px*var(--k))}
 .board-bottom{margin-top:calc(-26px*var(--k))}
 
@@ -27,7 +27,7 @@
 .wiki-tabs-wrap{position:sticky;top:8px;z-index:20;margin:0 0 24px;transition:background .2s,box-shadow .2s,padding .2s}
 .wiki-tabs-wrap.is-stuck{padding:6px 8px;border-radius:6px;background:rgba(32,22,38,.58);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 8px 22px rgba(20,12,24,.4)}
 .wiki-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 6px}
-.wiki-tab{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:4px 8px 6px;color:#f6a4e1;text-decoration:none;font-size:.95rem;border:solid transparent;border-width:16px 18px;margin:-4px -2px;border-image:url("./wiki-assets/tab-board.png?v=4") 30 fill/16px 18px stretch;text-shadow:1px 2px #5c2c48;transition:filter .16s}
+.wiki-tab{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:4px 8px 6px;color:#f6a4e1;text-decoration:none;font-size:.95rem;border:solid transparent;border-width:16px 18px;margin:-4px -2px;border-image:url("./tab-board.png?v=4") 30 fill/16px 18px stretch;text-shadow:1px 2px #5c2c48;transition:filter .16s}
 .wiki-tab img{width:auto;height:22px;image-rendering:pixelated}
 .wiki-tab span{position:relative}
 .wiki-tab:hover{filter:brightness(1.18)}
@@ -141,7 +141,7 @@
 .jump a:focus-visible{outline:3px solid #fff4d9;outline-offset:2px}
 .shot{width:min(640px,100%);margin:6px auto 24px}
 .shot-frame{position:relative;aspect-ratio:542/310;filter:drop-shadow(0 5px 4px rgba(26,20,26,.38))}
-.shot-frame::after{content:"";position:absolute;inset:0;background:url("./wiki-assets/photo-frame.png?v=4") center/100% 100% no-repeat;image-rendering:pixelated;pointer-events:none}
+.shot-frame::after{content:"";position:absolute;inset:0;background:url("./photo-frame.png?v=4") center/100% 100% no-repeat;image-rendering:pixelated;pointer-events:none}
 .shot-frame img{position:absolute;left:5.7%;right:5.2%;top:14.2%;bottom:9.7%;width:89.1%;height:76.1%;object-fit:cover;image-rendering:auto}
 .shot figcaption{margin-top:6px;text-align:center;color:#f2c5e8;font-size:.85rem}
 .to-top{position:fixed;right:16px;bottom:16px;z-index:30;padding:11px 14px;font-size:.85rem;color:#fff5e4;border:3px solid #583017;box-shadow:inset 0 0 0 2px #e9a550,0 4px 0 rgba(53,28,20,.5);background:linear-gradient(180deg,#bb5c9c,#9e3e83);text-shadow:1px 2px #5c2c48;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
