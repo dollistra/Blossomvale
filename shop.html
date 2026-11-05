@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#75401f">
+  <link rel="icon" type="image/png" href="./Favicon.png">
+  <meta name="description" content="Blossomvale ranks: one-time cosmetic and convenience perks. Coming soon.">
+  <title>Blossom Vale</title>
+  <link rel="preload" href="./Backgroud-Image.jpg" as="image">
+  <link rel="preload" href="./Font.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=10">
+  <link rel="stylesheet" href="./board.css?v=4">
+  <link rel="stylesheet" href="./shop.css?v=12">
+  <script src="./script.js?v=4" defer></script>
+  <script src="./board.js?v=4" defer></script>
+  <script src="./blossoms.js?v=4" defer></script>
+  <script src="./shop-config.js?v=2" defer></script>
+  <script src="./shop.js?v=7" defer></script>
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+  <div class="ambient-petals" aria-hidden="true">
+    <span class="petal-one"></span>
+    <span class="petal-two"></span>
+    <span class="petal-three"></span>
+    <span class="petal-four"></span>
+    <span class="petal-five"></span>
+    <span class="petal-six"></span>
+    <span class="petal-seven"></span>
+    <span class="petal-eight"></span>
+    <span class="petal-nine"></span>
+    <span class="petal-ten"></span>
+    <span class="petal-eleven"></span>
+    <span class="petal-twelve"></span>
+    <span class="petal-thirteen"></span>
+    <span class="petal-fourteen"></span>
+    <span class="petal-fifteen"></span>
+    <span class="petal-sixteen"></span>
+    <span class="petal-seventeen"></span>
+    <span class="petal-eighteen"></span>
+    <span class="petal-nineteen"></span>
+    <span class="petal-twenty"></span>
+    <span class="petal-twenty-one"></span>
+    <span class="petal-twenty-two"></span>
+    <span class="petal-twenty-three"></span>
+    <span class="petal-twenty-four"></span>
+    <span class="petal-twenty-five"></span>
+    <span class="petal-twenty-six"></span>
+    <span class="petal-twenty-seven"></span>
+    <span class="petal-twenty-eight"></span>
+    <span class="petal-twenty-nine"></span>
+    <span class="petal-thirty"></span>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell">
+    <header class="site-header bar board" data-static>
+      <div class="board-top" aria-hidden="true"></div>
+      <div class="board-body">
+        <a class="bar-brand" href="./index.html#home"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span>Blossom Vale</span></a>
+        <nav class="bar-nav" aria-label="Main navigation">
+          <a href="./index.html#home"><img src="./wiki-assets/icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+          <a href="./wiki.html"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+          <a href="./shop.html" aria-current="page"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+        </nav>
+      </div>
+      <div class="board-bottom" aria-hidden="true"></div>
+    </header>
+    <nav class="mobile-nav" aria-label="Main navigation (small screens)">
+      <a href="./index.html#home"><img src="./wiki-assets/icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+      <a href="./wiki.html"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+      <a href="./shop.html" aria-current="page"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+    </nav>
+    <main id="main" class="shop-main">
+      <section class="hero-panel hero-board board" data-fit="675/406" data-k="1.06" aria-labelledby="shop-heading">
+        <div class="board-top" aria-hidden="true"></div>
+        <div class="board-body">
+        <div class="shop-copy">
+          <h1 id="shop-heading">Welcome to the Shop!</h1>
+          <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span></span></div>
+          <p>Help Blossomvale bloom with a one-time rank.<br>Cosmetics and small conveniences only, never power.</p>
+          <p class="shop-soon">Ranks and Petals go on sale when the village opens.</p>
+        </div>
+        </div>
+        <div class="board-bottom" aria-hidden="true"></div>
+      </section>
+
+      <div class="sale-banner" id="sale-banner" role="status" hidden><span id="sale-text"></span></div>
+
+      <div class="shop-tabs-wrap"><div class="shop-tabs" role="tablist" aria-label="Shop sections"><a class="shop-tab" role="tab" id="tab-ranks" href="#ranks" aria-controls="ranks"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false"><span>Ranks</span></a><a class="shop-tab" role="tab" id="tab-petals" href="#petals" aria-controls="petals"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span>Petals</span></a><a class="shop-tab" role="tab" id="tab-deals" href="#deals" aria-controls="deals"><img src="./wiki-assets/icon-settings.png?v=4" alt="" draggable="false"><span>Deals</span></a><a class="shop-tab" role="tab" id="tab-upgrade" href="#upgrade" aria-controls="upgrade"><img src="./wiki-assets/icon-play.png?v=4" alt="" draggable="false"><span>Upgrade &amp; gift</span></a><a class="shop-tab" role="tab" id="tab-community" href="#community" aria-controls="community"><img src="./wiki-assets/icon-home.png?v=4" alt="" draggable="false"><span>Community</span></a><a class="shop-tab" role="tab" id="tab-questions" href="#questions" aria-controls="questions"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false"><span>Questions</span></a></div></div>
+
+      <div class="shop-panel" id="ranks" role="tabpanel" aria-labelledby="tab-ranks" tabindex="-1"><section class="shop-section how" aria-labelledby="how-heading">
+        <h2 id="how-heading" class="shop-title small"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">How it works</h2>
+        <ol class="how-steps">
+          <li><b>1</b><span>Pick a rank or a bundle.</span></li>
+          <li><b>2</b><span>Type your Minecraft username at checkout.</span></li>
+          <li><b>3</b><span>It arrives in the game on its own. Rejoin if you are online.</span></li>
+        </ol>
+        <div class="join-strip">
+          <div><span class="js-label">Java address</span><code data-java-address>play.blossomvale.world</code><button class="copy-mini" type="button" data-copy-java>Copy</button></div>
+          <div><span class="js-label">Bedrock</span><span class="js-soon">coming soon</span></div>
+        </div>
+      </section>
+
+      <section class="shop-section" aria-labelledby="ranks-heading">
+        <h2 id="ranks-heading" class="shop-title"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false">Village Ranks</h2>
+        <p class="shop-lead">Pay once and keep your rank forever. Each rank includes everything from the ones before it.</p>
+        <div class="rank-grid">
+        <article class="rank-card board rank-sprout" aria-labelledby="rank-sprout">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body">
+            <header class="rank-head"><h3 id="rank-sprout"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="228" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;5</strong><span>one-time</span></p></header>
+            <p class="rank-tagline">A little thank-you for helping Blossomvale grow.</p>
+            <div class="chat-preview" role="img" aria-label="Example of how a Sprout player looks in chat"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="114" height="22" draggable="false"><span class="cp-tag" style="color:#bfe6ff">☁ cloudy ☁</span><span class="cp-name">Willow</span><span class="cp-msg">: anyone up for a boat race?</span></div>
+            <p class="rank-includes">What you get:</p>
+            <ul class="perk-list"><li>Sprout badge in chat and on the tab list</li><li><b>+1</b> home</li><li><b>5</b> auction listings at once (everyone has 3)</li><li><b>+1</b> player shop</li><li>Team size up to <b>10</b> (everyone has 8)</li><li><b>/rtp</b> cooldown of <b>45s</b> (everyone waits 60s)</li><li><b>2</b> exclusive tags and <b>2</b> exclusive emotes</li><li>Supporter role in our Discord</li><li>Your name on the Supporters wall</li></ul>
+            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+          </div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </article>
+        <article class="rank-card board rank-blossom" aria-labelledby="rank-blossom">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body">
+            <header class="rank-head"><h3 id="rank-blossom"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="252" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;10</strong><span>one-time</span></p></header>
+            <p class="rank-tagline">For villagers who want to stand out a little.</p>
+            <div class="chat-preview" role="img" aria-label="Example of how a Blossom player looks in chat"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="126" height="22" draggable="false"><span class="cp-tag" style="color:#ffd98a">✧ honeyed ✧</span><span class="cp-name" style="color:#d8b8ff">Willow</span><span class="cp-msg">: new emote just dropped!</span></div>
+            <p class="rank-includes">Everything in Sprout, plus:</p>
+            <ul class="perk-list"><li>Blossom badge</li><li><b>+2</b> homes in total</li><li><b>8</b> auction listings</li><li><b>+2</b> player shops in total</li><li>Team size up to <b>12</b></li><li><b>/rtp</b> cooldown of <b>30s</b></li><li><b>6</b> name colours and <b>/nick</b> nicknames</li><li><b>4</b> exclusive tags and <b>4</b> exclusive emotes</li><li>Boat trail and horn for the ice boat garage</li></ul>
+            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+          </div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </article>
+        <article class="rank-card board rank-bloom" aria-labelledby="rank-bloom">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body">
+            <header class="rank-head"><h3 id="rank-bloom"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="204" height="44" draggable="false"></h3><span class="ribbon" data-ribbon="bloom">Best value</span><p class="rank-price"><strong>&pound;20</strong><span>one-time</span></p></header>
+            <p class="rank-tagline">Make your corner of the village really yours.</p>
+            <div class="chat-preview" role="img" aria-label="Example of how a Bloom player looks in chat"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="102" height="22" draggable="false"><span class="cp-tag" style="color:#cdb8ff">˚₊ moonmoth ₊˚</span><span class="cp-name grad-sunset">Willow</span><span class="cp-msg">: look at my new island theme</span></div>
+            <p class="rank-includes">Everything in Blossom, plus:</p>
+            <ul class="perk-list"><li>Bloom badge</li><li><b>+4</b> homes in total</li><li><b>12</b> auction listings</li><li><b>+3</b> player shops in total</li><li>Team size up to <b>14</b></li><li><b>/rtp</b> cooldown of <b>20s</b></li><li>Name gradients and a custom join message</li><li>Particle trails and a pet name-tag style</li><li><b>6</b> exclusive tags, <b>6</b> exclusive emotes and a Cozy Islands island theme</li><li>Early look at new cosmetics</li></ul>
+            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+          </div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </article>
+        <article class="rank-card board rank-everbloom" aria-labelledby="rank-everbloom">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body">
+            <header class="rank-head"><h3 id="rank-everbloom"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="300" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;35</strong><span>one-time</span></p></header>
+            <p class="rank-tagline">The full garden, for our biggest supporters.</p>
+            <div class="chat-preview" role="img" aria-label="Example of how a Everbloom player looks in chat"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="150" height="22" draggable="false"><span class="cp-tag" style="color:#ffd25e">⋆ stargazer ⋆</span><span class="cp-name grad-aurora">Willow</span><span class="cp-msg">: the garden is in full bloom</span></div>
+            <p class="rank-includes">Everything in Bloom, plus:</p>
+            <ul class="perk-list"><li>Signature gold Everbloom badge and profile flair</li><li><b>+6</b> homes in total</li><li><b>20</b> auction listings</li><li><b>+5</b> player shops in total</li><li>Team size up to <b>16</b></li><li><b>/rtp</b> cooldown of <b>10s</b></li><li><b>10</b> exclusive tags and <b>8</b> exclusive emotes</li><li>The top boat trail and a winner's firework</li><li>First pick of every new cosmetic</li></ul>
+            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+          </div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </article>
+        </div>
+      </section>
+
+      <section class="shop-section" aria-labelledby="compare-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><details class="fold"><summary><h2 id="compare-heading" class="shop-title"><img src="./wiki-assets/icon-book.png?v=4" alt="" draggable="false">Compare ranks</h2></summary>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Rank comparison table, scrolls sideways on small screens"><table class="rank-table"><thead><tr><th scope="col">Perk</th><th scope="col">Everyone</th><th scope="col" class="c-sprout">Sprout</th><th scope="col" class="c-blossom">Blossom</th><th scope="col" class="c-bloom">Bloom</th><th scope="col" class="c-everbloom">Everbloom</th></tr></thead><tbody><tr><th scope="row">Extra homes</th><td>3 + level perks</td><td>+1</td><td>+2</td><td>+4</td><td>+6</td></tr><tr><th scope="row">Auction listings</th><td>3</td><td>5</td><td>8</td><td>12</td><td>20</td></tr><tr><th scope="row">Player shops</th><td>Standard</td><td>+1</td><td>+2</td><td>+3</td><td>+5</td></tr><tr><th scope="row">Team size</th><td>8</td><td>10</td><td>12</td><td>14</td><td>16</td></tr><tr><th scope="row">/rtp cooldown</th><td>60s</td><td>45s</td><td>30s</td><td>20s</td><td>10s</td></tr><tr><th scope="row">Exclusive tags</th><td>Free tags</td><td>2</td><td>4</td><td>6</td><td>10</td></tr><tr><th scope="row">Exclusive emotes</th><td>Free emotes</td><td>2</td><td>4</td><td>6</td><td>8</td></tr><tr><th scope="row">Name colours and /nick</th><td>—</td><td>—</td><td>6 colours + /nick</td><td>Gradients too</td><td>Gradients too</td></tr><tr><th scope="row">Join message and trails</th><td>—</td><td>—</td><td>—</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Supporters wall and Discord role</th><td>—</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Gold star</td></tr></tbody></table></div></details></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+
+      <div class="shop-panel" id="petals" role="tabpanel" aria-labelledby="tab-petals" tabindex="-1"><section class="shop-section" aria-labelledby="petals-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="petals-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Petals</h2>
+            <p class="shop-lead">Petals are the village's cosmetic currency. They only buy looks, so nobody gets an advantage.</p>
+            <div class="petal-cols">
+              <div><h3 class="peek-sub">What Petals buy</h3><ul class="perk-list"><li>Chat tags and chat colours</li><li>Trails and outline glows</li><li>Death effects</li><li>Hats, cloaks, wings, backpacks and scarves</li><li>Pets that follow you around the hub</li><li>Choose-your-piece keys: you pick the exact item, nothing is random</li></ul></div>
+              <div><h3 class="peek-sub">Free Petals</h3><ul class="perk-list"><li>Earn them by playing: daily streaks, quests, village levels, weekly goals and events</li><li>Free players can get everything, given time</li><li>Seasonal pieces come back every year, so nothing is gone forever</li><li>Petals can't be traded for cash</li></ul></div>
+            </div>
+            <h3 class="peek-sub">Petal bundles</h3>
+            <div class="bundle-grid"><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Small Posy</h4><p class="b-amt">300 Petals</p><p class="b-price">&pound;2.50</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Bouquet</h4><p class="b-amt">700 Petals</p><p class="b-price">&pound;5</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Garden</h4><p class="b-amt">1,500 Petals</p><p class="b-price">&pound;10</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Meadow</h4><p class="b-amt">3,500 Petals</p><p class="b-price">&pound;20</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div></div>
+            <p class="fine">Bundle sizes and prices are not final.</p></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" aria-labelledby="season-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="season-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Seasonal collections</h2>
+            <p class="shop-lead">Each season brings limited-time cosmetics. They return every year, so nothing is gone forever.</p>
+            <div class="season-grid"><div class="season"><h4>Winter Frost</h4><p>Snowflake trails, frosty tags and cosy scarves.</p><span class="soon">Coming soon</span></div><div class="season"><h4>Spring Blossom</h4><p>Petal showers, pastel glows and flower hats.</p><span class="soon">Coming soon</span></div><div class="season"><h4>Summer Lantern</h4><p>Fireflies, lantern pets and sunset colours.</p><span class="soon">Coming soon</span></div><div class="season"><h4>Autumn Harvest</h4><p>Falling leaves, pumpkin pets and warm cloaks.</p><span class="soon">Coming soon</span></div></div></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+
+      <div class="shop-panel" id="deals" role="tabpanel" aria-labelledby="tab-deals" tabindex="-1"><section class="shop-section" aria-labelledby="bundles-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="bundles-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Bundles</h2>
+            <p class="shop-lead">A rank and Petals together, for a little less.</p>
+            <div class="bundle-grid three"><div class="bundle deal"><span class="save">Worth £10</span><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="171" height="33" draggable="false"><h4>Starter Bundle</h4><p class="b-amt">Sprout rank + 700 Petals</p><p class="b-price">£8</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle deal"><span class="save">Worth £30</span><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="153" height="33" draggable="false"><h4>Gardener Bundle</h4><p class="b-amt">Bloom rank + 1,500 Petals</p><p class="b-price">£26</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle deal"><span class="save">Worth £55</span><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="225" height="33" draggable="false"><h4>Everbloom Bundle</h4><p class="b-amt">Everbloom rank + 3,500 Petals</p><p class="b-price">£48</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div></div>
+            <p class="weekend-note" id="weekend-state" data-weekend-note>Every Saturday and Sunday, Petal bundles come with <b class="gold"><span data-weekend-pct>10</span>% extra Petals</b>.</p>
+            <p class="fine">Bundle contents and prices are not final.</p></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" aria-labelledby="codes-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="codes-heading" class="shop-title"><img src="./wiki-assets/icon-settings.png?v=4" alt="" draggable="false">Codes</h2>
+            <div class="ug-cols">
+              <form class="gift-form" onsubmit="return false" aria-label="Discount code (coming soon)">
+                <h3 class="peek-sub">Discount code</h3>
+                <p class="shop-lead left">Got a code from an event or from our Discord? Enter it at checkout.</p>
+                <label for="disc-code">Your code</label>
+                <input id="disc-code" type="text" placeholder="e.g. BLOOM10" disabled>
+                <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+              </form>
+              <form class="gift-form" onsubmit="return false" aria-label="Creator code (coming soon)">
+                <h3 class="peek-sub">Creator code</h3>
+                <p class="shop-lead left">Support a creator who plays on Blossomvale. They get credit when you use their code.</p>
+                <label for="creator-code">Creator code</label>
+                <input id="creator-code" type="text" placeholder="e.g. WILLOW" disabled>
+                <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+                <p class="fine left">Make videos or stream? Ask for your own code in our <a data-discord href="https://discord.gg/nMWU7eXFz8" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+              </form>
+            </div></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+
+      <div class="shop-panel" id="upgrade" role="tabpanel" aria-labelledby="tab-upgrade" tabindex="-1"><section class="shop-section" aria-labelledby="ug-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="ug-heading" class="shop-title"><img src="./wiki-assets/icon-play.png?v=4" alt="" draggable="false">Upgrade or gift</h2>
+            <div class="ug-cols">
+              <div>
+                <h3 class="peek-sub">Upgrade your rank</h3>
+                <p class="shop-lead left">Already have a rank? Pay only the difference.</p>
+                <div class="table-wrap"><table class="rank-table small"><thead><tr><th scope="col">From</th><th scope="col">To</th><th scope="col">You pay</th></tr></thead><tbody><tr><th scope="row">Sprout</th><td>Blossom</td><td>&pound;5</td></tr><tr><th scope="row">Sprout</th><td>Bloom</td><td>&pound;15</td></tr><tr><th scope="row">Sprout</th><td>Everbloom</td><td>&pound;30</td></tr><tr><th scope="row">Blossom</th><td>Bloom</td><td>&pound;10</td></tr><tr><th scope="row">Blossom</th><td>Everbloom</td><td>&pound;25</td></tr><tr><th scope="row">Bloom</th><td>Everbloom</td><td>&pound;15</td></tr></tbody></table></div>
+              </div>
+              <form class="gift-form" onsubmit="return false" aria-label="Gift a rank (coming soon)">
+                <h3 class="peek-sub">Gift a rank</h3>
+                <p class="shop-lead left">Treat a friend. The rank goes to their Minecraft name.</p>
+                <label for="gift-name">Their Minecraft username</label>
+                <input id="gift-name" type="text" placeholder="e.g. Willow" disabled>
+                <p class="fine left">Bedrock player? Bedrock names usually need a prefix. We will show the exact steps here once our Bedrock address is confirmed.</p>
+                <label for="gift-rank">Rank</label>
+                <select id="gift-rank" disabled><option value="sprout">Sprout (&pound;5)</option><option value="blossom">Blossom (&pound;10)</option><option value="bloom">Bloom (&pound;20)</option><option value="everbloom">Everbloom (&pound;35)</option></select>
+                <label for="gift-msg">Message (optional)</label>
+                <input id="gift-msg" type="text" placeholder="Happy birthday!" disabled>
+                <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+              </form>
+            </div></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+
+      <div class="shop-panel" id="community" role="tabpanel" aria-labelledby="tab-community" tabindex="-1"><section class="shop-section" id="goal-section" aria-labelledby="goal-heading" hidden><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="goal-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span class="goal-title-label">Village Fund</span></h2>
+            <p class="shop-lead">Every rank helps cover the cost of keeping the village running. Here is how this month is going.</p>
+            <div class="goal-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-labelledby="goal-heading"><i></i></div>
+            <p class="goal-numbers">£0 of £50 (0%)</p></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" id="top-section" aria-labelledby="top-heading" hidden><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="top-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Supporter of the month</h2>
+            <div class="top-card" id="top-card"><p class="top-name" id="top-name"></p><p class="fine">Shown by name only, with permission. No amounts are ever shown.</p></div></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" id="wall-section" aria-labelledby="wall-heading" hidden><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="wall-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Supporters wall</h2>
+            <p class="shop-lead">A thank-you to everyone who has helped Blossomvale bloom. Names appear with permission, in no particular order.</p>
+            <ul class="wall-grid" id="wall-grid"></ul></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" id="thanks-section" aria-labelledby="thanks-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="thanks-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Thank you</h2>
+            <p class="shop-lead">Everyone who supports Blossomvale is thanked here, by name and with their permission, once the village opens.</p></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+
+      <div class="shop-panel" id="questions" role="tabpanel" aria-labelledby="tab-questions" tabindex="-1"><section class="shop-section" aria-labelledby="help-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="help-heading" class="shop-title"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false">Need help?</h2>
+            <h3 class="peek-sub">Where is my purchase?</h3>
+            <ul class="perk-list free-list"><li>Most purchases arrive within a few minutes. Rejoin the server if you are online.</li><li>Still nothing after 15 minutes? Message us in our <a data-discord href="https://discord.gg/nMWU7eXFz8" target="_blank" rel="noopener noreferrer">Discord</a> with your Minecraft username and the receipt email.</li><li>Double-check the username you typed. Gifts and orders go to exactly that name.</li><li>Bedrock players: names usually need a prefix at checkout. Exact steps will be shown here once our Bedrock address is confirmed.</li></ul>
+            <p class="help-cta"><a class="rank-buy linkbtn" data-discord href="https://discord.gg/nMWU7eXFz8" target="_blank" rel="noopener noreferrer">Ask in Discord</a></p></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" aria-labelledby="free-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="free-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Always free</h2>
+            <p class="shop-lead">Ranks never sell power. Everything that matters stays free for everyone:</p>
+            <ul class="perk-list free-list"><li>Every gamemode: Ice Boat Racing, Build Battle, Cozy Islands, BedWars and SkyWars</li><li>The SMP, claims, trading, teams and quests</li><li>Village levels and the weekly leaderboard</li><li>Earning Petals by playing, and spending them on cosmetics</li><li>Time-rank tags (neighbour, villager, elder) and most emotes</li></ul></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section>
+
+      <section class="shop-section" aria-labelledby="faq-heading"><div class="shop-board board" style="--k:.5">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body"><h2 id="faq-heading" class="shop-title"><img src="./wiki-assets/icon-book.png?v=4" alt="" draggable="false">Questions</h2>
+            <div class="faq-list"><details class="faq-item"><summary>How do I buy a rank?</summary><p>Ranks and Petals will be sold through our store when the village opens. You will pick a rank, type your Minecraft username and pay through a secure payment provider, so we never see your card details. Your rank then arrives on its own.</p></details><details class="faq-item"><summary>Do I keep my rank forever?</summary><p>Yes. Ranks are a one-time purchase, with no monthly fee. Any new perks we add to a rank later go to everyone who already has it.</p></details><details class="faq-item"><summary>Can I upgrade later?</summary><p>Yes, you only pay the difference between your rank and the next one. See the upgrade table above.</p></details><details class="faq-item"><summary>Do ranks give an advantage in games?</summary><p>No. Ranks are cosmetics plus small conveniences, such as extra homes and a faster /rtp. They never change how BedWars, SkyWars, Build Battle or Ice Boat Racing are played or who wins.</p></details><details class="faq-item"><summary>What are Petals, and are they random?</summary><p>Petals are our cosmetic currency. You can earn them by playing or buy bundles, and they only buy looks like tags, colours, trails, hats and pets. Nothing is random: with a key you choose the exact piece you want.</p></details><details class="faq-item"><summary>Does it work on Bedrock?</summary><p>Ranks, tags and chat colours should work for everyone. Some visual extras, like animated emotes and custom hats and wings, may not show on Bedrock. We are still confirming this.</p></details><details class="faq-item"><summary>What about refunds?</summary><p>We will publish a clear refund policy before the shop opens.</p></details><details class="faq-item"><summary>I am under 18. Can I buy things?</summary><p>Please ask a parent or guardian first. Ranks and Petals are never required to enjoy Blossomvale.</p></details></div></div>
+          <div class="board-bottom" aria-hidden="true"></div>
+        </div></section></div>
+    </main>
+    <footer class="site-footer"><span>Made with <b aria-label="love">♥</b> in Blossom Vale</span><a href="./index.html">Back Home</a></footer>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

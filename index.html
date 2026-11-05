@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#75401f">
+  <link rel="icon" type="image/png" href="./Favicon.png">
+  <meta name="description" content="A cozy place to play, make friends, and enjoy the adventure.">
+  <title>Blossom Vale</title>
+  <link rel="preload" href="./Backgroud-Image.jpg" as="image">
+  <link rel="preload" href="./Font.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=10">
+  <link rel="stylesheet" href="./board.css?v=4">
+  <script src="./blossoms.js?v=4" defer></script>
+  <script src="./script.js?v=7" defer></script>
+  <script src="./board.js?v=4" defer></script>
+  <script type="module" src="./firebase-stats.js"></script>
+  <script type="module" src="./mcstatus.js"></script>
+</head>
+<body>
+  <div class="ambient-petals" aria-hidden="true">
+    <span class="petal-one"></span>
+    <span class="petal-two"></span>
+    <span class="petal-three"></span>
+    <span class="petal-four"></span>
+    <span class="petal-five"></span>
+    <span class="petal-six"></span>
+    <span class="petal-seven"></span>
+    <span class="petal-eight"></span>
+    <span class="petal-nine"></span>
+    <span class="petal-ten"></span>
+    <span class="petal-eleven"></span>
+    <span class="petal-twelve"></span>
+    <span class="petal-thirteen"></span>
+    <span class="petal-fourteen"></span>
+    <span class="petal-fifteen"></span>
+    <span class="petal-sixteen"></span>
+    <span class="petal-seventeen"></span>
+    <span class="petal-eighteen"></span>
+    <span class="petal-nineteen"></span>
+    <span class="petal-twenty"></span>
+    <span class="petal-twenty-one"></span>
+    <span class="petal-twenty-two"></span>
+    <span class="petal-twenty-three"></span>
+    <span class="petal-twenty-four"></span>
+    <span class="petal-twenty-five"></span>
+    <span class="petal-twenty-six"></span>
+    <span class="petal-twenty-seven"></span>
+    <span class="petal-twenty-eight"></span>
+    <span class="petal-twenty-nine"></span>
+    <span class="petal-thirty"></span>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell" id="home">
+    <header class="site-header bar board" data-static>
+      <div class="board-top" aria-hidden="true"></div>
+      <div class="board-body">
+        <a class="bar-brand" href="./index.html#home"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span>Blossom Vale</span></a>
+        <nav class="bar-nav" aria-label="Main navigation">
+          <a href="./index.html#home" aria-current="page"><img src="./wiki-assets/icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+          <a href="./wiki.html"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+          <a href="./shop.html"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+        </nav>
+      </div>
+      <div class="board-bottom" aria-hidden="true"></div>
+    </header>
+    <nav class="mobile-nav" aria-label="Main navigation (small screens)">
+      <a href="./index.html#home" aria-current="page"><img src="./wiki-assets/icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+      <a href="./wiki.html"><img src="./wiki-assets/icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+      <a href="./shop.html"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+    </nav>
+
+    <main id="main">
+      <section class="welcome-grid" aria-label="Welcome to Blossom Vale">
+        <article class="hero-panel hero-board board" data-fit="675/406" data-k="1.06">
+          <div class="board-top" aria-hidden="true"></div>
+          <div class="board-body">
+          <div class="hero-copy">
+            <h1>Welcome to<br>Blossom Vale!</h1>
+            <p class="hero-description">A cozy place to play, make friends<br class="desktop-break"> and enjoy the adventure!</p>
+            <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span></span></div>
+            <div class="hero-actions">
+              <button class="image-button" type="button" data-open="play" aria-label="Play Now"><img src="./wiki-assets/hero-play.png?v=5" alt="" draggable="false"></button>
+              <a class="image-button discord-hero-button" href="https://discord.gg/QwyAjpg9bu" target="_blank" rel="noopener noreferrer" aria-label="Join Discord"><img src="./wiki-assets/hero-discord.png?v=5" alt="" draggable="false"></a>
+              <a class="image-button learn-hero-button" href="./wiki.html" aria-label="Learn more in the wiki"><img src="./wiki-assets/hero-learn.png?v=5" alt="" draggable="false"></a>
+            </div>
+          </div>
+          </div>
+          <div class="board-bottom" aria-hidden="true"></div>
+          <img class="hero-flower" src="./wiki-assets/flower-hero.png?v=4" alt="" draggable="false">
+          <span class="hero-sparkle sparkle-one" aria-hidden="true">✦</span>
+          <span class="hero-sparkle sparkle-two" aria-hidden="true">✧</span>
+        </article>
+
+        <aside class="side-stack" aria-label="Server details and community">
+          <section class="wood-card card-board board server-card" data-fit="325/259" data-k=".53" aria-labelledby="server-heading">
+            <div class="board-top" aria-hidden="true"></div>
+            <div class="board-body">
+            <h2 class="card-heading" id="server-heading">
+              <span>Server Info</span>
+            </h2>
+            
+            <ul class="server-stats">
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.2.3a2.8 2.8 0 1 0 0-5.6M2.5 20v-1.7c0-2.8 2.9-4.7 6.5-4.7s6.5 1.9 6.5 4.7V20H2.5Zm14.1-6.2c2.8.3 4.9 1.9 4.9 4.3v1.8h-4.3v-1.6c0-1.8-.7-3.3-2-4.3.5-.2.9-.2 1.4-.2Z"/></svg><span>Players Online:</span><strong id="players-online">—</strong></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2a9.8 9.8 0 1 0 0 19.6 9.8 9.8 0 0 0 0-19.6Zm6.9 8.5h-3.1a15.8 15.8 0 0 0-1.1-5.3 7.9 7.9 0 0 1 4.2 5.3Zm-6.9 8.7c-.8-1.2-1.4-3.3-1.6-6.1h3.2c-.2 2.8-.8 4.9-1.6 6.1Zm-1.6-8.7c.2-2.8.8-4.9 1.6-6.1.8 1.2 1.4 3.3 1.6 6.1h-3.2Zm-1.1-5.3a15.8 15.8 0 0 0-1.1 5.3H5.1a7.9 7.9 0 0 1 4.2-5.3Zm-4.2 7.9h3.1a15.8 15.8 0 0 0 1.1 5.3 7.9 7.9 0 0 1-4.2-5.3Zm9.6 5.3a15.8 15.8 0 0 0 1.1-5.3h3.1a7.9 7.9 0 0 1-4.2 5.3Z"/></svg><span>Server Status:</span><strong class="online-status" id="server-status" data-status="loading"><i></i><span>Loading…</span></strong></li>
+              <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.5 9.5 0 1 0 0 19 9.5 9.5 0 0 0 0-19Zm1.1 4.1v5l3.4 2-.9 1.5-4.4-2.7V6.6h1.9Z"/></svg><span>Last Restart:</span><time id="last-restart">Loading…</time></li>
+            </ul>
+            </div>
+            <div class="board-bottom" aria-hidden="true"></div>
+          </section>
+
+          <section class="wood-card card-board board community-card" id="community" data-fit="325/259" data-k=".53" aria-labelledby="community-heading">
+            <div class="board-top" aria-hidden="true"></div>
+            <div class="board-body">
+            <h2 class="card-heading" id="community-heading">
+              <span>Join Our Community</span>
+            </h2>
+            
+            <p>Stay up to date with the latest<br class="wide-break"> news, events and more!</p>
+            <a class="image-button community-button" href="https://discord.gg/QwyAjpg9bu" target="_blank" rel="noopener noreferrer" aria-label="Join Discord"><img src="./Discord.png?v=4" alt="" draggable="false"></a>
+            </div>
+            <div class="board-bottom" aria-hidden="true"></div>
+          </section>
+        </aside>
+      </section>
+
+</main>
+
+    <footer class="site-footer"><span>Made with <b aria-label="love">♥</b> in Blossom Vale</span></footer>
+  </div>
+
+  <dialog class="join-dialog" aria-labelledby="dialog-title">
+    <div class="card-board board" style="--k:.5">
+      <div class="board-top" aria-hidden="true"></div>
+      <div class="board-body">
+        <h2 class="card-heading" id="dialog-title"><span>Join Blossom Vale</span></h2>
+        <ul class="join-list">
+          <li><span class="jl-label">Java</span><code id="join-java">play.blossomvale.world</code><button class="jl-copy text-button" type="button" data-copy="java">Copy</button></li>
+          <li><span class="jl-label">Bedrock</span><code id="join-bedrock">Coming soon</code><button class="jl-copy text-button" type="button" data-copy="bedrock" disabled>Copy</button></li>
+        </ul>
+        <p class="copy-feedback" id="copy-feedback" role="status" aria-live="polite"></p>
+        <a class="join-guide" href="./wiki.html#joining">Full guide &rarr;</a>
+      </div>
+      <div class="board-bottom" aria-hidden="true"></div>
+    </div>
+    <button class="dialog-close" type="button" aria-label="Close">×</button>
+  </dialog>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

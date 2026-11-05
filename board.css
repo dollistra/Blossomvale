@@ -1,0 +1,49 @@
+/* Shared wooden board (pieces cut from BigBoard.png, never stretched). Used by Home, Shop and Wiki. */
+.board{--k:.62;position:relative;width:100%;margin:0 auto;filter:drop-shadow(0 7px 5px rgba(26,20,26,.35))}
+.board-top,.board-bottom{position:relative}
+.board-top{height:calc(195px*var(--k));background:url("./wiki-assets/board-tl.png?v=4") left top/calc(280px*var(--k)) 100% no-repeat,url("./wiki-assets/board-tr.png?v=4") right top/calc(178px*var(--k)) 100% no-repeat}
+.board-top::before,.board-bottom::before{content:"";position:absolute;top:0;bottom:0;left:calc(280px*var(--k));right:calc(178px*var(--k))}
+.board-top::before{background:url("./wiki-assets/board-top.png?v=4") left top/calc(490px*var(--k)) 100% repeat-x}
+.board-bottom{height:calc(212px*var(--k));background:url("./wiki-assets/board-bl.png?v=4") left top/calc(238px*var(--k)) 100% no-repeat,url("./wiki-assets/board-br.png?v=4") right top/calc(210px*var(--k)) 100% no-repeat}
+.board-bottom::before{left:calc(238px*var(--k));right:calc(210px*var(--k));background:url("./wiki-assets/board-bottom.png?v=4") left top/calc(510px*var(--k)) 100% repeat-x}
+.board-body{position:relative;isolation:isolate;padding:0 calc(62px*var(--k) + 22px) calc(26px*var(--k));color:#fff3df;text-shadow:1px 2px 0 #512b27}
+/* wood only between the frame rails (the art has empty margins outside them), then the rails on top */
+.board-body::before,.board-body::after{content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none}
+.board-body::before{left:calc(33px*var(--k));right:calc(38px*var(--k));background:url("./wiki-assets/board-wood.png?v=4") 0 calc(63.5px*var(--k))/calc(1110px*var(--k)) calc(87px*var(--k)) repeat}
+.board-body::after{left:0;right:0;background:url("./wiki-assets/board-left.png?v=4") left top/calc(62px*var(--k)) calc(100px*var(--k)) repeat-y,url("./wiki-assets/board-right.png?v=4") right top/calc(75px*var(--k)) calc(100px*var(--k)) repeat-y}
+.board-body>:first-child{margin-top:calc(-62px*var(--k))}
+.board-bottom{margin-top:calc(-26px*var(--k))}
+/* Home / Shop use the same board for their hero and side cards */
+.hero-board{--k:1;display:block;aspect-ratio:auto;background:none;min-height:0}
+.hero-board .board-body{display:flex;flex-direction:column;justify-content:center}
+.hero-board .board-body>:first-child{margin-top:calc(-95px*var(--k));margin-bottom:calc(-95px*var(--k))}
+.hero-board .hero-copy,.hero-board .shop-copy{width:100%}
+.shop-main .hero-board{width:min(1050px,100%)}
+.hero-board .board-body{z-index:2}
+.hero-board .hero-flower,.hero-board .hero-sparkle{z-index:3}
+.community-button{max-width:calc(100% - 20px)}
+
+/* Side cards: same board art (half-resolution set, since they are shown small), original card shape */
+.card-board{--k:.53;display:block;aspect-ratio:auto;background:none;padding:0;min-height:0;--card-center-correction:0px!important}
+.card-board .board-top{background-image:url("./wiki-assets/s-board-tl.png?v=4"),url("./wiki-assets/s-board-tr.png?v=4")}
+.card-board .board-top{background-image:image-set(url("./wiki-assets/s-board-tl.png?v=7") 1x,url("./wiki-assets/board-tl.png?v=6") 1.5x),image-set(url("./wiki-assets/s-board-tr.png?v=7") 1x,url("./wiki-assets/board-tr.png?v=6") 1.5x)}
+.card-board .board-top::before{background-image:url("./wiki-assets/s-board-top.png?v=4")}
+.card-board .board-top::before{background-image:image-set(url("./wiki-assets/s-board-top.png?v=7") 1x,url("./wiki-assets/board-top.png?v=6") 1.5x)}
+.card-board .board-bottom{background-image:url("./wiki-assets/s-board-bl.png?v=4"),url("./wiki-assets/s-board-br.png?v=4")}
+.card-board .board-bottom{background-image:image-set(url("./wiki-assets/s-board-bl.png?v=7") 1x,url("./wiki-assets/board-bl.png?v=6") 1.5x),image-set(url("./wiki-assets/s-board-br.png?v=7") 1x,url("./wiki-assets/board-br.png?v=6") 1.5x)}
+.card-board .board-bottom::before{background-image:url("./wiki-assets/s-board-bottom.png?v=4")}
+.card-board .board-bottom::before{background-image:image-set(url("./wiki-assets/s-board-bottom.png?v=7") 1x,url("./wiki-assets/board-bottom.png?v=6") 1.5x)}
+.card-board .board-body::before{background-image:url("./wiki-assets/s-board-wood.png?v=4")}
+.card-board .board-body::before{background-image:image-set(url("./wiki-assets/s-board-wood.png?v=7") 1x,url("./wiki-assets/board-wood.png?v=6") 1.5x)}
+.card-board .board-body::after{background-image:url("./wiki-assets/s-board-left.png?v=4"),url("./wiki-assets/s-board-right.png?v=4")}
+.card-board .board-body::after{background-image:image-set(url("./wiki-assets/s-board-left.png?v=7") 1x,url("./wiki-assets/board-left.png?v=6") 1.5x),image-set(url("./wiki-assets/s-board-right.png?v=7") 1x,url("./wiki-assets/board-right.png?v=6") 1.5x)}
+.card-board .board-body{display:flex;flex-direction:column;padding:0 calc(62px*var(--k) + 14px);z-index:2}
+.card-board .board-body>:first-child{margin-top:calc(-100px*var(--k))}
+.card-board .card-heading{top:0!important;left:0!important}
+.card-board p,.card-board .community-button{left:0!important}
+.card-board .community-button{align-self:center;width:min(250px,100%)}
+.card-board .board-body>:last-child{margin-bottom:calc(-70px*var(--k))}
+.card-board .board-body::before{top:-2px}
+/* overlap the middle tiles under the corner pieces by 1.5px so no hairline shows at the joins */
+.board-top::before{left:calc(280px*var(--k) - 1.5px);right:calc(178px*var(--k) - 1.5px);background-position:1.5px 0}
+.board-bottom::before{left:calc(238px*var(--k) - 1.5px);right:calc(210px*var(--k) - 1.5px);background-position:1.5px 0}

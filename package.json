@@ -1,0 +1,9 @@
+{
+  "name": "blossom-vale-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Blossom Vale website",
+  "scripts": {
+    "start": "node dev-server.js"
+  }
+}

@@ -1,0 +1,172 @@
+/* Blossomvale Wiki page. Board pieces are cut from BigBoard.png so they keep their proportions at any size. */
+.wiki-main{width:min(1120px,100%);margin:36px auto 0}
+.board{--k:.62;position:relative;width:100%;margin:0 auto;filter:drop-shadow(0 7px 5px rgba(26,20,26,.35))}
+.board-top,.board-bottom{position:relative}
+.board-top{height:calc(195px*var(--k));background:url("./wiki-assets/board-tl.png?v=4") left top/calc(280px*var(--k)) 100% no-repeat,url("./wiki-assets/board-tr.png?v=4") right top/calc(178px*var(--k)) 100% no-repeat}
+.board-top::before,.board-bottom::before{content:"";position:absolute;top:0;bottom:0;left:calc(280px*var(--k));right:calc(178px*var(--k))}
+.board-top::before{background:url("./wiki-assets/board-top.png?v=4") left top/calc(490px*var(--k)) 100% repeat-x}
+.board-bottom{height:calc(212px*var(--k));background:url("./wiki-assets/board-bl.png?v=4") left top/calc(238px*var(--k)) 100% no-repeat,url("./wiki-assets/board-br.png?v=4") right top/calc(210px*var(--k)) 100% no-repeat}
+.board-bottom::before{left:calc(238px*var(--k));right:calc(210px*var(--k));background:url("./wiki-assets/board-bottom.png?v=4") left top/calc(510px*var(--k)) 100% repeat-x}
+.board-body{position:relative;isolation:isolate;padding:0 calc(62px*var(--k) + 22px) calc(26px*var(--k));color:#fff3df;text-shadow:1px 2px 0 #512b27}
+/* wood only between the frame rails (the art has empty margins outside them), then the rails on top */
+.board-body::before,.board-body::after{content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none}
+.board-body::before{left:calc(33px*var(--k));right:calc(38px*var(--k));background:url("./wiki-assets/board-wood.png?v=4") 0 calc(63.5px*var(--k))/calc(1110px*var(--k)) calc(87px*var(--k)) repeat}
+.board-body::after{left:0;right:0;background:url("./wiki-assets/board-left.png?v=4") left top/calc(62px*var(--k)) calc(100px*var(--k)) repeat-y,url("./wiki-assets/board-right.png?v=4") right top/calc(75px*var(--k)) calc(100px*var(--k)) repeat-y}
+.board-body>:first-child{margin-top:calc(-62px*var(--k))}
+.board-bottom{margin-top:calc(-26px*var(--k))}
+
+.wiki-hero{width:min(860px,100%)}
+.wiki-hero h1,.panel-title{margin:0;color:#f28bdc;text-align:center;line-height:1.1;text-shadow:3px 4px 0 #66345a,0 0 12px rgba(242,139,220,.27)}
+.wiki-hero h1{font-size:clamp(2rem,4.4vw,3.4rem)}
+.hero-intro{max-width:44em;margin:0 auto;text-align:center;font-size:clamp(.88rem,calc(.6rem + .55vw),1.1rem);line-height:1.75;color:#fff8e8}
+.panel-title{display:flex;align-items:center;justify-content:center;gap:12px;font-size:clamp(1.4rem,2.9vw,2.2rem)}
+.panel-title img{width:auto;height:1.15em;image-rendering:pixelated}
+.board .floral-divider{margin:14px auto 18px}
+
+.tabs-sentinel{height:1px;margin-top:29px}
+.wiki-tabs-wrap{position:sticky;top:8px;z-index:20;margin:0 0 24px;transition:background .2s,box-shadow .2s,padding .2s}
+.wiki-tabs-wrap.is-stuck{padding:6px 8px;border-radius:6px;background:rgba(32,22,38,.58);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 8px 22px rgba(20,12,24,.4)}
+.wiki-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 6px}
+.wiki-tab{position:relative;display:inline-flex;align-items:center;gap:9px;min-height:44px;padding:4px 8px 6px;color:#f6a4e1;text-decoration:none;font-size:.95rem;border:solid transparent;border-width:16px 18px;margin:-4px -2px;border-image:url("./wiki-assets/tab-board.png?v=4") 30 fill/16px 18px stretch;text-shadow:1px 2px #5c2c48;transition:filter .16s}
+.wiki-tab img{width:auto;height:22px;image-rendering:pixelated}
+.wiki-tab span{position:relative}
+.wiki-tab:hover{filter:brightness(1.18)}
+.wiki-tab:focus-visible{outline:3px solid #fff4d9;outline-offset:-2px}
+.wiki-tab[aria-selected="true"]{color:#fff5e4;filter:brightness(1.08)}
+.wiki-tab[aria-selected="true"]::after{content:"";position:absolute;left:4px;right:4px;bottom:-10px;height:6px;background:linear-gradient(#f8a6e6,#ec7fd1);border:1px solid #8d4978;box-shadow:0 0 8px rgba(242,139,220,.55)}
+
+.js .wiki-panel{display:none}
+.js .wiki-panel.is-active{display:block;animation:content-arrive .45s cubic-bezier(.2,.75,.25,1) backwards}
+.wiki-panel{margin-bottom:34px}
+.wiki-panel:focus{outline:none}
+.wiki-panel h3,.wiki-panel h4,.wiki-panel h5{color:#f6a4e1;text-shadow:2px 2px 0 #5b2e45;line-height:1.3}
+.wiki-panel h3{margin:0 0 12px;font-size:clamp(1.05rem,1.9vw,1.4rem)}
+.wiki-panel h4.sub{display:flex;align-items:center;gap:10px;margin:26px 0 12px;padding-bottom:8px;font-size:clamp(1.05rem,calc(.75rem + .6vw),1.3rem);color:#f6a4e1;border-bottom:2px solid transparent;border-image:linear-gradient(90deg,#e5bb8b,rgba(229,187,139,0)) 1}
+.wiki-panel h4.sub::before{content:"✿";color:#f18bda;font-size:.9em}
+.wiki-panel p,.wiki-panel li{font-size:clamp(.88rem,calc(.58rem + .52vw),1.04rem);line-height:1.8}
+.wiki-panel p{margin:0 0 14px}
+.wiki-panel ul{margin:0 0 16px;padding-left:1.3em}
+.wiki-panel li{margin:0 0 7px}
+.wiki-panel li::marker{color:#f18bda}
+.wiki-panel strong{color:#ffd3f2;font-weight:400;text-shadow:1px 2px 0 #512b27}
+.wiki-panel a{color:#9fe3f5;word-break:break-word}
+.wiki-panel code{padding:2px 6px;color:#ffd3f2;font-family:inherit;border:1px solid rgba(233,165,80,.4);background:rgba(35,15,10,.5);word-break:break-word}
+.callout{padding:14px 16px;border:3px solid #563018;box-shadow:inset 0 0 0 2px #e9a550;background:linear-gradient(rgba(34,15,8,.5),rgba(34,15,8,.5)),url("./wood-tile.png?v=4") center/360px 80px}
+
+.sub-card{margin:0 0 20px;padding:20px 22px 8px;border:3px solid #563018;box-shadow:inset 0 0 0 2px #d49349,0 6px 14px rgba(25,13,24,.35);background:linear-gradient(rgba(34,15,8,.5),rgba(34,15,8,.5)),url("./wood-tile.png?v=4") center/360px 80px repeat,#82431f;scroll-margin-top:96px}
+.sub-card>*:last-child{margin-bottom:14px}
+
+.table-wrap{margin:0 0 18px;overflow-x:auto;border:2px solid rgba(233,165,80,.65);background:rgba(34,15,8,.4)}
+.wiki-panel table{width:100%;border-collapse:collapse;font-size:clamp(.84rem,calc(.55rem + .5vw),.98rem)}
+.wiki-panel th,.wiki-panel td{padding:10px 14px;text-align:left;vertical-align:top;line-height:1.65;border-bottom:1px solid rgba(233,165,80,.28)}
+.wiki-panel thead th{color:#f6a4e1;font-weight:400;background:rgba(35,15,10,.55);text-shadow:2px 2px 0 #5b2e45}
+.wiki-panel tbody tr:nth-child(even){background:rgba(35,15,10,.28)}
+.wiki-panel tbody tr:last-child>*{border-bottom:0}
+.wiki-panel tbody th{color:#ffd3f2;font-weight:400;white-space:nowrap}
+.wiki-panel td:first-child{width:36%}
+.wiki-panel .labeled td:first-child,.wiki-panel .labeled td:nth-child(2){width:auto}
+.wiki-panel .labeled td:first-child{color:#ffd3f2;white-space:nowrap}
+
+.rules-list{counter-reset:rule;list-style:none;margin:0 0 20px;padding:0;display:grid;gap:12px}
+.rules-list li{counter-increment:rule;position:relative;margin:0;padding:14px 16px 14px 64px;border:3px solid #563018;box-shadow:inset 0 0 0 2px #d49349;background:linear-gradient(rgba(34,15,8,.5),rgba(34,15,8,.5)),url("./wood-tile.png?v=4") center/360px 80px repeat,#82431f}
+.rules-list li::before{content:counter(rule);position:absolute;left:14px;top:50%;width:36px;height:36px;margin-top:-18px;display:grid;place-items:center;color:#fff5e4;font-size:1rem;border:3px solid #583017;box-shadow:inset 0 0 0 2px #e9a550;background:linear-gradient(180deg,#bb5c9c,#9e3e83);text-shadow:1px 2px #5c2c48}
+
+.join-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;margin:6px 0 24px}
+.join-card{container-type:inline-size;position:relative;aspect-ratio:1406/1119;background:url("./SmallBoard.png?v=4") center/100% 100% no-repeat;filter:drop-shadow(0 5px 4px rgba(26,20,26,.34))}
+.join-inner{position:absolute;left:13%;right:13%;top:17%;bottom:16%;display:flex;flex-direction:column;justify-content:center;gap:3cqw;text-align:center}
+.join-inner h3{margin:0;font-size:clamp(.95rem,5.6cqw,1.45rem)}
+.join-inner dl{display:grid;grid-template-columns:auto 1fr;gap:1.6cqw 3cqw;margin:0;font-size:clamp(.7rem,3.3cqw,.98rem);line-height:1.5;text-align:left}
+.join-inner dt{color:#f2c5e8}.join-inner dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.join-inner small{display:block;color:#f2c5e8;font-size:.82em;line-height:1.4}
+.join-inner .tbc{color:#ffd36c}
+.join-inner .text-button{align-self:center;padding:2.2cqw 5cqw;font-size:clamp(.7rem,3.3cqw,.95rem)}
+.join-note{margin:0!important;font-size:clamp(.62rem,2.8cqw,.82rem)!important;line-height:1.5!important;color:#f2c5e8}
+
+.faq-list{display:grid;gap:10px;margin-bottom:12px}
+.faq{border:2px solid rgba(233,165,80,.55);background:rgba(34,15,8,.4)}
+.faq summary{cursor:pointer;padding:13px 16px;color:#f6a4e1;font-size:clamp(.9rem,calc(.62rem + .5vw),1.05rem);line-height:1.5;list-style:none;text-shadow:2px 2px 0 #5b2e45}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"✿";margin-right:10px;color:#f18bda}
+.faq[open] summary{border-bottom:1px solid rgba(233,165,80,.3)}
+.faq p{margin:0!important;padding:12px 16px 14px}
+.faq summary:focus-visible,.cmd-group summary:focus-visible{outline:3px solid #fff4d9;outline-offset:-3px}
+
+.cmd-intro{margin-bottom:12px!important}
+.cmd-search{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0 0 18px}
+.cmd-search label{color:#f2c5e8}
+.cmd-search input{flex:1 1 260px;min-height:44px;padding:9px 12px;color:#fff7e8;border:2px solid #e0a25c;border-radius:2px;background:#552d1b;font:inherit;font-size:.85rem;box-shadow:inset 0 2px 5px rgba(28,13,8,.4)}
+.cmd-search input:focus-visible{outline:3px solid #f18bda;outline-offset:2px}
+#cmd-count{font-size:.78rem;color:#f2c5e8}
+.cmd-group{margin:0 0 14px;border:3px solid #563018;box-shadow:inset 0 0 0 2px #d49349;background:linear-gradient(rgba(34,15,8,.5),rgba(34,15,8,.5)),url("./wood-tile.png?v=4") center/360px 80px repeat,#82431f}
+.cmd-group summary{cursor:pointer;padding:12px 18px;color:#f6a4e1;font-size:clamp(.9rem,1.4vw,1.1rem);line-height:1.4;list-style:none;text-shadow:2px 2px 0 #5b2e45}
+.cmd-group summary::-webkit-details-marker{display:none}
+.cmd-group summary::before{content:"▸";display:inline-block;margin-right:10px;color:#f18bda;transition:transform .15s}
+.cmd-group[open] summary::before{transform:rotate(90deg)}
+.cmd-group .table-wrap{margin:0;border-width:2px 0 0;border-color:rgba(233,165,80,.5)}
+.cmd-group[hidden],.cmd-group tr[hidden]{display:none}
+
+@media(max-width:980px){.wiki-main{margin-top:28px}.board{--k:.5}.join-grid{gap:14px 12px}}
+@media(max-width:700px){
+  .board{--k:.4}
+  .board-body{padding:0 calc(62px*var(--k) + 12px)}
+  .join-grid{grid-template-columns:minmax(0,420px);justify-content:center}
+  .sub-card{padding:16px 14px 4px}
+  .rules-list li{padding:12px 12px 12px 56px}
+  /* tables turn into small cards, so nothing needs sideways scrolling */
+  .wiki-panel table,.wiki-panel tbody,.wiki-panel tr,.wiki-panel td,.wiki-panel th{display:block;width:100%!important}
+  .wiki-panel thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .wiki-panel tbody tr{padding:8px 0;border-bottom:1px solid rgba(233,165,80,.35)}
+  .wiki-panel tbody tr:last-child{border-bottom:0}
+  .wiki-panel td,.wiki-panel th{padding:3px 12px;border:0;white-space:normal!important}
+  .wiki-panel td:first-child{color:#ffd3f2}
+  .wiki-panel .labeled td::before{content:attr(data-label);display:block;margin-bottom:1px;color:#f2c5e8;font-size:.82em}
+}
+@media(max-width:380px){.board{--k:.34}}
+@media(prefers-reduced-motion:reduce){.js .wiki-panel.is-active{animation:none}}
+@media(max-width:480px){.panel-title{flex-direction:column;gap:6px}.panel-title img{height:1.3em}}
+@media(max-width:360px){
+  /* the board art is too small to hold the text on very narrow phones, so these two use the wood card style */
+  .join-card{aspect-ratio:auto;background:linear-gradient(rgba(34,15,8,.5),rgba(34,15,8,.5)),url("./wood-tile.png?v=4") center/360px 80px repeat,#82431f;border:3px solid #563018;box-shadow:inset 0 0 0 2px #d49349;filter:none}
+  .join-inner{position:static;padding:16px 14px}
+  .join-inner dl{grid-template-columns:1fr;gap:2px}
+  .join-inner dd{margin-bottom:8px}
+}
+
+/* ---- jump links, screenshots, back to top ---- */
+.wiki-panel [id]{scroll-margin-top:96px}
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 20px;padding:10px 12px;border:2px solid rgba(233,165,80,.6);background:rgba(34,15,8,.42)}
+.jump span{margin-right:4px;color:#f2c5e8;font-size:.85rem}
+.jump a{padding:5px 12px;color:#ffd3f2;text-decoration:none;font-size:.85rem;border:2px solid #563018;box-shadow:inset 0 0 0 1px #d49349;background:linear-gradient(rgba(34,15,8,.35),rgba(34,15,8,.35)),url("./wood-tile.png?v=4") center/360px 80px repeat,#82431f;text-shadow:1px 2px #512b27}
+.jump a:hover{filter:brightness(1.18)}
+.jump a:focus-visible{outline:3px solid #fff4d9;outline-offset:2px}
+.shot{width:min(640px,100%);margin:6px auto 24px}
+.shot-frame{position:relative;aspect-ratio:542/310;filter:drop-shadow(0 5px 4px rgba(26,20,26,.38))}
+.shot-frame::after{content:"";position:absolute;inset:0;background:url("./wiki-assets/photo-frame.png?v=4") center/100% 100% no-repeat;image-rendering:pixelated;pointer-events:none}
+.shot-frame img{position:absolute;left:5.7%;right:5.2%;top:14.2%;bottom:9.7%;width:89.1%;height:76.1%;object-fit:cover;image-rendering:auto}
+.shot figcaption{margin-top:6px;text-align:center;color:#f2c5e8;font-size:.85rem}
+.to-top{position:fixed;right:16px;bottom:16px;z-index:30;padding:11px 14px;font-size:.85rem;color:#fff5e4;border:3px solid #583017;box-shadow:inset 0 0 0 2px #e9a550,0 4px 0 rgba(53,28,20,.5);background:linear-gradient(180deg,#bb5c9c,#9e3e83);text-shadow:1px 2px #5c2c48;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s}
+.to-top.is-visible{opacity:1;visibility:visible;transform:none}
+.to-top:hover{filter:brightness(1.12)}
+.to-top:focus-visible{outline:3px solid #fff4d9;outline-offset:3px}
+@media(max-width:700px){
+  .wiki-tabs-wrap{margin-left:-6px;margin-right:-6px}
+  .wiki-tabs{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;gap:8px;padding:6px 14px 14px;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent);mask-image:linear-gradient(90deg,transparent,#000 22px,#000 calc(100% - 22px),transparent)}
+  .wiki-tabs::-webkit-scrollbar{display:none}
+  .wiki-tab{flex:0 0 auto;scroll-snap-align:center;font-size:.88rem}
+  .wiki-panel [id]{scroll-margin-top:84px}
+  .sub-card{scroll-margin-top:84px}
+  .jump a{padding:5px 10px}
+}
+@media(prefers-reduced-motion:reduce){.to-top,.wiki-tabs-wrap{transition:none}}
+
+/* Same motion as Home: boards bob slowly, buttons brighten on hover and glow softly */
+.wiki-hero{animation:board-bob 6.2s ease-in-out infinite}
+.js .wiki-panel.is-active{animation:content-arrive .45s cubic-bezier(.2,.75,.25,1) backwards,board-bob 6.8s ease-in-out .5s infinite}
+.wiki-tab,.jump a,.to-top,.copy-btn,.faq summary,.cmd-group summary{transition:transform .16s,filter .16s}
+.wiki-tab:hover,.jump a:hover,.to-top:hover,.copy-btn:hover{filter:brightness(1.09)}
+.faq summary:hover,.cmd-group summary:hover{filter:brightness(1.12)}
+.wiki-tab:not(:hover),.jump a:not(:hover),.copy-btn:not(:hover){animation:button-glow 4s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){.wiki-hero,.js .wiki-panel.is-active,.wiki-tab,.jump a,.copy-btn{animation:none!important}}
+/* overlap the middle tiles under the corner pieces by 1.5px so no hairline shows at the joins */
+.board-top::before{left:calc(280px*var(--k) - 1.5px);right:calc(178px*var(--k) - 1.5px);background-position:1.5px 0}
+.board-bottom::before{left:calc(238px*var(--k) - 1.5px);right:calc(210px*var(--k) - 1.5px);background-position:1.5px 0}
