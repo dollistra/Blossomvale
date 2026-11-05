@@ -14,20 +14,36 @@
       g.querySelector(".goal-numbers").textContent = goal.currency + goal.raised + " of " + goal.currency + goal.target + " (" + pct + "%)";
     }
   }
-  // Supporters wall
+  // Supporters wall: names from shop-config.js plus the list the game exports (supporters.json, optional).
   const wall = document.getElementById("wall-grid");
   if (wall) {
-    const list = Array.isArray(cfg.supporters) ? cfg.supporters : [];
-    wall.textContent = "";
-    if (list.length) {
+    const order = { everbloom: 0, bloom: 1, blossom: 2, sprout: 3 };
+    const draw = (list) => {
+      const seen = new Set();
+      const names = list
+        .filter((s) => s && typeof s.name === "string" && s.name.trim() && !seen.has(s.name.toLowerCase()) && seen.add(s.name.toLowerCase()))
+        .map((s) => ({ name: s.name.slice(0, 32), rank: s.rank in order ? s.rank : "sprout" }))
+        .sort((a, b) => order[a.rank] - order[b.rank] || a.name.localeCompare(b.name, undefined, { sensitivity: "base" }));
+      wall.textContent = "";
+      if (!names.length) return;
       document.getElementById("wall-section").hidden = false;
-      list.forEach((s) => {
-        const li = el("li", "plaque r-" + (s.rank || "sprout"));
+      const th = document.getElementById("thanks-section"); if (th) th.hidden = true;
+      names.forEach((s) => {
+        const li = el("li", "plaque r-" + s.rank);
         if (s.rank === "everbloom") li.appendChild(el("span", "plaque-star", "★"));
         li.appendChild(el("span", "plaque-name", s.name));
         wall.appendChild(li);
       });
-    }
+      if (window.snapBoards) window.snapBoards();
+    };
+    const fixed = Array.isArray(cfg.supporters) ? cfg.supporters : [];
+    draw(fixed);
+    try {
+      fetch("./supporters.json", { cache: "no-cache" })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => { if (d && Array.isArray(d.supporters)) { draw(fixed.concat(d.supporters)); } })
+        .catch(() => {});
+    } catch (e) { /* no list yet: the wall stays as configured */ }
   }
 })();
 
@@ -118,4 +134,51 @@ document.addEventListener('toggle',(e)=>{ if(e.target.classList&&e.target.classL
   // community tab: show the calm thank-you board only while nothing else has anything to show
   const th = document.getElementById("thanks-section");
   if (th) th.hidden = ["goal-section", "top-section", "wall-section"].some((id) => { const s = document.getElementById(id); return s && !s.hidden; });
+})();
+
+// ---- rank windows: "See everything you get", with the player's own skin and a checkout link once the store is open
+(() => {
+  const cfg = window.SHOP_CONFIG || {};
+  const store = cfg.store || {};
+  const buttons = [...document.querySelectorAll("[data-rank-open]")];
+  if (!buttons.length || typeof HTMLDialogElement === "undefined") return;
+  const NAME = /^[A-Za-z0-9_]{3,16}$/;
+  const lock = (on) => { document.documentElement.style.overflow = on ? "hidden" : ""; };
+  document.querySelectorAll("dialog.rank-dialog").forEach((d) => {
+    const slug = d.id.replace("rd-", "");
+    // checkout: a real link only when you have put one in shop-config.js (https only)
+    const url = typeof store[slug] === "string" ? store[slug].trim() : "";
+    const link = d.querySelector("[data-checkout]"), soon = d.querySelector(".rd-soon");
+    if (/^https:\/\//i.test(url) && link) { link.href = url; link.hidden = false; if (soon) soon.hidden = true; }
+    d.querySelectorAll("[data-rank-close]").forEach((b) => b.addEventListener("click", () => d.close()));
+    d.addEventListener("click", (e) => { if (e.target === d) d.close(); });   // click on the dark backdrop
+    d.addEventListener("close", () => { lock(false); const o = document.querySelector("[data-rank-open='" + slug + "']"); if (o) o.focus(); });
+    // how it looks on you
+    const form = d.querySelector("[data-look]"), input = form.querySelector("input"), note = d.querySelector("[data-look-note]");
+    const box = d.querySelector("[data-skin-box]"), skin = d.querySelector("[data-skin]");
+    const original = note.textContent;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = input.value.trim();
+      if (!NAME.test(name)) { note.textContent = "Java names are 3 to 16 letters, numbers or underscores. Bedrock players: use your Java name if you have one, or try Willow to see the look."; return; }
+      d.querySelectorAll("[data-name]").forEach((n) => {
+        const star = n.querySelector(".cp-star");
+        n.textContent = "";
+        if (star) { n.appendChild(star); n.appendChild(document.createTextNode(" ")); }
+        n.appendChild(document.createTextNode(name));
+      });
+      skin.onerror = () => { box.hidden = true; note.textContent = "We couldn't load a skin picture for that name, but this is how your name will look."; };
+      skin.onload = () => { note.textContent = original; };
+      skin.alt = name + "'s skin";
+      skin.src = "https://mc-heads.net/body/" + encodeURIComponent(name) + "/220";
+      box.hidden = false;
+    });
+  });
+  buttons.forEach((b) => b.addEventListener("click", () => {
+    const d = document.getElementById("rd-" + b.getAttribute("data-rank-open"));
+    if (!d) return;
+    lock(true);
+    d.showModal();
+    const body = d.querySelector(".rd-inner"); if (body) body.scrollTop = 0;
+  }));
 })();

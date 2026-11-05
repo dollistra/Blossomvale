@@ -15,6 +15,9 @@ window.SHOP_CONFIG = {
   goal: { label: "Village Fund", target: 50, raised: 0, currency: "£" },
   // Supporter of the month, by name only. Example: { name: "Willow", rank: "bloom" }. null = hidden
   topSupporter: null,
+  // Where each rank's "Continue to checkout" button goes (your Tebex package links, https only). Leave "" until the store is open:
+  // the window then says checkout opens when the village opens.
+  store: { sprout: "", blossom: "", bloom: "", everbloom: "" },
   // Names on the Supporters wall. rank is one of: "sprout", "blossom", "bloom", "everbloom".
   // Example: { name: "Willow", rank: "bloom" }
   supporters: []

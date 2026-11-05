@@ -11,12 +11,13 @@
   <link rel="preload" href="./Font.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="./styles.css?v=10">
   <link rel="stylesheet" href="./board.css?v=4">
-  <link rel="stylesheet" href="./shop.css?v=12">
+  <link rel="stylesheet" href="./shop.css?v=16">
   <script src="./script.js?v=4" defer></script>
   <script src="./board.js?v=4" defer></script>
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./shop-config.js?v=2" defer></script>
-  <script src="./shop.js?v=7" defer></script>
+  <script src="./shop.js?v=9" defer></script>
+  <script src="./kit.js?v=4" defer></script>
   <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -78,7 +79,7 @@
         <div class="shop-copy">
           <h1 id="shop-heading">Welcome to the Shop!</h1>
           <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><span></span></div>
-          <p>Help Blossomvale bloom with a one-time rank.<br>Cosmetics and small conveniences only, never power.</p>
+          <p>Help Blossomvale bloom with a one-time rank.<br>Cosmetics and small conveniences, with no unfair advantages.</p>
           <p class="shop-soon">Ranks and Petals go on sale when the village opens.</p>
         </div>
         </div>
@@ -104,17 +105,17 @@
 
       <section class="shop-section" aria-labelledby="ranks-heading">
         <h2 id="ranks-heading" class="shop-title"><img src="./wiki-assets/icon-shop.png?v=4" alt="" draggable="false">Village Ranks</h2>
-        <p class="shop-lead">Pay once and keep your rank forever. Each rank includes everything from the ones before it.</p>
+        <p class="shop-lead">Pay once and keep your rank for as long as Blossomvale is running. Each rank includes everything from the ones before it.</p>
         <div class="rank-grid">
         <article class="rank-card board rank-sprout" aria-labelledby="rank-sprout">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body">
             <header class="rank-head"><h3 id="rank-sprout"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="228" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;5</strong><span>one-time</span></p></header>
             <p class="rank-tagline">A little thank-you for helping Blossomvale grow.</p>
-            <div class="chat-preview" role="img" aria-label="Example of how a Sprout player looks in chat"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="114" height="22" draggable="false"><span class="cp-tag" style="color:#bfe6ff">☁ cloudy ☁</span><span class="cp-name">Willow</span><span class="cp-msg">: anyone up for a boat race?</span></div>
+            <div class="chat-preview" role="img" aria-label="Example of how a Sprout player looks in chat"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="114" height="22" draggable="false"><span class="cp-tag" style="color:#9fd89a">⚜ seedling</span><span class="cp-name" style="color:#f6dc7a">Willow</span><span class="cp-msg">: anyone up for a boat race?</span></div>
             <p class="rank-includes">What you get:</p>
-            <ul class="perk-list"><li>Sprout badge in chat and on the tab list</li><li><b>+1</b> home</li><li><b>5</b> auction listings at once (everyone has 3)</li><li><b>+1</b> player shop</li><li>Team size up to <b>10</b> (everyone has 8)</li><li><b>/rtp</b> cooldown of <b>45s</b> (everyone waits 60s)</li><li><b>2</b> exclusive tags and <b>2</b> exclusive emotes</li><li>Supporter role in our Discord</li><li>Your name on the Supporters wall</li></ul>
-            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+            <ul class="perk-list"><li>Sprout badge in chat and on the tab list</li><li><b>5</b> pieces of land (everyone has 3). New land starts at <b>31 x 31</b> and can grow up to <b>121 x 121</b></li><li>A <b>monthly kit</b> with <b>iron tools</b>, food, building supplies, <b>iron, gold and diamonds</b>, coal, XP bottles and a <b>shulker box</b> with some redstone gear, <b>$2,000</b> and <b>1</b> crate key you choose yourself</li><li><b>2</b> chat colours, <b>4</b> tags and <b>4</b> emotes only ranks have</li><li><b>1</b> rank-only particle trail (in the village and on boats)</li><li>One free pick from every seasonal collection, every year</li><li>A colour for your land's border</li><li><b>+3</b> homes, <b>+2</b> auction listings and <b>+1</b> player shop</li><li>Teams of up to <b>10</b> (everyone has 8)</li><li><b>8</b> /rtp trips, back every <b>75 minutes</b> (everyone has 5 every 2 hours)</li><li><b>150</b> Petals as a welcome gift</li><li>Supporter role in our Discord and, if you want it, your name on the Supporters wall</li></ul>
+            <button class="rank-buy open" type="button" data-rank-open="sprout" aria-haspopup="dialog">See everything you get</button>
           </div>
           <div class="board-bottom" aria-hidden="true"></div>
         </article>
@@ -123,10 +124,10 @@
           <div class="board-body">
             <header class="rank-head"><h3 id="rank-blossom"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="252" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;10</strong><span>one-time</span></p></header>
             <p class="rank-tagline">For villagers who want to stand out a little.</p>
-            <div class="chat-preview" role="img" aria-label="Example of how a Blossom player looks in chat"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="126" height="22" draggable="false"><span class="cp-tag" style="color:#ffd98a">✧ honeyed ✧</span><span class="cp-name" style="color:#d8b8ff">Willow</span><span class="cp-msg">: new emote just dropped!</span></div>
+            <div class="chat-preview" role="img" aria-label="Example of how a Blossom player looks in chat"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="126" height="22" draggable="false"><span class="cp-tag" style="color:#f4b8e4">❀ petal pal</span><span class="cp-name" style="color:#d3c4ee">Willow</span><span class="cp-msg">: new emote just dropped!</span></div>
             <p class="rank-includes">Everything in Sprout, plus:</p>
-            <ul class="perk-list"><li>Blossom badge</li><li><b>+2</b> homes in total</li><li><b>8</b> auction listings</li><li><b>+2</b> player shops in total</li><li>Team size up to <b>12</b></li><li><b>/rtp</b> cooldown of <b>30s</b></li><li><b>6</b> name colours and <b>/nick</b> nicknames</li><li><b>4</b> exclusive tags and <b>4</b> exclusive emotes</li><li>Boat trail and horn for the ice boat garage</li></ul>
-            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+            <ul class="perk-list"><li>Blossom badge</li><li><b>8</b> pieces of land (everyone has 3). New land starts at <b>41 x 41</b> and can grow up to <b>151 x 151</b></li><li>A <b>monthly kit</b> with <b>iron tools</b>, a full set of <b>iron armour</b>, a shield, food, supplies, iron, gold, <b>diamonds</b>, emeralds, coal, XP bottles and a <b>shulker box</b> two thirds full of redstone gear, <b>$4,000</b> and <b>1</b> crate key you choose yourself</li><li><b>/nick</b> nicknames, <b>4</b> chat colours, <b>6</b> tags and <b>6</b> emotes in total</li><li>Your land's welcome message shows as a big title in your border colour</li><li><b>+4</b> homes in total and <b>+3</b> auction listings</li><li><b>+2</b> player shops</li><li><b>2</b> rank-only particle trails in total</li><li>Teams of up to <b>12</b></li><li><b>10</b> /rtp trips, back every <b>45 minutes</b></li><li><b>400</b> Petals as a welcome gift</li></ul>
+            <button class="rank-buy open" type="button" data-rank-open="blossom" aria-haspopup="dialog">See everything you get</button>
           </div>
           <div class="board-bottom" aria-hidden="true"></div>
         </article>
@@ -135,10 +136,10 @@
           <div class="board-body">
             <header class="rank-head"><h3 id="rank-bloom"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="204" height="44" draggable="false"></h3><span class="ribbon" data-ribbon="bloom">Best value</span><p class="rank-price"><strong>&pound;20</strong><span>one-time</span></p></header>
             <p class="rank-tagline">Make your corner of the village really yours.</p>
-            <div class="chat-preview" role="img" aria-label="Example of how a Bloom player looks in chat"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="102" height="22" draggable="false"><span class="cp-tag" style="color:#cdb8ff">˚₊ moonmoth ₊˚</span><span class="cp-name grad-sunset">Willow</span><span class="cp-msg">: look at my new island theme</span></div>
+            <div class="chat-preview" role="img" aria-label="Example of how a Bloom player looks in chat"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="102" height="22" draggable="false"><span class="cp-tag" style="color:#f6c177">✦ lantern keeper</span><span class="cp-name grad-sunset">Willow</span><span class="cp-msg">: look at my new join message</span></div>
             <p class="rank-includes">Everything in Blossom, plus:</p>
-            <ul class="perk-list"><li>Bloom badge</li><li><b>+4</b> homes in total</li><li><b>12</b> auction listings</li><li><b>+3</b> player shops in total</li><li>Team size up to <b>14</b></li><li><b>/rtp</b> cooldown of <b>20s</b></li><li>Name gradients and a custom join message</li><li>Particle trails and a pet name-tag style</li><li><b>6</b> exclusive tags, <b>6</b> exclusive emotes and a Cozy Islands island theme</li><li>Early look at new cosmetics</li></ul>
-            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+            <ul class="perk-list"><li>Bloom badge</li><li><b>12</b> pieces of land (everyone has 3). New land starts at <b>51 x 51</b> and can grow up to <b>201 x 201</b></li><li>A <b>monthly kit</b> with iron tools and armour, a shield, a <b>bow</b> and arrows, a <b>diamond pickaxe</b>, lots of food and supplies, plus iron, gold, diamonds, emeralds, coal, XP bottles, lapis and a <b>full shulker box</b> of redstone gear, <b>$8,000</b> and <b>2</b> crate keys you choose yourself</li><li>Gradient chat colours: <b>8</b> colours, <b>9</b> tags and <b>9</b> emotes in total</li><li>A custom <b>/joinmessage</b> and <b>4</b> rank-only particle trails in total</li><li><b>+6</b> homes in total and <b>+5</b> auction listings</li><li><b>+3</b> player shops</li><li>Teams of up to <b>16</b></li><li><b>14</b> /rtp trips, back every <b>20 minutes</b></li><li><b>800</b> Petals as a welcome gift</li></ul>
+            <button class="rank-buy open" type="button" data-rank-open="bloom" aria-haspopup="dialog">See everything you get</button>
           </div>
           <div class="board-bottom" aria-hidden="true"></div>
         </article>
@@ -147,20 +148,253 @@
           <div class="board-body">
             <header class="rank-head"><h3 id="rank-everbloom"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="300" height="44" draggable="false"></h3><p class="rank-price"><strong>&pound;35</strong><span>one-time</span></p></header>
             <p class="rank-tagline">The full garden, for our biggest supporters.</p>
-            <div class="chat-preview" role="img" aria-label="Example of how a Everbloom player looks in chat"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="150" height="22" draggable="false"><span class="cp-tag" style="color:#ffd25e">⋆ stargazer ⋆</span><span class="cp-name grad-aurora">Willow</span><span class="cp-msg">: the garden is in full bloom</span></div>
+            <div class="chat-preview" role="img" aria-label="Example of how a Everbloom player looks in chat"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="150" height="22" draggable="false"><span class="cp-tag" style="color:#f6c177">✿ everbloom ✿</span><span class="cp-name grad-aurora">Willow</span><span class="cp-msg">: the garden is in full bloom</span></div>
             <p class="rank-includes">Everything in Bloom, plus:</p>
-            <ul class="perk-list"><li>Signature gold Everbloom badge and profile flair</li><li><b>+6</b> homes in total</li><li><b>20</b> auction listings</li><li><b>+5</b> player shops in total</li><li>Team size up to <b>16</b></li><li><b>/rtp</b> cooldown of <b>10s</b></li><li><b>10</b> exclusive tags and <b>8</b> exclusive emotes</li><li>The top boat trail and a winner's firework</li><li>First pick of every new cosmetic</li></ul>
-            <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+            <ul class="perk-list"><li>Everbloom badge with a <b>gold star</b> in chat and on the tab list, and a golden sparkle when you join</li><li><b>20</b> pieces of land (everyone has 3). New land starts at <b>61 x 61</b> and can grow up to <b>301 x 301</b></li><li>A <b>monthly kit</b> with a full set of <b>diamond tools</b>, iron armour, a shield, a bow and arrows, lots of food, supplies and <b>plenty of iron, gold, diamonds, emeralds, coal, XP bottles and lapis, plus a full shulker box of redstone gear</b>, <b>$15,000</b> and <b>3</b> crate keys you choose yourself</li><li>Every rank-only chat colour (<b>12</b>), <b>12</b> tags, <b>12</b> emotes and all <b>6</b> rank-only trails</li><li><b>+10</b> homes in total and <b>+8</b> auction listings</li><li><b>+5</b> player shops</li><li>Teams of up to <b>24</b></li><li><b>20</b> /rtp trips, back every <b>10 minutes</b></li><li><b>1,500</b> Petals as a welcome gift</li><li>Supporter role in our Discord and, if you want it, your name on the Supporters wall</li></ul>
+            <button class="rank-buy open" type="button" data-rank-open="everbloom" aria-haspopup="dialog">See everything you get</button>
           </div>
           <div class="board-bottom" aria-hidden="true"></div>
         </article>
         </div>
+        <p class="fine">Perks and prices are final when ranks go on sale. We may add more perks over time.</p>
+        <dialog class="rank-dialog rank-sprout" id="rd-sprout" aria-labelledby="rd-sprout-title">
+          <div class="rd-inner">
+            <header class="rd-head">
+              <h3 id="rd-sprout-title"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="171" height="33" draggable="false"><span class="rd-sub">&pound;5 &middot; one-time</span></h3>
+              <button class="rd-x" type="button" data-rank-close aria-label="Close">&times;</button>
+            </header>
+            <p class="rd-tag">A little thank-you for helping Blossomvale grow. <span class="rd-up">Already have a lower rank? You only pay the difference.</span></p>
+
+            <section class="rd-sec" aria-labelledby="rd-sprout-look">
+              <h4 id="rd-sprout-look">How it looks on you</h4>
+              <form class="rd-look" data-look onsubmit="return false">
+                <label for="rd-sprout-name">Your Minecraft name (Java)</label>
+                <div class="rd-look-row"><input id="rd-sprout-name" type="text" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. Willow"><button class="rank-buy small" type="submit">Show me</button></div>
+              </form>
+              <div class="rd-look-out">
+                <div class="rd-skin-box" data-skin-box hidden><img class="rd-skin" data-skin alt="" width="110" height="176" referrerpolicy="no-referrer" draggable="false"></div>
+                <div class="rd-look-lines">
+                  <p class="rd-cap">In chat</p>
+                  <div class="chat-preview" role="img" aria-label="How a Sprout player looks in chat"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="114" height="22" draggable="false"><span class="cp-tag" style="color:#9fd89a">⚜ seedling</span><span data-name class="cp-name" style="color:#f6dc7a">Willow</span><span class="cp-msg">: anyone up for a boat race?</span></div>
+                  <p class="rd-cap">On the tab list</p>
+                  <div class="chat-preview tab-preview" role="img" aria-label="How a Sprout player looks on the tab list"><img class="badge" src="./wiki-assets/badge-sprout.png?v=1" alt="Sprout" width="114" height="22" draggable="false"><span data-name class="cp-name" style="color:#f6dc7a">Willow</span></div>
+                </div>
+              </div>
+              <p class="fine left" data-look-note>Type your name to see your own skin wearing it. Your name is only used to fetch your skin picture from mc-heads.net and is never saved by us.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-sprout-cmds">
+              <h4 id="rd-sprout-cmds">Commands you get</h4>
+              <ul class="rd-cmds"><li><code>/seasonal</code><span>Pick your free piece from each seasonal collection, every year.</span></li><li><code>/claims</code><span>On the SMP, open your land window and choose your <b>border colour</b>.</span></li><li><code>/supporterwall on</code><span>Put your name on our website&rsquo;s Supporters wall. Your choice, and off until you say yes.</span></li></ul>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-sprout-kit">
+              <h4 id="rd-sprout-kit">Your monthly kit</h4>
+              <p class="rd-line">Once every calendar month, type <code>/monthly</code>. Nothing to re-buy, and it starts fresh on the 1st.</p>
+              <div class="kit" data-kit data-rank="sprout"></div>
+              <details class="rd-textkit" open><summary>Show the kit as a list</summary><ul class="perk-list rd-two"><li><b>Iron Sword</b></li><li><b>Iron Pickaxe</b></li><li><b>Iron Axe</b></li><li><b>Iron Shovel</b></li><li><b>16</b> steak</li><li><b>32</b> torches</li><li><b>16</b> bone meal</li><li><b>4</b> cherry saplings</li><li><b>4</b> oak saplings</li><li><b>16</b> iron ingots</li><li><b>8</b> gold ingots</li><li><b>2</b> diamonds</li><li><b>16</b> coal</li><li><b>8</b> bottles o' enchanting</li><li><b>Lime Shulker Box</b> full of redstone gear (9 stacks inside)</li></ul></details>
+              <p class="rd-line"><b>$2,000</b> to spend in the village. And <b>a Lily key</b>, ready to use at the crate stalls. You choose the exact piece you want, nothing is random.</p>
+              <p class="fine left">Items arrive on the SMP; the coins and the key arrive wherever you type it. Tools and armour arrive new and never enchanted. We never put netherite, elytra, totems or enchanted books in a kit.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-sprout-land">
+              <h4 id="rd-sprout-land">Your land</h4>
+              <ul class="perk-list"><li><b>5</b> pieces of land, instead of 3</li><li>New land starts <b>31 x 31</b> blocks wide (everyone else starts at 21 x 21)</li><li>Each piece can grow up to <b>121 x 121</b> (everyone else stops at 101 x 101)</li><li>Growing still costs coins or free play-time credits, so it is earned in the village too</li></ul>
+              <p class="fine left">Land is never taken away, even if a rank ends.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-sprout-all">
+              <h4 id="rd-sprout-all">Everything in Sprout</h4>
+              <ul class="perk-list"><li>Sprout badge in chat and on the tab list</li><li><b>5</b> pieces of land (everyone has 3). New land starts at <b>31 x 31</b> and can grow up to <b>121 x 121</b></li><li>A <b>monthly kit</b> with <b>iron tools</b>, food, building supplies, <b>iron, gold and diamonds</b>, coal, XP bottles and a <b>shulker box</b> with some redstone gear, <b>$2,000</b> and <b>1</b> crate key you choose yourself</li><li><b>2</b> chat colours, <b>4</b> tags and <b>4</b> emotes only ranks have</li><li><b>1</b> rank-only particle trail (in the village and on boats)</li><li>One free pick from every seasonal collection, every year</li><li>A colour for your land's border</li><li><b>+3</b> homes, <b>+2</b> auction listings and <b>+1</b> player shop</li><li>Teams of up to <b>10</b> (everyone has 8)</li><li><b>8</b> /rtp trips, back every <b>75 minutes</b> (everyone has 5 every 2 hours)</li><li><b>150</b> Petals as a welcome gift</li><li>Supporter role in our Discord and, if you want it, your name on the Supporters wall</li></ul>
+            </section>
+
+            <footer class="rd-foot">
+              <a class="rank-buy linkbtn rd-checkout" data-checkout="sprout" href="#" rel="noopener noreferrer" hidden>Continue to checkout</a>
+              <button class="rank-buy rd-soon" type="button" disabled aria-disabled="true">Checkout opens when the village opens</button>
+              <button class="rd-closebtn" type="button" data-rank-close>Close</button>
+            </footer>
+          </div>
+        </dialog>
+        <dialog class="rank-dialog rank-blossom" id="rd-blossom" aria-labelledby="rd-blossom-title">
+          <div class="rd-inner">
+            <header class="rd-head">
+              <h3 id="rd-blossom-title"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="189" height="33" draggable="false"><span class="rd-sub">&pound;10 &middot; one-time</span></h3>
+              <button class="rd-x" type="button" data-rank-close aria-label="Close">&times;</button>
+            </header>
+            <p class="rd-tag">For villagers who want to stand out a little. <span class="rd-up">Already have a lower rank? You only pay the difference.</span></p>
+
+            <section class="rd-sec" aria-labelledby="rd-blossom-look">
+              <h4 id="rd-blossom-look">How it looks on you</h4>
+              <form class="rd-look" data-look onsubmit="return false">
+                <label for="rd-blossom-name">Your Minecraft name (Java)</label>
+                <div class="rd-look-row"><input id="rd-blossom-name" type="text" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. Willow"><button class="rank-buy small" type="submit">Show me</button></div>
+              </form>
+              <div class="rd-look-out">
+                <div class="rd-skin-box" data-skin-box hidden><img class="rd-skin" data-skin alt="" width="110" height="176" referrerpolicy="no-referrer" draggable="false"></div>
+                <div class="rd-look-lines">
+                  <p class="rd-cap">In chat</p>
+                  <div class="chat-preview" role="img" aria-label="How a Blossom player looks in chat"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="126" height="22" draggable="false"><span class="cp-tag" style="color:#f4b8e4">❀ petal pal</span><span data-name class="cp-name" style="color:#d3c4ee">Willow</span><span class="cp-msg">: new emote just dropped!</span></div>
+                  <p class="rd-cap">On the tab list</p>
+                  <div class="chat-preview tab-preview" role="img" aria-label="How a Blossom player looks on the tab list"><img class="badge" src="./wiki-assets/badge-blossom.png?v=1" alt="Blossom" width="126" height="22" draggable="false"><span data-name class="cp-name" style="color:#d3c4ee">Willow</span></div>
+                </div>
+              </div>
+              <p class="fine left" data-look-note>Type your name to see your own skin wearing it. Your name is only used to fetch your skin picture from mc-heads.net and is never saved by us.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-blossom-cmds">
+              <h4 id="rd-blossom-cmds">New commands</h4>
+              <p class="rd-line">Everything from Sprout still works too.</p><ul class="rd-cmds"><li><code>/nick &lt;name&gt;</code><span>Choose a nickname that shows in chat and on the tab list.</span></li><li><code>/claims</code><span>New: a <b>welcome title</b> for visitors who walk onto your land.</span></li></ul>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-blossom-kit">
+              <h4 id="rd-blossom-kit">Your monthly kit</h4>
+              <p class="rd-line">Once every calendar month, type <code>/monthly</code>. Nothing to re-buy, and it starts fresh on the 1st.</p>
+              <div class="kit" data-kit data-rank="blossom"></div>
+              <details class="rd-textkit" open><summary>Show the kit as a list</summary><ul class="perk-list rd-two"><li><b>Iron Sword</b></li><li><b>Iron Pickaxe</b></li><li><b>Iron Axe</b></li><li><b>Iron Shovel</b></li><li><b>Iron Helmet</b></li><li><b>Iron Chestplate</b></li><li><b>Iron Leggings</b></li><li><b>Iron Boots</b></li><li><b>Shield</b></li><li><b>32</b> steak</li><li><b>16</b> golden carrots</li><li><b>64</b> torches</li><li><b>32</b> bone meal</li><li><b>8</b> cherry saplings</li><li><b>8</b> oak saplings</li><li><b>8</b> lanterns</li><li><b>32</b> iron ingots</li><li><b>16</b> gold ingots</li><li><b>6</b> diamonds</li><li><b>8</b> emeralds</li><li><b>32</b> coal</li><li><b>16</b> bottles o' enchanting</li><li><b>Purple Shulker Box</b> full of redstone gear (18 stacks inside)</li></ul></details>
+              <p class="rd-line"><b>$4,000</b> to spend in the village. And <b>a Lily or Tulip key</b>, ready to use at the crate stalls. You choose the exact piece you want, nothing is random.</p>
+              <p class="fine left">Items arrive on the SMP; the coins and the key arrive wherever you type it. Tools and armour arrive new and never enchanted. We never put netherite, elytra, totems or enchanted books in a kit.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-blossom-land">
+              <h4 id="rd-blossom-land">Your land</h4>
+              <ul class="perk-list"><li><b>8</b> pieces of land, instead of 3</li><li>New land starts <b>41 x 41</b> blocks wide (everyone else starts at 21 x 21)</li><li>Each piece can grow up to <b>151 x 151</b> (everyone else stops at 101 x 101)</li><li>Growing still costs coins or free play-time credits, so it is earned in the village too</li></ul>
+              <p class="fine left">Land is never taken away, even if a rank ends.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-blossom-all">
+              <h4 id="rd-blossom-all">Everything in Blossom</h4>
+              <ul class="perk-list"><li>Blossom badge</li><li><b>8</b> pieces of land (everyone has 3). New land starts at <b>41 x 41</b> and can grow up to <b>151 x 151</b></li><li>A <b>monthly kit</b> with <b>iron tools</b>, a full set of <b>iron armour</b>, a shield, food, supplies, iron, gold, <b>diamonds</b>, emeralds, coal, XP bottles and a <b>shulker box</b> two thirds full of redstone gear, <b>$4,000</b> and <b>1</b> crate key you choose yourself</li><li><b>/nick</b> nicknames, <b>4</b> chat colours, <b>6</b> tags and <b>6</b> emotes in total</li><li>Your land's welcome message shows as a big title in your border colour</li><li><b>+4</b> homes in total and <b>+3</b> auction listings</li><li><b>+2</b> player shops</li><li><b>2</b> rank-only particle trails in total</li><li>Teams of up to <b>12</b></li><li><b>10</b> /rtp trips, back every <b>45 minutes</b></li><li><b>400</b> Petals as a welcome gift</li></ul>
+            </section>
+
+            <footer class="rd-foot">
+              <a class="rank-buy linkbtn rd-checkout" data-checkout="blossom" href="#" rel="noopener noreferrer" hidden>Continue to checkout</a>
+              <button class="rank-buy rd-soon" type="button" disabled aria-disabled="true">Checkout opens when the village opens</button>
+              <button class="rd-closebtn" type="button" data-rank-close>Close</button>
+            </footer>
+          </div>
+        </dialog>
+        <dialog class="rank-dialog rank-bloom" id="rd-bloom" aria-labelledby="rd-bloom-title">
+          <div class="rd-inner">
+            <header class="rd-head">
+              <h3 id="rd-bloom-title"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="153" height="33" draggable="false"><span class="rd-sub">&pound;20 &middot; one-time</span></h3>
+              <button class="rd-x" type="button" data-rank-close aria-label="Close">&times;</button>
+            </header>
+            <p class="rd-tag">Make your corner of the village really yours. <span class="rd-up">Already have a lower rank? You only pay the difference.</span></p>
+
+            <section class="rd-sec" aria-labelledby="rd-bloom-look">
+              <h4 id="rd-bloom-look">How it looks on you</h4>
+              <form class="rd-look" data-look onsubmit="return false">
+                <label for="rd-bloom-name">Your Minecraft name (Java)</label>
+                <div class="rd-look-row"><input id="rd-bloom-name" type="text" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. Willow"><button class="rank-buy small" type="submit">Show me</button></div>
+              </form>
+              <div class="rd-look-out">
+                <div class="rd-skin-box" data-skin-box hidden><img class="rd-skin" data-skin alt="" width="110" height="176" referrerpolicy="no-referrer" draggable="false"></div>
+                <div class="rd-look-lines">
+                  <p class="rd-cap">In chat</p>
+                  <div class="chat-preview" role="img" aria-label="How a Bloom player looks in chat"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="102" height="22" draggable="false"><span class="cp-tag" style="color:#f6c177">✦ lantern keeper</span><span data-name class="cp-name grad-sunset">Willow</span><span class="cp-msg">: look at my new join message</span></div>
+                  <p class="rd-cap">On the tab list</p>
+                  <div class="chat-preview tab-preview" role="img" aria-label="How a Bloom player looks on the tab list"><img class="badge" src="./wiki-assets/badge-bloom.png?v=1" alt="Bloom" width="102" height="22" draggable="false"><span data-name class="cp-name grad-sunset">Willow</span></div>
+                </div>
+              </div>
+              <p class="fine left" data-look-note>Type your name to see your own skin wearing it. Your name is only used to fetch your skin picture from mc-heads.net and is never saved by us.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-bloom-cmds">
+              <h4 id="rd-bloom-cmds">New commands</h4>
+              <p class="rd-line">Everything from Blossom still works too.</p><ul class="rd-cmds"><li><code>/joinmessage &lt;text&gt;</code><span>Write your own message that shows when you join.</span></li></ul>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-bloom-kit">
+              <h4 id="rd-bloom-kit">Your monthly kit</h4>
+              <p class="rd-line">Once every calendar month, type <code>/monthly</code>. Nothing to re-buy, and it starts fresh on the 1st.</p>
+              <div class="kit" data-kit data-rank="bloom"></div>
+              <details class="rd-textkit" open><summary>Show the kit as a list</summary><ul class="perk-list rd-two"><li><b>Diamond Pickaxe</b></li><li><b>Iron Sword</b></li><li><b>Iron Axe</b></li><li><b>Iron Shovel</b></li><li><b>Iron Helmet</b></li><li><b>Iron Chestplate</b></li><li><b>Iron Leggings</b></li><li><b>Iron Boots</b></li><li><b>Shield</b></li><li><b>Bow</b></li><li><b>64</b> arrows</li><li><b>48</b> steak</li><li><b>32</b> golden carrots</li><li><b>64</b> torches</li><li><b>64</b> bone meal</li><li><b>16</b> cherry saplings</li><li><b>16</b> oak saplings</li><li><b>16</b> lanterns</li><li><b>32</b> honey bottles</li><li><b>2</b> cakes</li><li><b>48</b> iron ingots</li><li><b>32</b> gold ingots</li><li><b>12</b> diamonds</li><li><b>16</b> emeralds</li><li><b>48</b> coal</li><li><b>32</b> bottles o' enchanting</li><li><b>32</b> lapis lazuli</li><li><b>Pink Shulker Box</b> full of redstone gear (27 stacks inside)</li></ul></details>
+              <p class="rd-line"><b>$8,000</b> to spend in the village. And <b>2 keys, each Lily, Tulip or Poppy</b>, ready to use at the crate stalls. You choose the exact piece you want, nothing is random.</p>
+              <p class="fine left">Items arrive on the SMP; the coins and the key arrive wherever you type it. Tools and armour arrive new and never enchanted. We never put netherite, elytra, totems or enchanted books in a kit.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-bloom-land">
+              <h4 id="rd-bloom-land">Your land</h4>
+              <ul class="perk-list"><li><b>12</b> pieces of land, instead of 3</li><li>New land starts <b>51 x 51</b> blocks wide (everyone else starts at 21 x 21)</li><li>Each piece can grow up to <b>201 x 201</b> (everyone else stops at 101 x 101)</li><li>Growing still costs coins or free play-time credits, so it is earned in the village too</li></ul>
+              <p class="fine left">Land is never taken away, even if a rank ends.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-bloom-all">
+              <h4 id="rd-bloom-all">Everything in Bloom</h4>
+              <ul class="perk-list"><li>Bloom badge</li><li><b>12</b> pieces of land (everyone has 3). New land starts at <b>51 x 51</b> and can grow up to <b>201 x 201</b></li><li>A <b>monthly kit</b> with iron tools and armour, a shield, a <b>bow</b> and arrows, a <b>diamond pickaxe</b>, lots of food and supplies, plus iron, gold, diamonds, emeralds, coal, XP bottles, lapis and a <b>full shulker box</b> of redstone gear, <b>$8,000</b> and <b>2</b> crate keys you choose yourself</li><li>Gradient chat colours: <b>8</b> colours, <b>9</b> tags and <b>9</b> emotes in total</li><li>A custom <b>/joinmessage</b> and <b>4</b> rank-only particle trails in total</li><li><b>+6</b> homes in total and <b>+5</b> auction listings</li><li><b>+3</b> player shops</li><li>Teams of up to <b>16</b></li><li><b>14</b> /rtp trips, back every <b>20 minutes</b></li><li><b>800</b> Petals as a welcome gift</li></ul>
+            </section>
+
+            <footer class="rd-foot">
+              <a class="rank-buy linkbtn rd-checkout" data-checkout="bloom" href="#" rel="noopener noreferrer" hidden>Continue to checkout</a>
+              <button class="rank-buy rd-soon" type="button" disabled aria-disabled="true">Checkout opens when the village opens</button>
+              <button class="rd-closebtn" type="button" data-rank-close>Close</button>
+            </footer>
+          </div>
+        </dialog>
+        <dialog class="rank-dialog rank-everbloom" id="rd-everbloom" aria-labelledby="rd-everbloom-title">
+          <div class="rd-inner">
+            <header class="rd-head">
+              <h3 id="rd-everbloom-title"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="225" height="33" draggable="false"><span class="rd-sub">&pound;35 &middot; one-time</span></h3>
+              <button class="rd-x" type="button" data-rank-close aria-label="Close">&times;</button>
+            </header>
+            <p class="rd-tag">The full garden, for our biggest supporters. <span class="rd-up">Already have a lower rank? You only pay the difference.</span></p>
+
+            <section class="rd-sec" aria-labelledby="rd-everbloom-look">
+              <h4 id="rd-everbloom-look">How it looks on you</h4>
+              <form class="rd-look" data-look onsubmit="return false">
+                <label for="rd-everbloom-name">Your Minecraft name (Java)</label>
+                <div class="rd-look-row"><input id="rd-everbloom-name" type="text" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="e.g. Willow"><button class="rank-buy small" type="submit">Show me</button></div>
+              </form>
+              <div class="rd-look-out">
+                <div class="rd-skin-box" data-skin-box hidden><img class="rd-skin" data-skin alt="" width="110" height="176" referrerpolicy="no-referrer" draggable="false"></div>
+                <div class="rd-look-lines">
+                  <p class="rd-cap">In chat</p>
+                  <div class="chat-preview" role="img" aria-label="How a Everbloom player looks in chat"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="150" height="22" draggable="false"><span class="cp-tag" style="color:#f6c177">✿ everbloom ✿</span><span data-name class="cp-name grad-aurora"><span class="cp-star">&#9733;</span> Willow</span><span class="cp-msg">: the garden is in full bloom</span></div>
+                  <p class="rd-cap">On the tab list</p>
+                  <div class="chat-preview tab-preview" role="img" aria-label="How a Everbloom player looks on the tab list"><img class="badge" src="./wiki-assets/badge-everbloom.png?v=1" alt="Everbloom" width="150" height="22" draggable="false"><span data-name class="cp-name grad-aurora"><span class="cp-star">&#9733;</span> Willow</span></div>
+                </div>
+              </div>
+              <p class="fine left" data-look-note>Type your name to see your own skin wearing it. Your name is only used to fetch your skin picture from mc-heads.net and is never saved by us.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-everbloom-cmds">
+              <h4 id="rd-everbloom-cmds">New commands</h4>
+              <ul class="rd-cmds"><li class="rd-none"><span>No new commands at this rank. You keep every command from the lower ranks, with the biggest limits and the gold star.</span></li></ul>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-everbloom-kit">
+              <h4 id="rd-everbloom-kit">Your monthly kit</h4>
+              <p class="rd-line">Once every calendar month, type <code>/monthly</code>. Nothing to re-buy, and it starts fresh on the 1st.</p>
+              <div class="kit" data-kit data-rank="everbloom"></div>
+              <details class="rd-textkit" open><summary>Show the kit as a list</summary><ul class="perk-list rd-two"><li><b>Diamond Sword</b></li><li><b>Diamond Pickaxe</b></li><li><b>Diamond Axe</b></li><li><b>Diamond Shovel</b></li><li><b>Iron Helmet</b></li><li><b>Iron Chestplate</b></li><li><b>Iron Leggings</b></li><li><b>Iron Boots</b></li><li><b>Shield</b></li><li><b>Bow</b></li><li><b>64</b> arrows</li><li><b>64</b> steak</li><li><b>32</b> golden carrots</li><li><b>128</b> torches</li><li><b>64</b> bone meal</li><li><b>32</b> cherry saplings</li><li><b>32</b> oak saplings</li><li><b>16</b> lanterns</li><li><b>32</b> honey bottles</li><li><b>2</b> cakes</li><li><b>64</b> iron ingots</li><li><b>64</b> gold ingots</li><li><b>24</b> diamonds</li><li><b>32</b> emeralds</li><li><b>64</b> coal</li><li><b>64</b> bottles o' enchanting</li><li><b>64</b> lapis lazuli</li><li><b>Yellow Shulker Box</b> full of redstone gear (27 stacks inside)</li></ul></details>
+              <p class="rd-line"><b>$15,000</b> to spend in the village. And <b>3 keys, each for any crate</b>, ready to use at the crate stalls. You choose the exact piece you want, nothing is random.</p>
+              <p class="fine left">Items arrive on the SMP; the coins and the key arrive wherever you type it. Tools and armour arrive new and never enchanted. We never put netherite, elytra, totems or enchanted books in a kit.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-everbloom-land">
+              <h4 id="rd-everbloom-land">Your land</h4>
+              <ul class="perk-list"><li><b>20</b> pieces of land, instead of 3</li><li>New land starts <b>61 x 61</b> blocks wide (everyone else starts at 21 x 21)</li><li>Each piece can grow up to <b>301 x 301</b> (everyone else stops at 101 x 101)</li><li>Growing still costs coins or free play-time credits, so it is earned in the village too</li></ul>
+              <p class="fine left">Land is never taken away, even if a rank ends.</p>
+            </section>
+
+            <section class="rd-sec" aria-labelledby="rd-everbloom-all">
+              <h4 id="rd-everbloom-all">Everything in Everbloom</h4>
+              <ul class="perk-list"><li>Everbloom badge with a <b>gold star</b> in chat and on the tab list, and a golden sparkle when you join</li><li><b>20</b> pieces of land (everyone has 3). New land starts at <b>61 x 61</b> and can grow up to <b>301 x 301</b></li><li>A <b>monthly kit</b> with a full set of <b>diamond tools</b>, iron armour, a shield, a bow and arrows, lots of food, supplies and <b>plenty of iron, gold, diamonds, emeralds, coal, XP bottles and lapis, plus a full shulker box of redstone gear</b>, <b>$15,000</b> and <b>3</b> crate keys you choose yourself</li><li>Every rank-only chat colour (<b>12</b>), <b>12</b> tags, <b>12</b> emotes and all <b>6</b> rank-only trails</li><li><b>+10</b> homes in total and <b>+8</b> auction listings</li><li><b>+5</b> player shops</li><li>Teams of up to <b>24</b></li><li><b>20</b> /rtp trips, back every <b>10 minutes</b></li><li><b>1,500</b> Petals as a welcome gift</li><li>Supporter role in our Discord and, if you want it, your name on the Supporters wall</li></ul>
+            </section>
+
+            <footer class="rd-foot">
+              <a class="rank-buy linkbtn rd-checkout" data-checkout="everbloom" href="#" rel="noopener noreferrer" hidden>Continue to checkout</a>
+              <button class="rank-buy rd-soon" type="button" disabled aria-disabled="true">Checkout opens when the village opens</button>
+              <button class="rd-closebtn" type="button" data-rank-close>Close</button>
+            </footer>
+          </div>
+        </dialog><script type="application/json" id="kit-data">{"items":{"stone_pickaxe":{"name":"Stone Pickaxe","max":1,"icon":"stone_pickaxe","about":"Comes new, not enchanted.","tex":"stone_pickaxe"},"stone_axe":{"name":"Stone Axe","max":1,"icon":"stone_axe","about":"Comes new, not enchanted.","tex":"stone_axe"},"iron_sword":{"name":"Iron Sword","max":1,"icon":"iron_sword","about":"Comes new, not enchanted.","tex":"iron_sword"},"iron_pickaxe":{"name":"Iron Pickaxe","max":1,"icon":"iron_pickaxe","about":"Comes new, not enchanted.","tex":"iron_pickaxe"},"iron_axe":{"name":"Iron Axe","max":1,"icon":"iron_axe","about":"Comes new, not enchanted.","tex":"iron_axe"},"iron_shovel":{"name":"Iron Shovel","max":1,"icon":"iron_shovel","about":"Comes new, not enchanted.","tex":"iron_shovel"},"diamond_sword":{"name":"Diamond Sword","max":1,"icon":"diamond_sword","about":"Comes new, not enchanted.","tex":"diamond_sword"},"diamond_pickaxe":{"name":"Diamond Pickaxe","max":1,"icon":"diamond_pickaxe","about":"Comes new, not enchanted.","tex":"diamond_pickaxe"},"diamond_axe":{"name":"Diamond Axe","max":1,"icon":"diamond_axe","about":"Comes new, not enchanted.","tex":"diamond_axe"},"diamond_shovel":{"name":"Diamond Shovel","max":1,"icon":"diamond_shovel","about":"Comes new, not enchanted.","tex":"diamond_shovel"},"iron_helmet":{"name":"Iron Helmet","max":1,"icon":"iron_helmet","about":"Comes new, not enchanted.","tex":"iron_helmet"},"iron_chestplate":{"name":"Iron Chestplate","max":1,"icon":"iron_chestplate","about":"Comes new, not enchanted.","tex":"iron_chestplate"},"iron_leggings":{"name":"Iron Leggings","max":1,"icon":"iron_leggings","about":"Comes new, not enchanted.","tex":"iron_leggings"},"iron_boots":{"name":"Iron Boots","max":1,"icon":"iron_boots","about":"Comes new, not enchanted.","tex":"iron_boots"},"shield":{"name":"Shield","max":1,"icon":"shield","about":"Blocks hits from mobs and arrows."},"bow":{"name":"Bow","max":1,"icon":"bow","about":"Comes new, not enchanted.","tex":"bow"},"arrow":{"name":"Arrows","max":64,"icon":"arrow","about":"For your bow.","tex":"arrow"},"steak":{"name":"Steak","max":64,"icon":"steak","about":"Fills you right up.","tex":"cooked_beef"},"golden_carrot":{"name":"Golden Carrots","max":64,"icon":"golden_carrot","about":"Restores a lot of hunger.","tex":"golden_carrot"},"torch":{"name":"Torches","max":64,"icon":"torch","about":"Light up your builds and caves.","tex":"torch"},"bonemeal":{"name":"Bone Meal","max":64,"icon":"bonemeal","about":"Make crops and saplings grow.","tex":"bone_meal"},"cherry":{"name":"Cherry Saplings","max":64,"icon":"cherry","about":"Pink blossoms for your garden.","tex":"cherry_sapling"},"oak":{"name":"Oak Saplings","max":64,"icon":"oak","about":"Plant a little forest.","tex":"oak_sapling"},"lantern":{"name":"Lanterns","max":64,"icon":"lantern","about":"A warm glow for paths and porches.","tex":"lantern"},"honey":{"name":"Honey Bottles","max":16,"icon":"honey","about":"Sweet and filling.","tex":"honey_bottle"},"cake":{"name":"Cakes","max":1,"icon":"cake","about":"For celebrations.","tex":"cake"},"iron_ingot":{"name":"Iron Ingots","max":64,"icon":"iron_ingot","about":"For crafting, building and trading.","tex":"iron_ingot"},"gold_ingot":{"name":"Gold Ingots","max":64,"icon":"gold_ingot","about":"Shiny, and good for trading and crafting.","tex":"gold_ingot"},"diamond":{"name":"Diamonds","max":64,"icon":"diamond","about":"For tools, enchanting and shiny builds.","tex":"diamond"},"emerald":{"name":"Emeralds","max":64,"icon":"emerald","about":"Great for trading with villagers.","tex":"emerald"},"coal":{"name":"Coal","max":64,"icon":"coal","about":"Fuel for furnaces, and for torches.","tex":"coal"},"xp":{"name":"Bottles o' Enchanting","max":64,"icon":"xp","about":"Throw one to get experience.","tex":"experience_bottle"},"redstone":{"name":"Redstone Dust","max":64,"icon":"redstone","about":"Wiring for your contraptions.","tex":"redstone"},"lapis":{"name":"Lapis Lazuli","max":64,"icon":"lapis","about":"For enchanting and blue dye.","tex":"lapis_lazuli"},"box_lime":{"name":"Lime Shulker Box","max":1,"icon":"box_lime","about":"A monthly box full of redstone gear. Click to look inside.","box":[["redstone",192],["repeater",32],["redstone_torch",64],["lever",32],["stone_button",64],["redstone_lamp",32],["observer",16]],"colour":"lime","shulker":"shulker_lime"},"box_purple":{"name":"Purple Shulker Box","max":1,"icon":"box_purple","about":"A monthly box full of redstone gear. Click to look inside.","box":[["redstone",256],["repeater",64],["comparator",32],["redstone_torch",64],["lever",64],["stone_button",64],["redstone_lamp",64],["piston",32],["sticky_piston",32],["observer",32],["hopper",16],["dropper",16],["dispenser",16],["slime_block",32],["powered_rail",32]],"colour":"purple","shulker":"shulker_purple"},"box_pink":{"name":"Pink Shulker Box","max":1,"icon":"box_pink","about":"A monthly box full of redstone gear. Click to look inside.","box":[["redstone",512],["repeater",64],["comparator",64],["redstone_torch",64],["lever",64],["stone_button",64],["redstone_lamp",64],["piston",64],["sticky_piston",64],["observer",64],["hopper",32],["dropper",32],["dispenser",32],["slime_block",64],["honey_block",32],["powered_rail",64],["detector_rail",32],["daylight_detector",16],["note_block",32],["target",32]],"colour":"pink","shulker":"shulker_pink"},"box_yellow":{"name":"Yellow Shulker Box","max":1,"icon":"box_yellow","about":"A monthly box full of redstone gear. Click to look inside.","box":[["redstone",512],["repeater",64],["comparator",64],["redstone_torch",64],["lever",64],["stone_button",64],["redstone_lamp",64],["piston",64],["sticky_piston",64],["observer",64],["hopper",64],["dropper",64],["dispenser",64],["slime_block",64],["honey_block",64],["powered_rail",64],["detector_rail",64],["daylight_detector",64],["note_block",64],["target",64]],"colour":"yellow","shulker":"shulker_yellow"},"repeater":{"name":"Repeaters","max":64,"icon":"repeater","about":"Delay and boost a signal.","tex":"repeater"},"comparator":{"name":"Comparators","max":64,"icon":"comparator","about":"Measure and compare signals.","tex":"comparator"},"redstone_torch":{"name":"Redstone Torches","max":64,"icon":"redstone_torch","about":"A steady signal source.","tex":"redstone_torch"},"lever":{"name":"Levers","max":64,"icon":"lever","about":"Switch things on and off.","tex":"lever"},"stone_button":{"name":"Stone Buttons","max":64,"icon":"stone_button","about":"A quick pulse of power."},"redstone_lamp":{"name":"Redstone Lamps","max":64,"icon":"redstone_lamp","about":"Lights that follow a signal.","cube":["redstone_lamp","redstone_lamp","redstone_lamp"]},"piston":{"name":"Pistons","max":64,"icon":"piston","about":"Push blocks around.","cube":["piston_top","piston_side","piston_side"]},"sticky_piston":{"name":"Sticky Pistons","max":64,"icon":"sticky_piston","about":"Push and pull blocks.","cube":["piston_top_sticky","piston_side","piston_side"]},"observer":{"name":"Observers","max":64,"icon":"observer","about":"Notice when something changes.","cube":["observer_top","observer_front","observer_side"]},"hopper":{"name":"Hoppers","max":64,"icon":"hopper","about":"Move items along.","tex":"hopper"},"dropper":{"name":"Droppers","max":64,"icon":"dropper","about":"Spit items out.","cube":["furnace_top","dropper_front","furnace_side"]},"dispenser":{"name":"Dispensers","max":64,"icon":"dispenser","about":"Fire arrows and drop items.","cube":["furnace_top","dispenser_front","furnace_side"]},"slime_block":{"name":"Slime Blocks","max":64,"icon":"slime_block","about":"Bouncy, and sticky for pistons.","cube":["slime_block","slime_block","slime_block"]},"honey_block":{"name":"Honey Blocks","max":64,"icon":"honey_block","about":"Sticky and slow, for contraptions.","cube":["honey_block_top","honey_block_side","honey_block_side"]},"powered_rail":{"name":"Powered Rails","max":64,"icon":"powered_rail","about":"Speed up your minecarts.","tex":"powered_rail"},"detector_rail":{"name":"Detector Rails","max":64,"icon":"detector_rail","about":"Send a signal when a cart rolls by.","tex":"detector_rail"},"daylight_detector":{"name":"Daylight Sensors","max":64,"icon":"daylight_detector","about":"A signal that follows the sun.","cube":["daylight_detector_top","daylight_detector_side","daylight_detector_side"]},"note_block":{"name":"Note Blocks","max":64,"icon":"note_block","about":"Play a tune.","cube":["note_block","note_block","note_block"]},"target":{"name":"Targets","max":64,"icon":"target","about":"Hit it for a signal.","cube":["target_top","target_side","target_side"]}},"crates":{"lily":{"name":"Lily Crate","colour":"#99d1db","about":"Wings, backpacks and scarves"},"tulip":{"name":"Tulip Crate","colour":"#f4b8e4","about":"Trails, glows and death effects"},"poppy":{"name":"Poppy Crate","colour":"#e78284","about":"Pets who follow you"}},"kits":{"free":{"coins":500,"keys":0,"crates":[],"items":[["stone_pickaxe",1],["stone_axe",1],["steak",8],["torch",16],["bonemeal",4],["iron_ingot",4]]},"sprout":{"coins":2000,"keys":1,"crates":["lily"],"items":[["iron_sword",1],["iron_pickaxe",1],["iron_axe",1],["iron_shovel",1],["steak",16],["torch",32],["bonemeal",16],["cherry",4],["oak",4],["iron_ingot",16],["gold_ingot",8],["diamond",2],["coal",16],["xp",8],["box_lime",1]]},"blossom":{"coins":4000,"keys":1,"crates":["lily","tulip"],"items":[["iron_sword",1],["iron_pickaxe",1],["iron_axe",1],["iron_shovel",1],["iron_helmet",1],["iron_chestplate",1],["iron_leggings",1],["iron_boots",1],["shield",1],["steak",32],["golden_carrot",16],["torch",64],["bonemeal",32],["cherry",8],["oak",8],["lantern",8],["iron_ingot",32],["gold_ingot",16],["diamond",6],["emerald",8],["coal",32],["xp",16],["box_purple",1]]},"bloom":{"coins":8000,"keys":2,"crates":["lily","tulip","poppy"],"items":[["diamond_pickaxe",1],["iron_sword",1],["iron_axe",1],["iron_shovel",1],["iron_helmet",1],["iron_chestplate",1],["iron_leggings",1],["iron_boots",1],["shield",1],["bow",1],["arrow",64],["steak",48],["golden_carrot",32],["torch",64],["bonemeal",64],["cherry",16],["oak",16],["lantern",16],["honey",32],["cake",2],["iron_ingot",48],["gold_ingot",32],["diamond",12],["emerald",16],["coal",48],["xp",32],["lapis",32],["box_pink",1]]},"everbloom":{"coins":15000,"keys":3,"crates":["lily","tulip","poppy"],"items":[["diamond_sword",1],["diamond_pickaxe",1],["diamond_axe",1],["diamond_shovel",1],["iron_helmet",1],["iron_chestplate",1],["iron_leggings",1],["iron_boots",1],["shield",1],["bow",1],["arrow",64],["steak",64],["golden_carrot",32],["torch",128],["bonemeal",64],["cherry",32],["oak",32],["lantern",16],["honey",32],["cake",2],["iron_ingot",64],["gold_ingot",64],["diamond",24],["emerald",32],["coal",64],["xp",64],["lapis",64],["box_yellow",1]]}}}</script>
       </section>
 
       <section class="shop-section" aria-labelledby="compare-heading"><div class="shop-board board" style="--k:.5">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><details class="fold"><summary><h2 id="compare-heading" class="shop-title"><img src="./wiki-assets/icon-book.png?v=4" alt="" draggable="false">Compare ranks</h2></summary>
-            <div class="table-wrap" tabindex="0" role="region" aria-label="Rank comparison table, scrolls sideways on small screens"><table class="rank-table"><thead><tr><th scope="col">Perk</th><th scope="col">Everyone</th><th scope="col" class="c-sprout">Sprout</th><th scope="col" class="c-blossom">Blossom</th><th scope="col" class="c-bloom">Bloom</th><th scope="col" class="c-everbloom">Everbloom</th></tr></thead><tbody><tr><th scope="row">Extra homes</th><td>3 + level perks</td><td>+1</td><td>+2</td><td>+4</td><td>+6</td></tr><tr><th scope="row">Auction listings</th><td>3</td><td>5</td><td>8</td><td>12</td><td>20</td></tr><tr><th scope="row">Player shops</th><td>Standard</td><td>+1</td><td>+2</td><td>+3</td><td>+5</td></tr><tr><th scope="row">Team size</th><td>8</td><td>10</td><td>12</td><td>14</td><td>16</td></tr><tr><th scope="row">/rtp cooldown</th><td>60s</td><td>45s</td><td>30s</td><td>20s</td><td>10s</td></tr><tr><th scope="row">Exclusive tags</th><td>Free tags</td><td>2</td><td>4</td><td>6</td><td>10</td></tr><tr><th scope="row">Exclusive emotes</th><td>Free emotes</td><td>2</td><td>4</td><td>6</td><td>8</td></tr><tr><th scope="row">Name colours and /nick</th><td>—</td><td>—</td><td>6 colours + /nick</td><td>Gradients too</td><td>Gradients too</td></tr><tr><th scope="row">Join message and trails</th><td>—</td><td>—</td><td>—</td><td>Yes</td><td>Yes</td></tr><tr><th scope="row">Supporters wall and Discord role</th><td>—</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Gold star</td></tr></tbody></table></div></details></div>
+            <div class="table-wrap" tabindex="0" role="region" aria-label="Rank comparison table, scrolls sideways on small screens"><table class="rank-table"><thead><tr><th scope="col">Perk</th><th scope="col" class="c-free">Everyone</th><th scope="col" class="c-sprout">Sprout</th><th scope="col" class="c-blossom">Blossom</th><th scope="col" class="c-bloom">Bloom</th><th scope="col" class="c-everbloom">Everbloom</th></tr></thead><tbody><tr class="grp"><th scope="colgroup" colspan="6">How much you can have (ranks add on top of what everyone has)</th></tr><tr><th scope="row">Extra homes</th><td class="c-free">3</td><td class="c-sprout">+3</td><td class="c-blossom">+4</td><td class="c-bloom">+6</td><td class="c-everbloom">+10</td></tr><tr><th scope="row">Auction listings</th><td class="c-free">10</td><td class="c-sprout">+2</td><td class="c-blossom">+3</td><td class="c-bloom">+5</td><td class="c-everbloom">+8</td></tr><tr><th scope="row">Player shops</th><td class="c-free">10</td><td class="c-sprout">+1</td><td class="c-blossom">+2</td><td class="c-bloom">+3</td><td class="c-everbloom">+5</td></tr><tr><th scope="row">Team size</th><td class="c-free">8</td><td class="c-sprout">10</td><td class="c-blossom">12</td><td class="c-bloom">16</td><td class="c-everbloom">24</td></tr><tr><th scope="row">/rtp trips in a batch</th><td class="c-free">5</td><td class="c-sprout">8</td><td class="c-blossom">10</td><td class="c-bloom">14</td><td class="c-everbloom">20</td></tr><tr><th scope="row">/rtp batch refills after</th><td class="c-free">2 h</td><td class="c-sprout">75 min</td><td class="c-blossom">45 min</td><td class="c-bloom">20 min</td><td class="c-everbloom">10 min</td></tr><tr class="grp"><th scope="colgroup" colspan="6">Land and your monthly kit (/monthly)</th></tr><tr><th scope="row">Pieces of land</th><td class="c-free">3</td><td class="c-sprout">5</td><td class="c-blossom">8</td><td class="c-bloom">12</td><td class="c-everbloom">20</td></tr><tr><th scope="row">New land starts at</th><td class="c-free">21 x 21</td><td class="c-sprout">31 x 31</td><td class="c-blossom">41 x 41</td><td class="c-bloom">51 x 51</td><td class="c-everbloom">61 x 61</td></tr><tr><th scope="row">Biggest land</th><td class="c-free">101 x 101</td><td class="c-sprout">121 x 121</td><td class="c-blossom">151 x 151</td><td class="c-bloom">201 x 201</td><td class="c-everbloom">301 x 301</td></tr><tr><th scope="row">Monthly kit</th><td class="c-free">Small starter kit</td><td class="c-sprout">Iron tools, supplies and a shulker box</td><td class="c-blossom">Iron tools and armour, supplies and a fuller shulker box</td><td class="c-bloom">Iron gear, a bow, a diamond pickaxe and a full shulker box</td><td class="c-everbloom">Diamond tools, iron armour and the most of everything</td></tr><tr><th scope="row">Monthly coins</th><td class="c-free">$500</td><td class="c-sprout">$2,000</td><td class="c-blossom">$4,000</td><td class="c-bloom">$8,000</td><td class="c-everbloom">$15,000</td></tr><tr><th scope="row">Monthly crate keys</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">1</td><td class="c-blossom">1</td><td class="c-bloom">2</td><td class="c-everbloom">3</td></tr><tr><th scope="row">Crates a key can be for</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">Lily</td><td class="c-blossom">Lily, Tulip</td><td class="c-bloom">3 crates</td><td class="c-everbloom">Any crate</td></tr><tr class="grp"><th scope="colgroup" colspan="6">Look and style</th></tr><tr><th scope="row">Rank-only chat colours</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">2</td><td class="c-blossom">4</td><td class="c-bloom">8</td><td class="c-everbloom">12</td></tr><tr><th scope="row">Rank-only tags</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">4</td><td class="c-blossom">6</td><td class="c-bloom">9</td><td class="c-everbloom">12</td></tr><tr><th scope="row">Rank-only emotes</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">4</td><td class="c-blossom">6</td><td class="c-bloom">9</td><td class="c-everbloom">12</td></tr><tr><th scope="row">Rank-only trails (village and boats)</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">1</td><td class="c-blossom">2</td><td class="c-bloom">4</td><td class="c-everbloom">6</td></tr><tr><th scope="row">Land border colour</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-blossom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Land welcome message as a big title</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="no" aria-label="No">&ndash;</span></td><td class="c-blossom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr class="grp"><th scope="colgroup" colspan="6">Names and extras</th></tr><tr><th scope="row">/nick nickname</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="no" aria-label="No">&ndash;</span></td><td class="c-blossom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">/joinmessage join message</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="no" aria-label="No">&ndash;</span></td><td class="c-blossom"><span class="no" aria-label="No">&ndash;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Gold star and join sparkle</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="no" aria-label="No">&ndash;</span></td><td class="c-blossom"><span class="no" aria-label="No">&ndash;</span></td><td class="c-bloom"><span class="no" aria-label="No">&ndash;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr class="grp"><th scope="colgroup" colspan="6">Every year and when you join</th></tr><tr><th scope="row">Pick 1 piece from each seasonal collection</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-blossom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr><tr><th scope="row">Welcome gift (Petals)</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout">150</td><td class="c-blossom">400</td><td class="c-bloom">800</td><td class="c-everbloom">1,500</td></tr><tr><th scope="row">Discord role and Supporters wall (wall is opt-in)</th><td class="c-free"><span class="no" aria-label="No">&ndash;</span></td><td class="c-sprout"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-blossom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-bloom"><span class="yes" aria-label="Yes">&#10003;</span></td><td class="c-everbloom"><span class="yes" aria-label="Yes">&#10003;</span></td></tr></tbody></table></div></details></div>
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section></div>
 
@@ -170,7 +404,7 @@
             <p class="shop-lead">Petals are the village's cosmetic currency. They only buy looks, so nobody gets an advantage.</p>
             <div class="petal-cols">
               <div><h3 class="peek-sub">What Petals buy</h3><ul class="perk-list"><li>Chat tags and chat colours</li><li>Trails and outline glows</li><li>Death effects</li><li>Hats, cloaks, wings, backpacks and scarves</li><li>Pets that follow you around the hub</li><li>Choose-your-piece keys: you pick the exact item, nothing is random</li></ul></div>
-              <div><h3 class="peek-sub">Free Petals</h3><ul class="perk-list"><li>Earn them by playing: daily streaks, quests, village levels, weekly goals and events</li><li>Free players can get everything, given time</li><li>Seasonal pieces come back every year, so nothing is gone forever</li><li>Petals can't be traded for cash</li></ul></div>
+              <div><h3 class="peek-sub">Free Petals</h3><ul class="perk-list"><li>Earn them by playing: daily streaks, quests, village levels, weekly goals and events</li><li>Free players can earn everything Petals can buy, given time</li><li>Seasonal pieces come back every year, so nothing is gone forever</li><li>Petals can't be traded for cash</li></ul></div>
             </div>
             <h3 class="peek-sub">Petal bundles</h3>
             <div class="bundle-grid"><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Small Posy</h4><p class="b-amt">300 Petals</p><p class="b-price">&pound;2.50</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Bouquet</h4><p class="b-amt">700 Petals</p><p class="b-price">&pound;5</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Garden</h4><p class="b-amt">1,500 Petals</p><p class="b-price">&pound;10</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false"><h4>Meadow</h4><p class="b-amt">3,500 Petals</p><p class="b-price">&pound;20</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div></div>
@@ -263,7 +497,7 @@
       <section class="shop-section" id="wall-section" aria-labelledby="wall-heading" hidden><div class="shop-board board" style="--k:.5">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><h2 id="wall-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Supporters wall</h2>
-            <p class="shop-lead">A thank-you to everyone who has helped Blossomvale bloom. Names appear with permission, in no particular order.</p>
+            <p class="shop-lead">A thank-you to everyone who has helped Blossomvale bloom. Names appear only with permission, Everbloom first. Supporters can add or remove their name in the game with <b>/supporterwall</b>.</p>
             <ul class="wall-grid" id="wall-grid"></ul></div>
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section>
@@ -287,7 +521,7 @@
       <section class="shop-section" aria-labelledby="free-heading"><div class="shop-board board" style="--k:.5">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><h2 id="free-heading" class="shop-title"><img src="./wiki-assets/flower-small.png?v=4" alt="" draggable="false">Always free</h2>
-            <p class="shop-lead">Ranks never sell power. Everything that matters stays free for everyone:</p>
+            <p class="shop-lead">Ranks stay small, and nothing that matters for gameplay is locked. This stays free for everyone:</p>
             <ul class="perk-list free-list"><li>Every gamemode: Ice Boat Racing, Build Battle, Cozy Islands, BedWars and SkyWars</li><li>The SMP, claims, trading, teams and quests</li><li>Village levels and the weekly leaderboard</li><li>Earning Petals by playing, and spending them on cosmetics</li><li>Time-rank tags (neighbour, villager, elder) and most emotes</li></ul></div>
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section>
@@ -295,7 +529,7 @@
       <section class="shop-section" aria-labelledby="faq-heading"><div class="shop-board board" style="--k:.5">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><h2 id="faq-heading" class="shop-title"><img src="./wiki-assets/icon-book.png?v=4" alt="" draggable="false">Questions</h2>
-            <div class="faq-list"><details class="faq-item"><summary>How do I buy a rank?</summary><p>Ranks and Petals will be sold through our store when the village opens. You will pick a rank, type your Minecraft username and pay through a secure payment provider, so we never see your card details. Your rank then arrives on its own.</p></details><details class="faq-item"><summary>Do I keep my rank forever?</summary><p>Yes. Ranks are a one-time purchase, with no monthly fee. Any new perks we add to a rank later go to everyone who already has it.</p></details><details class="faq-item"><summary>Can I upgrade later?</summary><p>Yes, you only pay the difference between your rank and the next one. See the upgrade table above.</p></details><details class="faq-item"><summary>Do ranks give an advantage in games?</summary><p>No. Ranks are cosmetics plus small conveniences, such as extra homes and a faster /rtp. They never change how BedWars, SkyWars, Build Battle or Ice Boat Racing are played or who wins.</p></details><details class="faq-item"><summary>What are Petals, and are they random?</summary><p>Petals are our cosmetic currency. You can earn them by playing or buy bundles, and they only buy looks like tags, colours, trails, hats and pets. Nothing is random: with a key you choose the exact piece you want.</p></details><details class="faq-item"><summary>Does it work on Bedrock?</summary><p>Ranks, tags and chat colours should work for everyone. Some visual extras, like animated emotes and custom hats and wings, may not show on Bedrock. We are still confirming this.</p></details><details class="faq-item"><summary>What about refunds?</summary><p>We will publish a clear refund policy before the shop opens.</p></details><details class="faq-item"><summary>I am under 18. Can I buy things?</summary><p>Please ask a parent or guardian first. Ranks and Petals are never required to enjoy Blossomvale.</p></details></div></div>
+            <div class="faq-list"><details class="faq-item"><summary>How do I buy a rank?</summary><p>Ranks and Petals will be sold through our store when the village opens. You will pick a rank, type your Minecraft username and pay through a secure payment provider, so we never see your card details. Your rank then arrives on its own.</p></details><details class="faq-item"><summary>How long does my rank last?</summary><p>Ranks are a one-time purchase with no monthly fee, and they last for as long as Blossomvale is running. We may add more perks over time, and we will try to give them to everyone who already has the rank.</p></details><details class="faq-item"><summary>Can I upgrade later?</summary><p>Yes, you only pay the difference between your rank and the next one. See the upgrade table above.</p></details><details class="faq-item"><summary>Do ranks give an advantage in games?</summary><p>No. Ranks are cosmetics plus small conveniences, such as extra homes and more /rtp uses. They never change how BedWars, SkyWars, Build Battle or Ice Boat Racing are played or who wins.</p></details><details class="faq-item"><summary>What are Petals, and are they random?</summary><p>Petals are our cosmetic currency. You can earn them by playing or buy bundles, and they only buy looks like tags, colours, trails, hats and pets. Nothing is random: with a key you choose the exact piece you want.</p></details><details class="faq-item"><summary>Does it work on Bedrock?</summary><p>Ranks, tags and chat colours should work for everyone. Some visual extras, like animated emotes and custom hats and wings, may not show on Bedrock. We are still confirming this.</p></details><details class="faq-item"><summary>What about refunds?</summary><p>We will publish a clear refund policy before the shop opens.</p></details><details class="faq-item"><summary>I am under 18. Can I buy things?</summary><p>Please ask a parent or guardian first. Ranks and Petals are never required to enjoy Blossomvale.</p></details></div></div>
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section></div>
     </main>
