@@ -3,8 +3,8 @@
 // compare, and "Take everything" to watch the stacks move into the inventory the way shift-click does in the game.
 // The numbers come from the page itself (#kit-data), so the written list and the chest can never disagree.
 //
-// Item pictures: small pixel icons drawn for this page. If a folder named kit-icons (next to this file) holds item
-// pictures named like iron_pickaxe.png, those are used instead, one by one (see get-kit-icons.bat).
+// Item pictures: small pixel icons drawn for this page. If pictures named like kit-iron_pickaxe.png sit next to this file, those
+// are used instead, one by one (see get-kit-icons.bat).
 (() => {
   const dataEl = document.getElementById("kit-data");
   const roots = [...document.querySelectorAll("[data-kit]")];
@@ -93,7 +93,7 @@
     key: () => ({ pal: { k: "#3a2a3a", m: "#ffffff" }, g: ascii(["", "", "", "....kkkk........", "...kmmmmk.......", "..kmmkkmmk......", "..kmk..kmk......", "..kmmkkmmkkkkkk.", "...kmmmmmmmmmmk.", "....kkkkkkmkkmk.", "............kmk.", "............kmk.", ".............k.."]) }),
   };
 
-  // ---- redstone gear and shulker boxes (drawn stand-ins; the real pictures replace them when kit-icons/ is there)
+  // ---- redstone gear and shulker boxes (drawn stand-ins; the real pictures replace them when the kit-*.png pictures are there)
   const inPoly = (x, y, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [xi, yi] = poly[i], [xj, yj] = poly[j]; if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) c = !c; } return c; };
   const TOP = [[8, 1], [15, 4.5], [8, 8], [1, 4.5]], LEFT = [[1, 4.5], [8, 8], [8, 15], [1, 11.5]], RIGHT = [[8, 8], [15, 4.5], [15, 11.5], [8, 15]];
   const faceAt = (x, y) => (inPoly(x + 0.5, y + 0.5, TOP) ? "t" : inPoly(x + 0.5, y + 0.5, LEFT) ? "l" : inPoly(x + 0.5, y + 0.5, RIGHT) ? "r" : null);
@@ -149,9 +149,9 @@
     return (svgCache[key] = `<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" shape-rendering="crispEdges">${r}</svg>`);
   };
 
-  // ---- optional real pictures (kit-icons/<name>.png). Checked once; a missing one just keeps the drawn icon.
+  // ---- optional real pictures (kit-<name>.png). Checked once; a missing one just keeps the drawn icon.
   let texReady = null;     // null = not asked, a promise afterwards
-  const texProbe = () => texReady || (texReady = new Promise((res) => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = "./kit-icons/iron_pickaxe.png"; }));
+  const texProbe = () => texReady || (texReady = new Promise((res) => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = "./kit-iron_pickaxe.png"; }));
   const applyTextures = (scope) => {
     const slots = [...scope.querySelectorAll("[data-tex],[data-cube],[data-shulker]")]; if (!slots.length) return;
     texProbe().then((ok) => { if (!ok) return; slots.forEach((s) => {
@@ -160,7 +160,7 @@
         const name = s.dataset.shulker, im = new Image();
         im.onload = () => {
           if (!s.isConnected) return; const old = s.querySelector("svg"); if (!old) return;
-          const piece = (rx, ry, rw, rh, m) => `<g transform="matrix(${m})"><svg x="0" y="0" width="${rw}" height="${rh}" viewBox="${rx} ${ry} ${rw} ${rh}" preserveAspectRatio="none" overflow="hidden"><image href="./kit-icons/${name}.png" width="64" height="64" style="image-rendering:pixelated"/></svg></g>`;
+          const piece = (rx, ry, rw, rh, m) => `<g transform="matrix(${m})"><svg x="0" y="0" width="${rw}" height="${rh}" viewBox="${rx} ${ry} ${rw} ${rh}" preserveAspectRatio="none" overflow="hidden"><image href="./kit-${name}.png" width="64" height="64" style="image-rendering:pixelated"/></svg></g>`;
           const iso = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           iso.setAttribute("viewBox", "0 0 16 16"); iso.setAttribute("class", "kit-tex kit-iso"); iso.setAttribute("aria-hidden", "true");
           iso.innerHTML = piece(16, 0, 16, 16, ".4375 .21875 -.4375 .21875 8 1")                       // lid top
@@ -169,14 +169,14 @@
             + '<polygon points="1,4.5 8,8 8,15 1,11.5" fill="#000" opacity=".2"/><polygon points="8,8 15,4.5 15,11.5 8,15" fill="#000" opacity=".4"/>';
           old.replaceWith(iso);
         };
-        im.src = "./kit-icons/" + name + ".png";
+        im.src = "./kit-" + name + ".png";
         return;
       }
       if (s.dataset.cube) {   // a block: draw it as the game does, three faces seen from above
         const names = s.dataset.cube.split(","), t = names[0], l = names[1], r = names[2];
-        Promise.all([...new Set(names)].map((n) => new Promise((res) => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = "./kit-icons/" + n + ".png"; }))).then((all) => {
+        Promise.all([...new Set(names)].map((n) => new Promise((res) => { const i = new Image(); i.onload = () => res(true); i.onerror = () => res(false); i.src = "./kit-" + n + ".png"; }))).then((all) => {
           if (!all.every(Boolean) || !s.isConnected) return;
-          const img = (n, m) => `<image href="./kit-icons/${n}.png" width="16" height="16" transform="matrix(${m})" style="image-rendering:pixelated"/>`;
+          const img = (n, m) => `<image href="./kit-${n}.png" width="16" height="16" transform="matrix(${m})" style="image-rendering:pixelated"/>`;
           const old = s.querySelector("svg"); if (!old) return;
           const iso = document.createElementNS("http://www.w3.org/2000/svg", "svg");
           iso.setAttribute("viewBox", "0 0 16 16"); iso.setAttribute("class", "kit-tex kit-iso"); iso.setAttribute("aria-hidden", "true");
@@ -185,7 +185,7 @@
         });
         return;
       }
-      const i = new Image(); i.alt = ""; i.draggable = false; i.className = "kit-tex"; i.onload = () => { const old = s.querySelector("svg"); if (old) old.replaceWith(i); }; i.src = "./kit-icons/" + s.dataset.tex + ".png";
+      const i = new Image(); i.alt = ""; i.draggable = false; i.className = "kit-tex"; i.onload = () => { const old = s.querySelector("svg"); if (old) old.replaceWith(i); }; i.src = "./kit-" + s.dataset.tex + ".png";
     }); });
   };
 

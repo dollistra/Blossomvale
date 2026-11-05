@@ -32,7 +32,7 @@ button,a{font:inherit}button{color:inherit}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
 .page-shell{position:relative;z-index:1}
 .ambient-petals{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-.ambient-petals span{position:absolute;top:108vh;width:22px;aspect-ratio:1;background:url("./wiki-assets/flower-small.png?v=4") center/contain no-repeat;image-rendering:auto;opacity:.62;animation:petal-drift var(--duration,27s) linear var(--delay,0s) infinite}
+.ambient-petals span{position:absolute;top:108vh;width:22px;aspect-ratio:1;background:url("./flower-small.png?v=4") center/contain no-repeat;image-rendering:auto;opacity:.62;animation:petal-drift var(--duration,27s) linear var(--delay,0s) infinite}
 .petal-one{left:12%;--duration:24s;--delay:-13s;--mid-x:30px;--end-x:-15px}
 .ambient-petals .petal-two{left:57%;width:17px;--duration:31s;--delay:-24s;--mid-x:-35px;--end-x:12px}
 .ambient-petals .petal-three{left:86%;width:19px;--duration:28s;--delay:-7s;--mid-x:22px;--end-x:-20px}
@@ -133,7 +133,7 @@ button,a{font:inherit}button{color:inherit}
 .mobile-nav{display:none}
 @media(max-width:620px){
   .mobile-nav{display:flex;justify-content:center;gap:4px;margin:12px 3px 0}
-  .mobile-nav a{position:relative;flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:2px 2px 4px;color:#f6a4e1;text-decoration:none;font-size:.9rem;border:solid transparent;border-width:14px 16px;margin:-3px -3px;border-image:url("./wiki-assets/tab-board.png?v=4") 30 fill/14px 16px stretch;text-shadow:1px 2px #5c2c48}
+  .mobile-nav a{position:relative;flex:1 1 0;display:flex;align-items:center;justify-content:center;gap:7px;min-height:42px;padding:2px 2px 4px;color:#f6a4e1;text-decoration:none;font-size:.9rem;border:solid transparent;border-width:14px 16px;margin:-3px -3px;border-image:url("./tab-board.png?v=4") 30 fill/14px 16px stretch;text-shadow:1px 2px #5c2c48}
   .mobile-nav img{width:auto;height:20px;image-rendering:pixelated}
   .mobile-nav a[aria-current="page"]{color:#fff5e4}
   .mobile-nav a[aria-current="page"]::after{content:"";position:absolute;left:4px;right:4px;bottom:-8px;height:5px;background:linear-gradient(#f8a6e6,#ec7fd1);border:1px solid #8d4978;box-shadow:0 0 8px rgba(242,139,220,.55)}
@@ -175,8 +175,8 @@ button,a{font:inherit}button{color:inherit}
 .site-header.bar .board-top::before,.site-header.bar .board-bottom::before{left:0;right:0}
 .site-header.bar .board-body::after{top:calc(-150px*var(--k));bottom:calc(-152px*var(--k))}
 .site-header.bar::before,.site-header.bar::after{content:"";position:absolute;z-index:4;pointer-events:none;top:calc(-14px*var(--k));bottom:calc(-24px*var(--k))}
-.site-header.bar::before{left:calc(-34px*var(--k));width:calc(270px*var(--k));background:url("./wiki-assets/bar-bl.png?v=5") left bottom/auto calc(340px*var(--k)) no-repeat,url("./wiki-assets/bar-tl.png?v=5") left top/auto calc(312px*var(--k)) no-repeat}
-.site-header.bar::after{right:calc(-30px*var(--k));width:calc(270px*var(--k));background:url("./wiki-assets/bar-br.png?v=5") right bottom/auto calc(340px*var(--k)) no-repeat,url("./wiki-assets/bar-tr.png?v=5") right top/auto calc(312px*var(--k)) no-repeat}
+.site-header.bar::before{left:calc(-34px*var(--k));width:calc(270px*var(--k));background:url("./bar-bl.png?v=5") left bottom/auto calc(340px*var(--k)) no-repeat,url("./bar-tl.png?v=5") left top/auto calc(312px*var(--k)) no-repeat}
+.site-header.bar::after{right:calc(-30px*var(--k));width:calc(270px*var(--k));background:url("./bar-br.png?v=5") right bottom/auto calc(340px*var(--k)) no-repeat,url("./bar-tr.png?v=5") right top/auto calc(312px*var(--k)) no-repeat}
 .site-header.bar .board-top::before,.site-header.bar .board-bottom::before{left:0;right:0;background-position:0 0}
 /* ---- Home: Play Now pop-up (same wooden board as the cards) ---- */
 .join-dialog{position:fixed;width:min(520px,calc(100% - 24px));max-width:none;padding:0;border:0;background:transparent;overflow:visible;color:#fff3e4;text-align:center}

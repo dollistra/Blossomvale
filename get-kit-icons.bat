@@ -1,6 +1,6 @@
 @echo off
 rem Get the real Minecraft item pictures for the shop's kit chests.
-rem Double-click this file. It copies pictures out of YOUR OWN Minecraft install into a "kit-icons" folder next to it.
+rem Double-click this file. It copies pictures out of YOUR OWN Minecraft install next to it, named kit-<name>.png.
 rem Nothing is downloaded. Can't find the game? Drag your Minecraft .jar file (like 1.21.x.jar) onto this file.
 rem Mojang's pictures belong to Mojang/Microsoft: check https://www.minecraft.net/en-us/usage-guidelines before using them on a page that sells things.
 set "JARARG=%~1"
@@ -33,18 +33,17 @@ try {
     Write-Host 'and drag it onto this get-kit-icons.bat file.'
     return
   }
-  $out = Join-Path $here 'kit-icons'
-  New-Item -ItemType Directory -Force $out | Out-Null
+  $out = $here
   $z = [IO.Compression.ZipFile]::OpenRead($jar)
   $got = 0; $missing = @()
   foreach ($n in ($items + $blocks)) {
     $dir = if ($blocks -contains $n) { 'block' } else { 'item' }
     $e = $z.GetEntry("assets/minecraft/textures/$dir/$n.png")
-    if ($e) { [IO.Compression.ZipFileExtensions]::ExtractToFile($e, (Join-Path $out "$n.png"), $true); $got++ } else { $missing += $n }
+    if ($e) { [IO.Compression.ZipFileExtensions]::ExtractToFile($e, (Join-Path $out "kit-$n.png"), $true); $got++ } else { $missing += $n }
   }
   foreach ($n in $shulkers) {
     $e = $z.GetEntry("assets/minecraft/textures/entity/shulker/$n.png")
-    if ($e) { [IO.Compression.ZipFileExtensions]::ExtractToFile($e, (Join-Path $out "$n.png"), $true); $got++ } else { $missing += $n }
+    if ($e) { [IO.Compression.ZipFileExtensions]::ExtractToFile($e, (Join-Path $out "kit-$n.png"), $true); $got++ } else { $missing += $n }
   }
   $z.Dispose()
   Write-Host ''
