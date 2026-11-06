@@ -196,3 +196,8 @@ html{background-color:#6d6a73}
 /* ---- Every board lifts slightly on hover (Home already did; now Shop and Wiki too) ---- */
 @media(hover:hover) and (pointer:fine){.board:not([data-static]){transition:transform .24s ease,filter .24s ease}.board:not([data-static]):hover{transform:translateY(-3px);filter:drop-shadow(0 10px 8px rgba(26,20,26,.42))}}
 @media(prefers-reduced-motion:reduce){.board:not([data-static]){transition:none!important}.board:not([data-static]):hover{transform:none}}
+
+/* Legal links and the unofficial-service notice in the footer */
+.site-footer .legal-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:4px 14px}
+.site-disclaimer{margin:0;padding:0 8px 16px;color:#fff2df;font-size:.62rem;line-height:1.5;text-shadow:1px 2px #3f2c2d;opacity:.9}
+@media(max-width:620px){.site-footer{flex-direction:column;align-items:flex-start;gap:6px}.site-footer .legal-links{justify-content:flex-start}.site-disclaimer{font-size:.57rem}}
