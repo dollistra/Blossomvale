@@ -310,3 +310,5 @@ button.kit-slot:focus-visible{outline:3px solid #7a4bd1;outline-offset:1px;z-ind
   .shop-tabs{flex-wrap:wrap;justify-content:center;overflow:visible;gap:10px 8px;padding:8px 6px 14px;scroll-snap-type:none;-webkit-mask-image:none;mask-image:none}
   .shop-tab{flex:0 0 auto}
 }
+.rd-legal{margin:14px 0 4px;text-align:center}
+.rd-legal a{color:#ffd3f2}
