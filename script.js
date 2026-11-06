@@ -37,9 +37,10 @@ window.addEventListener("blossom:server-stats-error", showServerStatsUnavailable
 if (restartCounter) window.setInterval(updateRestartTime, 60000);
 const dialog = document.querySelector(".join-dialog");
 const copyFeedback = document.querySelector("#copy-feedback");
-// Addresses shown in the Play Now pop-up. Leave bedrockIp empty until the Bedrock address is confirmed.
+// Addresses shown in the Play Now pop-up.
 const javaIp = "play.blossomvale.world";
-const bedrockIp = "";
+const bedrockIp = "play.blossomvale.world";
+const bedrockPort = "19132";
 
 const copyTextFallback = (text) => {
   const field = document.createElement("textarea");
@@ -56,6 +57,8 @@ const copyTextFallback = (text) => {
 
 const javaText = document.querySelector("#join-java"), bedrockText = document.querySelector("#join-bedrock");
 const bedrockBtn = document.querySelector("[data-copy='bedrock']");
+const portText = document.querySelector("#join-bedrock-port");
+if (portText) portText.textContent = bedrockPort;
 if (javaText) javaText.textContent = javaIp;
 if (bedrockText && bedrockIp) { bedrockText.textContent = bedrockIp; if (bedrockBtn) bedrockBtn.disabled = false; }
 
@@ -71,7 +74,7 @@ document.querySelectorAll("[data-open]").forEach((button) => {
 
 dialog?.querySelectorAll("[data-copy]").forEach((btn) => {
   btn.addEventListener("click", async () => {
-    const text = btn.dataset.copy === "bedrock" ? bedrockIp : javaIp;
+    const text = btn.dataset.copy === "bedrock" ? bedrockIp : btn.dataset.copy === "bedrock-port" ? bedrockPort : javaIp;
     if (!text) return;
     try {
       if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text);
