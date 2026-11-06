@@ -89,8 +89,8 @@
     lapis: () => ({ pal: { o: "#12296b", h: "#2f5fd0", H: "#8fb0ff", d: "#1c3f9a" }, g: ascii([".", ".....oooooo.....", "...ooHHhhhhoo...", "..oHHhhhhhhhho..", ".ohhhhhHhhhhhdo.", ".ohhhhhhhhHhhdo.", ".ohhHhhhhhhhddo.", "..ohhhhhhhhddo..", "...oodddddddoo..", ".....oooooo....."]) }),
     xp: () => ({ pal: { c: "#b98a45", s: "#cfe8ef", G: "#7be04a", L: "#d4ff9a" }, g: ascii(["", "", "......cccc......", "......cccc......", ".......ss.......", "......sGGs......", ".....sGLGGs.....", "....sGGLGGGs....", "....sGGGGGGs....", "....sGGGGGGs....", ".....sGGGGs.....", "......ssss......"]) }),
     redstone: () => ({ pal: { o: "#5a0f0f", R: "#d62828", r: "#ff6a5a" }, g: ascii(["", "", "", ".....oo..oo.....", "....oRRooRRo....", "...oRrRRRrRRo...", "..oRRRrRRRRRro..", "..oRrRRRRrRRRo..", "...oRRRRRrRRo...", "....ooRRRRoo....", ".....oooooo....."]) }),
-    coin: () => ({ pal: { k: "#7a5a12", y: "#f2c14e", Y: "#fff0a8", s: "#c8962a" }, g: ascii(["", "", ".....kkkkkk.....", "...kkyyyyyykk...", "..kyyYYYyyyyyk..", "..kyYyyyyyyysk..", ".kyyYyyssyyyysk.", ".kyyyyysyyyyysk.", ".kyyyyyyyssysk..", "..kysyyyyyysk...", "..kssyyyyysk....", "...kkssssskk....", ".....kkkkkk....."]) }),
-    key: () => ({ pal: { k: "#3a2a3a", m: "#ffffff" }, g: ascii(["", "", "", "....kkkk........", "...kmmmmk.......", "..kmmkkmmk......", "..kmk..kmk......", "..kmmkkmmkkkkkk.", "...kmmmmmmmmmmk.", "....kkkkkkmkkmk.", "............kmk.", "............kmk.", ".............k.."]) }),
+    coin: () => ({ pal: { k: "#6b4a0e", s: "#e0a92f", Y: "#fff3b0", r: "#b9801c", y: "#f6cb55", e: "#c8941f" }, g: ascii(["................", ".....kkkkkk.....", "...kkYYYYYskk...", "..kkYYYyyysskk..", "..kYYYyeeyyysk..", ".kYYYyeYYeyyssk.", ".kYYyeYYYyeyyrk.", ".kYyeYYYyyyeyrk.", ".kYyeYYyyyreyrk.", ".kYyyeyyyreyyrk.", ".kssyyeyreyyrrk.", "..ksyyyeeyyyrk..", "..kkssyyyyrrkk..", "...kksrrrrrkk...", ".....kkkkkk.....", "................"]) }),
+    key: () => ({ pal: {"k": "#2f2433", "m": "#ffffff", "h": "#ffffff", "d": "#c9c9d6"}, g: ascii(["................", "...kkkk.........", "..khhhmk........", ".khhhmmmk.......", ".khh..mdk.......", ".khm..ddk.......", ".kmmmhmdk.......", "..kmddhmdk......", "...kkkkhmdk.....", ".......khmdk....", "......kkkhmdk...", "......kmdkhmdk..", "......kmdkkhmdk.", "......kkkmdkhmdk", "........kmdkkkkk", "........kkkk...."]) }),
   };
 
   // ---- redstone gear and shulker boxes (drawn stand-ins; the real pictures replace them when the kit-*.png pictures are there)
@@ -143,7 +143,12 @@
     if (svgCache[key]) return svgCache[key];
     const make = ICONS[id]; if (!make) return "";
     const def = make(), pal = Object.assign({}, def.pal);
-    if (tint) pal.m = tint;
+    if (tint) {
+      // the crate colour paints the key; lighter and darker versions of it give the key its shine and shade
+      const t = tint.replace("#", ""), n = [0, 2, 4].map((i) => parseInt(t.slice(i, i + 2), 16));
+      const mix = (w, a) => "#" + n.map((c) => Math.round(c * (1 - a) + w * a).toString(16).padStart(2, "0")).join("");
+      pal.m = tint; pal.h = mix(255, 0.55); pal.d = mix(0, 0.35);
+    }
     let r = "";
     def.g.forEach((row, y) => row.forEach((c, x) => { if (c !== "." && pal[c]) r += `<rect x="${x}" y="${y}" width="1.02" height="1.02" fill="${pal[c]}"/>`; }));
     return (svgCache[key] = `<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" shape-rendering="crispEdges">${r}</svg>`);
