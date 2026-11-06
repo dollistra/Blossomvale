@@ -259,6 +259,7 @@
 .kit-grid{display:grid;grid-template-columns:repeat(9,var(--s));gap:0}
 .kit-slot{position:relative;display:block;width:var(--s);height:var(--s);padding:0;margin:0;background:#8b8b8b;border:2px solid;border-color:#373737 #fff #fff #373737;border-radius:0;cursor:default;font:inherit;}
 button.kit-slot{cursor:help}
+.kit-slot img.kit-keyimg{position:absolute;inset:4%;width:92%;height:92%;object-fit:contain;pointer-events:none;image-rendering:auto}
 .kit-slot svg{position:absolute;inset:8%;width:84%;height:84%;image-rendering:pixelated;pointer-events:none}
 .kit-slot.empty{cursor:default}
 button.kit-slot:hover::before,button.kit-slot:focus-visible::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.5);z-index:2}

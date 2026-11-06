@@ -314,7 +314,7 @@
         const ck = current + ":" + k, cr = () => CRATES[cs[(choice[ck] || 0) % cs.length]];
         const lines = (extra) => { const c = cr(); return [{ text: c.name + " Key", colour: c.colour }, { text: "Opens the " + c.name + ": " + c.about.toLowerCase() + ".", colour: "#b8b8c8" }, { text: extra, colour: "#8a7ab8" }]; };
         const s = slotEl("", "Monthly key", () => lines(cs.length > 1 ? `You choose this key's crate when you type /monthly (${cs.length} choices). Click to look at the others.` : "Use it at the crate stall and pick the exact piece you want."), "kit-key");
-        const paint = () => { s.innerHTML = icon("key", cr().colour); s.setAttribute("aria-label", cr().name + " Key" + (cs.length > 1 ? ", one of " + cs.length + " choices" : "")); };
+        const paint = () => { const cid = cs[(choice[ck] || 0) % cs.length]; s.innerHTML = `<img class="kit-keyimg" src="./kit-key-${cid}.png?v=1" alt="" draggable="false">`; s.setAttribute("aria-label", cr().name + " Key" + (cs.length > 1 ? ", one of " + cs.length + " choices" : "")); };
         paint();
         if (cs.length > 1) s.addEventListener("click", () => { choice[ck] = (choice[ck] || 0) + 1; paint(); show(s, lines(`Choice ${(choice[ck] % cs.length) + 1} of ${cs.length}. Click again for the next.`)); });
         row.appendChild(s);
