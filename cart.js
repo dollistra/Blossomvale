@@ -92,10 +92,10 @@
     const b = await api("/baskets", { method: "POST", body: JSON.stringify({ username: name, complete_url: here + "?checkout=return", cancel_url: here + "?checkout=cancelled", complete_auto_redirect: true }) });
     const ident = b.data && b.data.ident;
     if (!ident) throw new Error("Tebex did not give us a basket. Please try again.");
-    // Tebex's docs and live API disagree on these paths, so try the known forms until one is found (a 404 is the only reason to move on).
+    // Add-package is POST https://headless.tebex.io/api/baskets/{ident}/packages (no token in the path); the basket read keeps a fallback.
     const ROOT = "https://headless.tebex.io/api";
-    const addBody = JSON.stringify({ package_id: cart[0], quantity: 1 });
-    await first([ROOT + "/baskets/" + ident + "/packages", API + "/baskets/" + ident + "/packages", API + "/" + ident + "/packages"], { method: "POST", body: addBody });
+    const addBody = JSON.stringify({ package_id: Number(cart[0]), quantity: 1 });
+    await first([ROOT + "/baskets/" + ident + "/packages"], { method: "POST", body: addBody });
     const full = await first([API + "/baskets/" + ident, ROOT + "/baskets/" + ident], { method: "GET" });
     basket = full.data; basket._name = name;
   }
