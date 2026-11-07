@@ -80,7 +80,7 @@
     const b = await api("/baskets", { method: "POST", body: JSON.stringify({ username: name, complete_url: here + "?checkout=return", cancel_url: here + "?checkout=cancelled", complete_auto_redirect: true }) });
     const ident = b.data && b.data.ident;
     if (!ident) throw new Error("Tebex did not give us a basket. Please try again.");
-    await api("/" + ident + "/packages", { method: "POST", body: JSON.stringify({ package_id: cart[0], quantity: 1 }) });
+    await api("/baskets/" + ident + "/packages", { method: "POST", body: JSON.stringify({ package_id: cart[0], quantity: 1 }) });
     const full = await api("/baskets/" + ident);
     basket = full.data; basket._name = name;
   }
