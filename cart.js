@@ -134,9 +134,10 @@
 
   function btn(label, fn, cls) { const b = el("button", "rank-buy cart-btn " + (cls || ""), label); b.type = "button"; if (fn) b.addEventListener("click", fn); return b; }
 
-  function add(id) {
+  function add(id, buyNow) {
     const had = cart.length && cart[0] !== id;
     cart = [id]; basket = null; save(); setFab(); open();
+    if (buyNow) { const n = body.querySelector("#cart-name"); if (n) n.focus(); }
     if (had) body.prepend(msg("Replaced the item that was in your cart."));
   }
 
@@ -149,7 +150,8 @@
       const soon = d.querySelector(".rd-soon"), link = d.querySelector("[data-checkout]");
       if (link) link.remove();
       const b = btn("Add to cart", () => { d.close(); add(id); }, "cart-add"); b.dataset.pkg = id;
-      if (soon) soon.replaceWith(b); else d.append(b);
+      const buy = btn("Buy now", () => { d.close(); add(id, true); }, "primary cart-buy");
+      if (soon) soon.replaceWith(buy, b); else d.append(buy, b);
     });
     // upgrade table: one Add button per row
     document.querySelectorAll("table.rank-table.small").forEach((t) => {
@@ -157,7 +159,7 @@
       head.append(Object.assign(document.createElement("th"), { scope: "col", textContent: "" }));
       t.querySelectorAll("tbody tr").forEach((tr) => {
         const from = tr.querySelector("th").textContent.trim().toLowerCase(), to = tr.querySelector("td").textContent.trim().toLowerCase();
-        const id = IDS[from + ">" + to], td = document.createElement("td"); if (id) { const b = btn("Add", () => add(id), "small cart-add"); b.dataset.pkg = id; b.setAttribute("aria-label", "Add " + from + " to " + to + " upgrade to cart"); td.append(b); }
+        const id = IDS[from + ">" + to], td = document.createElement("td"); if (id) { const b = btn("Add", () => add(id), "small cart-add"); b.dataset.pkg = id; const bn = btn("Buy", () => add(id, true), "small primary cart-buy"); bn.setAttribute("aria-label", "Buy " + from + " to " + to + " upgrade now"); b.setAttribute("aria-label", "Add " + from + " to " + to + " upgrade to cart"); td.append(b, bn); }
         tr.append(td);
       });
     });
