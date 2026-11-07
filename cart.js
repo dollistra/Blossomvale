@@ -26,6 +26,18 @@
     return j;
   };
 
+  const first = async (urls, opts) => {
+    let last;
+    for (const u of urls) {
+      const r = await fetch(u, Object.assign({ headers: { "Content-Type": "application/json", Accept: "application/json" } }, opts));
+      let j = null; try { j = await r.json(); } catch (e) { /* no body */ }
+      if (r.ok) return j;
+      last = new Error((j && (j.detail || j.message || j.title)) || "Tebex said no (" + r.status + ").");
+      if (r.status !== 404) throw last;
+    }
+    throw last;
+  };
+
   // ---- the cart window
   const dlg = document.createElement("dialog");
   dlg.className = "cart-dialog"; dlg.setAttribute("aria-labelledby", "cart-title");
@@ -80,8 +92,11 @@
     const b = await api("/baskets", { method: "POST", body: JSON.stringify({ username: name, complete_url: here + "?checkout=return", cancel_url: here + "?checkout=cancelled", complete_auto_redirect: true }) });
     const ident = b.data && b.data.ident;
     if (!ident) throw new Error("Tebex did not give us a basket. Please try again.");
-    await api("/baskets/" + ident + "/packages", { method: "POST", body: JSON.stringify({ package_id: cart[0], quantity: 1 }) });
-    const full = await api("/baskets/" + ident);
+    // Tebex's docs and live API disagree on these paths, so try the known forms until one is found (a 404 is the only reason to move on).
+    const ROOT = "https://headless.tebex.io/api";
+    const addBody = JSON.stringify({ package_id: cart[0], quantity: 1 });
+    await first([ROOT + "/baskets/" + ident + "/packages", API + "/baskets/" + ident + "/packages", API + "/" + ident + "/packages"], { method: "POST", body: addBody });
+    const full = await first([API + "/baskets/" + ident, ROOT + "/baskets/" + ident], { method: "GET" });
     basket = full.data; basket._name = name;
   }
 
