@@ -6,12 +6,17 @@
   const IDS = {
     sprout: "7795186", blossom: "7795189", bloom: "7795204", everbloom: "7795206"
   };
+  const PRODUCTS = {
+    petals300: "7796999", petals700: "7797001", petals1500: "7797005", petals3500: "7797006",
+    poppy1: "7797013", poppy3: "7797014", tulip1: "7797015", tulip3: "7797016"
+  };
+  const ALL_PRODUCTS = [...Object.values(IDS), ...Object.values(PRODUCTS)];
   const OLD_UPGRADES = {"7796380": IDS.blossom, "7796381": IDS.bloom, "7796384": IDS.bloom, "7796385": IDS.everbloom, "7796387": IDS.everbloom, "7796388": IDS.everbloom};
   const KEY = "bv_cart_v1";
   const NAME_OK = /^\.?[A-Za-z0-9_ ]{3,16}$/;       // Java names, or Bedrock names with the leading dot
   let catalog = {}, catalogOk = false, cart = [], basket = null, migrated = false;
 
-  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(v)) return []; return [...new Set(v.map(String).map((x) => { if (OLD_UPGRADES[x]) { migrated = true; return OLD_UPGRADES[x]; } return x; }).filter((x) => Object.values(IDS).includes(x)))]; } catch (e) { return []; } };
+  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(v)) return []; return [...new Set(v.map(String).map((x) => { if (OLD_UPGRADES[x]) { migrated = true; return OLD_UPGRADES[x]; } return x; }).filter((x) => ALL_PRODUCTS.includes(x)))]; } catch (e) { return []; } };
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) { /* storage can be blocked */ } };
   cart = load();
 
@@ -55,16 +60,16 @@
     body.textContent = "";
     setFab();
     if (basket) return renderReview();
-    if (!cart.length) { body.append(msg("Your cart is empty. Pick a rank and press Add to cart."), btn("Keep browsing", () => dlg.close(), "ghost")); return; }
+    if (!cart.length) { body.append(msg("Your cart is empty. Pick a rank, Petal bundle or key bundle and press Add to cart."), btn("Keep browsing", () => dlg.close(), "ghost")); return; }
     if (migrated) body.append(msg("Your previous upgrade selection is now the rank you want. Check the final upgrade price after entering your Minecraft name.", true));
     cart.forEach((id) => {
       const p = catalog[id], row = el("div", "cart-row"), info = el("div", "cart-info");
-      info.append(el("strong", "", p ? p.name : "Package " + id), el("span", "cart-sub", "Quantity: 1 (one per player)"));
+      info.append(el("strong", "", p ? p.name : "Package " + id), el("span", "cart-sub", Object.values(IDS).includes(id) ? "One rank for this player" : "Quantity: 1 bundle"));
       const price = el("span", "cart-price", p ? money(priceOf(p), p.currency) : "Price unavailable");
       const rm = btn("Remove", () => { cart = cart.filter((item) => item !== id); basket = null; save(); render(); }, "ghost small");
       row.append(info, price, rm); body.append(row);
     });
-    body.append(msg("Prices shown are before tax and any upgrade discount. Tebex checks your purchase history and calculates your price after you enter your Minecraft name."));
+    body.append(msg("Prices shown are before tax. Tebex checks eligible rank purchases and calculates any upgrade price after you enter your Minecraft name."));
     const rankCount = cart.filter((id) => Object.values(IDS).includes(id)).length;
     if (rankCount > 1) body.append(msg("Please choose one rank for this player. Higher ranks include the benefits of lower ranks. Remove the extra rank to continue.", true));
     if (!catalogOk) body.append(msg("We could not load prices from Tebex just now. Please try again in a moment.", true));
@@ -72,7 +77,7 @@
     const lab = el("label", "", "Minecraft name"); lab.htmlFor = "cart-name";
     const inp = el("input"); inp.id = "cart-name"; inp.name = "mcname"; inp.autocomplete = "off"; inp.maxLength = 17; inp.placeholder = "Java name, or .Name on Bedrock"; inp.required = true;
     try { inp.value = localStorage.getItem("bv_mcname") || ""; } catch (e) { /* ignore */ }
-    const note = el("p", "cart-fine", "Bedrock players: put a dot in front, like .Willow. Check the spelling, the rank goes to this name.");
+    const note = el("p", "cart-fine", "Enter the Minecraft account that should receive your items. Bedrock players: put a dot in front, like .Willow. Check the spelling before checkout.");
     const err = msg("", true); err.hidden = true;
     const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = rankCount > 1 || !catalogOk || cart.some((id) => !catalog[id]);
     form.append(lab, inp, note, err, go);
@@ -119,7 +124,7 @@
     });
     const tot = el("div", "cart-total"); tot.append(el("span", "", "Total"), el("strong", "", money(b.total_price != null ? b.total_price : b.base_price, cur)));
     body.append(tot);
-    body.append(el("p", "cart-fine", "Payment happens in Tebex's secure checkout. Your rank is delivered once Tebex confirms the payment, not by this page."));
+    body.append(el("p", "cart-fine", "Payment happens in Tebex's secure checkout. Your items are delivered after Tebex confirms payment, not by this page. For rank gifts, choose “Purchase as Gift” in Tebex checkout."));
     const pay = btn("Pay securely with Tebex", () => { dlg.close(); launch(b); }, "primary");   // our panel closes so checkout is unobstructed; cart and basket stay if the buyer cancels
     body.append(pay, btn("Back", () => { basket = null; render(); }, "ghost"));
   }
@@ -143,6 +148,16 @@
   function btn(label, fn, cls) { const b = el("button", "rank-buy cart-btn " + (cls || ""), label); b.type = "button"; if (fn) b.addEventListener("click", fn); return b; }
 
   function add(id, buyNow) {
+    if (!ALL_PRODUCTS.includes(String(id)) || !catalog[String(id)]) return;
+    id = String(id);
+    const isRank = Object.values(IDS).includes(id);
+    if (isRank && cart.some((item) => Object.values(IDS).includes(item) && item !== id)) {
+      let notice = document.getElementById("cart-added-notice");
+      if (!notice) { notice = el("div", "cart-return"); notice.id = "cart-added-notice"; notice.setAttribute("role", "status"); document.body.prepend(notice); }
+      notice.textContent = "Your cart can have one rank at a time. Remove the current rank before choosing another.";
+      clearTimeout(add.noticeTimer); add.noticeTimer = setTimeout(() => notice.remove(), 5000);
+      return;
+    }
     const already = cart.includes(id);
     if (!already) cart.push(id);
     basket = null; save(); setFab();
@@ -167,11 +182,20 @@
       const buy = btn("Buy now", () => { d.close(); add(id, true); }, "primary cart-buy");
       if (soon) soon.replaceWith(buy, b); else d.append(buy, b);
     });
+    // Petal bundles and crate keys use the same Tebex basket and checkout as ranks.
+    document.querySelectorAll("[data-cart-package]").forEach((b) => {
+      const id = String(b.dataset.cartPackage || "");
+      if (!ALL_PRODUCTS.includes(id)) return;
+      b.disabled = true;
+      b.textContent = "Checking availability…";
+      b.dataset.pkg = id;
+      b.addEventListener("click", () => add(id));
+    });
     // coming back from Tebex: say nothing about success, we only know the shopper came back
     const q = new URLSearchParams(location.search).get("checkout");
     if (q) {
       setFab();
-      const n = el("div", "cart-return", q === "cancelled" ? "Checkout was cancelled. Your cart is still here." : "Thanks for visiting checkout. If your payment went through, your rank arrives in the game within a few minutes (rejoin if you are online). Tebex confirms the payment, not this page. Not there after 15 minutes? Message us on Discord.");
+      const n = el("div", "cart-return", q === "cancelled" ? "Checkout was cancelled. Your cart is still here." : "Thanks for visiting checkout. If your payment went through, your purchase should arrive in the game within a few minutes (rejoin if you are online). Tebex confirms the payment, not this page. Not there after 15 minutes? Message us on Discord.");
       n.setAttribute("role", "status"); document.body.prepend(n);
       history.replaceState(null, "", location.pathname);
     }
@@ -181,8 +205,14 @@
   api("/packages").then((j) => {
     (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
     catalogOk = true;
+    document.querySelectorAll("[data-cart-package]").forEach((b) => {
+      const ready = Boolean(catalog[String(b.dataset.cartPackage || "")]);
+      b.disabled = !ready;
+      b.setAttribute("aria-disabled", ready ? "false" : "true");
+      b.textContent = ready ? "Add to cart" : "Coming soon";
+    });
     if (dlg.open) render();
-  }).catch(() => { catalogOk = false; if (dlg.open) render(); });
+  }).catch(() => { catalogOk = false; document.querySelectorAll("[data-cart-package]").forEach((b) => { b.disabled = true; b.textContent = "Temporarily unavailable"; }); if (dlg.open) render(); });
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else wire();
 })();

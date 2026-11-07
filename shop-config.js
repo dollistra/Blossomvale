@@ -6,8 +6,8 @@ window.SHOP_CONFIG = {
   javaAddress: "play.blossomvale.world",
   // Ribbon on the Bloom card. Use "" to hide it. Switch to "Most popular" once you have real sales to back it up.
   ribbons: { bloom: "Best value" },
-  // Bonus Petals on bundles every Saturday and Sunday (percent). 0 hides the weekend bonus banner.
-  weekendBonusPercent: 10,
+  // Keep at 0 unless the server is configured to deliver this bonus on every purchase.
+  weekendBonusPercent: 0,
   // Optional banner under the hero for a sale or event. Leave text "" for none.
   // ends is optional: "2026-12-31" hides the banner after that day.
   sale: { text: "", ends: "" },

@@ -38,7 +38,7 @@
   <script src="./shop-config.js?v=2" defer></script>
   <script src="./shop.js?v=9" defer></script>
   <script src="./kit.js?v=6" defer></script>
-  <script src="./cart.js?v=8" defer></script>
+  <script src="./cart.js?v=9" defer></script>
   <script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
@@ -100,8 +100,8 @@
         <div class="shop-copy">
           <h1 id="shop-heading">Welcome to the Shop!</h1>
           <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./flower-small.png?v=4" alt="" draggable="false"><span></span></div>
-          <p>Help Blossom Vale bloom with a one-time rank.<br>Cosmetics, handy extras and a monthly kit to keep you building. The whole village stays free to play.</p>
-          <p class="shop-soon">Ranks and Petals go on sale when the village opens.</p>
+          <p>Help Blossom Vale bloom with a one-time rank, Petals or crate keys.<br>Cosmetics, handy extras and a monthly kit to keep you building. The whole village stays free to play.</p>
+          <p class="shop-soon">Payments are handled securely through Tebex. We never see your card details.</p>
         </div>
         </div>
         <div class="board-bottom" aria-hidden="true"></div>
@@ -436,8 +436,11 @@
               <div><h3 class="peek-sub">Free Petals</h3><ul class="perk-list"><li>Earn them by playing: daily streaks, quests, village levels, weekly goals and events</li><li>Free players can earn everything Petals can buy, given time</li><li>Seasonal pieces come back every year, so nothing is gone forever</li><li>Petals can't be traded for cash</li></ul></div>
             </div>
             <h3 class="peek-sub">Petal bundles</h3>
-            <div class="bundle-grid"><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Small Posy</h4><p class="b-amt">300 Petals</p><p class="b-price">&pound;2.50</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Bouquet</h4><p class="b-amt">700 Petals</p><p class="b-price">&pound;5</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Garden</h4><p class="b-amt">1,500 Petals</p><p class="b-price">&pound;10</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Meadow</h4><p class="b-amt">3,500 Petals</p><p class="b-price">&pound;20</p><button class="rank-buy small" type="button" disabled aria-disabled="true">Coming soon</button></div></div>
-            <p class="fine">Bundle sizes and prices are not final.</p></div>
+            <div class="bundle-grid"><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Small Posy</h4><p class="b-amt">300 Petals</p><p class="b-price">&pound;2.50</p><button class="rank-buy small" type="button" data-cart-package="7796999">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Bouquet</h4><p class="b-amt">700 Petals</p><p class="b-price">&pound;5</p><button class="rank-buy small" type="button" data-cart-package="7797001">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Garden</h4><p class="b-amt">1,500 Petals</p><p class="b-price">&pound;10</p><button class="rank-buy small" type="button" data-cart-package="7797005">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Meadow</h4><p class="b-amt">3,500 Petals</p><p class="b-price">&pound;20</p><button class="rank-buy small" type="button" data-cart-package="7797006">Coming soon</button></div></div>
+            <p class="fine">Petals are delivered to the Minecraft account entered in your cart. Please join Blossom Vale at least once before buying.</p>
+            <h3 class="peek-sub">Crate keys</h3><p class="shop-lead">Choose a Poppy key for pets or a Tulip key for trails, glows and death effects. Vote keys are earned by voting; Lily and Daisy keys are not on sale.</p>
+            <div class="bundle-grid"><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Poppy Key</h4><p class="b-amt">1 key</p><p class="b-price">&pound;1.70</p><button class="rank-buy small" type="button" data-cart-package="7797013">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Poppy Keys</h4><p class="b-amt">3 keys</p><p class="b-price">&pound;3.40</p><button class="rank-buy small" type="button" data-cart-package="7797014">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Tulip Key</h4><p class="b-amt">1 key</p><p class="b-price">&pound;1</p><button class="rank-buy small" type="button" data-cart-package="7797015">Coming soon</button></div><div class="bundle"><img src="./flower-small.png?v=4" alt="" draggable="false"><h4>Tulip Keys</h4><p class="b-amt">3 keys</p><p class="b-price">&pound;2</p><button class="rank-buy small" type="button" data-cart-package="7797016">Coming soon</button></div></div>
+            <p class="fine">Keys are delivered to the Minecraft account entered in your cart. Join the server at least once before buying.</p></div>
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section>
 
@@ -491,17 +494,11 @@
                 <p class="shop-lead left">Choose the higher rank on the Ranks tab and enter the same Minecraft name used for your previous purchase. Tebex checks eligible purchases and calculates the difference. Check the total before paying; taxes may apply.</p>
                 <a class="rank-buy linkbtn" href="#ranks">Choose a rank</a>
               </div>
-              <form class="gift-form" onsubmit="return false" aria-label="Gift a rank (coming soon)">
+              <form class="gift-form" onsubmit="return false" aria-label="Gift a rank">
                 <h3 class="peek-sub">Gift a rank</h3>
-                <p class="shop-lead left">Treat a friend. The rank goes to their Minecraft name.</p>
-                <label for="gift-name">Their Minecraft username</label>
-                <input id="gift-name" type="text" placeholder="e.g. Willow" disabled>
-                <p class="fine left">Bedrock player? Your name starts with a dot, for example .Willow. Type it exactly like that at checkout.</p>
-                <label for="gift-rank">Rank</label>
-                <select id="gift-rank" disabled><option value="sprout">Sprout (&pound;5)</option><option value="blossom">Blossom (&pound;10)</option><option value="bloom">Bloom (&pound;20)</option><option value="everbloom">Everbloom (&pound;35)</option></select>
-                <label for="gift-msg">Message (optional)</label>
-                <input id="gift-msg" type="text" placeholder="Happy birthday!" disabled>
-                <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
+                <p class="shop-lead left">Treat a friend. Add the rank they want to your cart, then, if Tebex offers <b>Purchase as Gift</b> at checkout, select it and enter their Minecraft account. Check the spelling carefully; rank gifts cannot be sent to a different account after delivery.</p>
+                <p class="fine left">Your friend needs to link their Discord account to receive the matching server role. You pay through Tebex; we never see your card details.</p>
+                <a class="rank-buy linkbtn" href="#ranks">Choose their rank</a>
               </form>
             </div></div>
           <div class="board-bottom" aria-hidden="true"></div>
