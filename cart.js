@@ -65,7 +65,8 @@
       row.append(info, price, rm); body.append(row);
     });
     body.append(msg("Prices shown are before tax and any upgrade discount. Tebex checks your purchase history and calculates your price after you enter your Minecraft name."));
-    if (cart.length > 1) body.append(msg("Check your selection: multiple ranks or upgrades for the same player could overlap.", true));
+    const rankCount = cart.filter((id) => Object.values(IDS).includes(id)).length;
+    if (rankCount > 1) body.append(msg("Please choose one rank for this player. Higher ranks include the benefits of lower ranks. Remove the extra rank to continue.", true));
     if (!catalogOk) body.append(msg("We could not load prices from Tebex just now. Please try again in a moment.", true));
     const form = el("form", "cart-form");
     const lab = el("label", "", "Minecraft name"); lab.htmlFor = "cart-name";
@@ -73,10 +74,11 @@
     try { inp.value = localStorage.getItem("bv_mcname") || ""; } catch (e) { /* ignore */ }
     const note = el("p", "cart-fine", "Bedrock players: put a dot in front, like .Willow. Check the spelling, the rank goes to this name.");
     const err = msg("", true); err.hidden = true;
-    const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = !catalogOk || cart.some((id) => !catalog[id]);
+    const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = rankCount > 1 || !catalogOk || cart.some((id) => !catalog[id]);
     form.append(lab, inp, note, err, go);
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      if (cart.filter((id) => Object.values(IDS).includes(id)).length > 1) return;
       const name = inp.value.trim();
       if (!NAME_OK.test(name)) { err.textContent = "Names are 3 to 16 letters, numbers or underscores. Bedrock names start with a dot."; err.hidden = false; return; }
       err.hidden = true; go.disabled = true; go.textContent = "Creating your basket...";
