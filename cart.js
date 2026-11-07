@@ -4,20 +4,19 @@
   const TOKEN = "15853-876456fc55d71463b89e1e0146359a5e112dd8f4";
   const API = "https://headless.tebex.io/api/accounts/" + TOKEN;
   const IDS = {
-    sprout: "7795186", blossom: "7795189", bloom: "7795204", everbloom: "7795206",
-    "sprout>blossom": "7796380", "sprout>bloom": "7796381", "blossom>bloom": "7796384",
-    "blossom>everbloom": "7796385", "bloom>everbloom": "7796387", "sprout>everbloom": "7796388"
+    sprout: "7795186", blossom: "7795189", bloom: "7795204", everbloom: "7795206"
   };
+  const OLD_UPGRADES = {"7796380": IDS.blossom, "7796381": IDS.bloom, "7796384": IDS.bloom, "7796385": IDS.everbloom, "7796387": IDS.everbloom, "7796388": IDS.everbloom};
   const KEY = "bv_cart_v1";
   const NAME_OK = /^\.?[A-Za-z0-9_ ]{3,16}$/;       // Java names, or Bedrock names with the leading dot
-  let catalog = {}, catalogOk = false, cart = [], basket = null;
+  let catalog = {}, catalogOk = false, cart = [], basket = null, migrated = false;
 
-  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); return Array.isArray(v) ? v.filter((x) => Object.values(IDS).includes(String(x))).slice(0, 1) : []; } catch (e) { return []; } };
+  const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(v)) return []; return [...new Set(v.map(String).map((x) => { if (OLD_UPGRADES[x]) { migrated = true; return OLD_UPGRADES[x]; } return x; }).filter((x) => Object.values(IDS).includes(x)))]; } catch (e) { return []; } };
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) { /* storage can be blocked */ } };
   cart = load();
 
   const money = (n, cur) => { try { return new Intl.NumberFormat("en-GB", { style: "currency", currency: cur || "GBP" }).format(Number(n)); } catch (e) { return "£" + Number(n).toFixed(2); } };
-  const priceOf = (p) => p ? Number(p.total_price != null ? p.total_price : p.price) : NaN;
+  const priceOf = (p) => p ? Number(p.base_price != null ? p.base_price : (p.price != null ? p.price : p.total_price)) : NaN;
   const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
   const api = async (path, opts) => {
     const r = await fetch(API + path, Object.assign({ headers: { "Content-Type": "application/json", Accept: "application/json" } }, opts));
@@ -48,6 +47,7 @@
   const open = () => { render(); if (!dlg.open) dlg.showModal(); };
   fab.addEventListener("click", open);
   dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target.closest("[data-cart-close]")) dlg.close(); });
+  dlg.addEventListener("close", () => { basket = null; });
 
   const msg = (t, bad) => { const m = el("p", "cart-msg" + (bad ? " bad" : ""), t); return m; };
 
@@ -55,16 +55,17 @@
     body.textContent = "";
     setFab();
     if (basket) return renderReview();
-    if (!cart.length) { body.append(msg("Your cart is empty. Pick a rank or an upgrade and press Add to cart."), btn("Keep browsing", () => dlg.close(), "ghost")); return; }
-    const p = catalog[cart[0]];
-    const row = el("div", "cart-row");
-    const info = el("div", "cart-info");
-    info.append(el("strong", "", p ? p.name : "Package " + cart[0]), el("span", "cart-sub", "Quantity: 1 (one per player)"));
-    const price = el("span", "cart-price", p ? money(priceOf(p), p.currency) : (catalogOk ? "" : "Price unavailable"));
-    const rm = btn("Remove", () => { cart = []; save(); render(); }, "ghost small");
-    row.append(info, price, rm);
-    body.append(row);
-    body.append(msg("You can buy one rank or upgrade at a time. Adding another replaces this one. Upgrades only work if you already own the rank they start from."));
+    if (!cart.length) { body.append(msg("Your cart is empty. Pick a rank and press Add to cart."), btn("Keep browsing", () => dlg.close(), "ghost")); return; }
+    if (migrated) body.append(msg("Your previous upgrade selection is now the rank you want. Check the final upgrade price after entering your Minecraft name.", true));
+    cart.forEach((id) => {
+      const p = catalog[id], row = el("div", "cart-row"), info = el("div", "cart-info");
+      info.append(el("strong", "", p ? p.name : "Package " + id), el("span", "cart-sub", "Quantity: 1 (one per player)"));
+      const price = el("span", "cart-price", p ? money(priceOf(p), p.currency) : "Price unavailable");
+      const rm = btn("Remove", () => { cart = cart.filter((item) => item !== id); basket = null; save(); render(); }, "ghost small");
+      row.append(info, price, rm); body.append(row);
+    });
+    body.append(msg("Prices shown are before tax and any upgrade discount. Tebex checks your purchase history and calculates your price after you enter your Minecraft name."));
+    if (cart.length > 1) body.append(msg("Check your selection: multiple ranks or upgrades for the same player could overlap.", true));
     if (!catalogOk) body.append(msg("We could not load prices from Tebex just now. Please try again in a moment.", true));
     const form = el("form", "cart-form");
     const lab = el("label", "", "Minecraft name"); lab.htmlFor = "cart-name";
@@ -72,7 +73,7 @@
     try { inp.value = localStorage.getItem("bv_mcname") || ""; } catch (e) { /* ignore */ }
     const note = el("p", "cart-fine", "Bedrock players: put a dot in front, like .Willow. Check the spelling, the rank goes to this name.");
     const err = msg("", true); err.hidden = true;
-    const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = !catalogOk || !p;
+    const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = !catalogOk || cart.some((id) => !catalog[id]);
     form.append(lab, inp, note, err, go);
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -81,7 +82,7 @@
       err.hidden = true; go.disabled = true; go.textContent = "Creating your basket...";
       try { localStorage.setItem("bv_mcname", name); } catch (x) { /* ignore */ }
       try { await createBasket(name); render(); }
-      catch (x) { err.textContent = x.message || "Something went wrong. Please try again."; err.hidden = false; go.disabled = false; go.textContent = "Continue to checkout"; }
+      catch (x) { const detail = x.message || ""; err.textContent = /(?:isn.t|is not) purchasable/i.test(detail) ? "Tebex couldn't add this item. You may already own this rank or a higher rank, or the item may have another purchase restriction. Check your Minecraft name and contact us on Discord if you need help." : (detail || "Something went wrong. Please try again."); err.hidden = false; go.disabled = false; go.textContent = "Continue to checkout"; }
     });
     body.append(form);
   }
@@ -94,9 +95,14 @@
     if (!ident) throw new Error("Tebex did not give us a basket. Please try again.");
     // Add-package is POST https://headless.tebex.io/api/baskets/{ident}/packages (no token in the path); the basket read keeps a fallback.
     const ROOT = "https://headless.tebex.io/api";
-    const addBody = JSON.stringify({ package_id: Number(cart[0]), quantity: 1 });
-    await first([ROOT + "/baskets/" + ident + "/packages"], { method: "POST", body: addBody });
+    for (const id of cart) {
+      const addBody = JSON.stringify({ package_id: Number(id), quantity: 1 });
+      await first([ROOT + "/baskets/" + ident + "/packages"], { method: "POST", body: addBody });
+    }
     const full = await first([API + "/baskets/" + ident, ROOT + "/baskets/" + ident], { method: "GET" });
+    if (!full.data) throw new Error("Tebex could not load your basket. Please try again.");
+    const included = new Set((full.data.packages || []).map((p) => String(p.id)));
+    if (cart.some((id) => !included.has(id))) throw new Error("Tebex could not add every item. Please review your selections or try them separately.");
     basket = full.data; basket._name = name;
   }
 
@@ -135,10 +141,16 @@
   function btn(label, fn, cls) { const b = el("button", "rank-buy cart-btn " + (cls || ""), label); b.type = "button"; if (fn) b.addEventListener("click", fn); return b; }
 
   function add(id, buyNow) {
-    const had = cart.length && cart[0] !== id;
-    cart = [id]; basket = null; save(); setFab(); open();
-    if (buyNow) { const n = body.querySelector("#cart-name"); if (n) n.focus(); }
-    if (had) body.prepend(msg("Replaced the item that was in your cart."));
+    const already = cart.includes(id);
+    if (!already) cart.push(id);
+    basket = null; save(); setFab();
+    if (buyNow) { open(); const n = body.querySelector("#cart-name"); if (n) n.focus(); }
+    else {
+      let notice = document.getElementById("cart-added-notice");
+      if (!notice) { notice = el("div", "cart-return"); notice.id = "cart-added-notice"; notice.setAttribute("role", "status"); document.body.prepend(notice); }
+      notice.textContent = already ? "This item is already in your cart." : "Item added to cart.";
+      clearTimeout(add.noticeTimer); add.noticeTimer = setTimeout(() => notice.remove(), 4000);
+    }
   }
 
   // ---- attach to the page
@@ -153,20 +165,9 @@
       const buy = btn("Buy now", () => { d.close(); add(id, true); }, "primary cart-buy");
       if (soon) soon.replaceWith(buy, b); else d.append(buy, b);
     });
-    // upgrade table: one Add button per row
-    document.querySelectorAll("table.rank-table.small").forEach((t) => {
-      const head = t.querySelector("thead tr"); if (!head || !/From/i.test(head.textContent)) return;
-      head.append(Object.assign(document.createElement("th"), { scope: "col", textContent: "" }));
-      t.querySelectorAll("tbody tr").forEach((tr) => {
-        const from = tr.querySelector("th").textContent.trim().toLowerCase(), to = tr.querySelector("td").textContent.trim().toLowerCase();
-        const id = IDS[from + ">" + to], td = document.createElement("td"); if (id) { const b = btn("Add", () => add(id), "small cart-add"); b.dataset.pkg = id; const bn = btn("Buy", () => add(id, true), "small primary cart-buy"); bn.setAttribute("aria-label", "Buy " + from + " to " + to + " upgrade now"); b.setAttribute("aria-label", "Add " + from + " to " + to + " upgrade to cart"); td.append(b, bn); }
-        tr.append(td);
-      });
-    });
     // coming back from Tebex: say nothing about success, we only know the shopper came back
     const q = new URLSearchParams(location.search).get("checkout");
     if (q) {
-      if (q !== "cancelled") { cart = []; save(); }   // coming back from a cancelled checkout keeps the cart
       setFab();
       const n = el("div", "cart-return", q === "cancelled" ? "Checkout was cancelled. Your cart is still here." : "Thanks for visiting checkout. If your payment went through, your rank arrives in the game within a few minutes (rejoin if you are online). Tebex confirms the payment, not this page. Not there after 15 minutes? Message us on Discord.");
       n.setAttribute("role", "status"); document.body.prepend(n);
@@ -178,11 +179,6 @@
   api("/packages").then((j) => {
     (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
     catalogOk = true;
-    // show live prices on the upgrade table
-    document.querySelectorAll("[data-pkg]").forEach((b) => {
-      const td = b.closest("tr") && b.closest("tr").children[2], p = catalog[b.dataset.pkg];
-      if (td && p && !isNaN(priceOf(p))) td.textContent = money(priceOf(p), p.currency);
-    });
     if (dlg.open) render();
   }).catch(() => { catalogOk = false; if (dlg.open) render(); });
 
