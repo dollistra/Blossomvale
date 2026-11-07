@@ -112,14 +112,16 @@
     const tot = el("div", "cart-total"); tot.append(el("span", "", "Total"), el("strong", "", money(b.total_price != null ? b.total_price : b.base_price, cur)));
     body.append(tot);
     body.append(el("p", "cart-fine", "Payment happens in Tebex's secure checkout. Your rank is delivered once Tebex confirms the payment, not by this page."));
-    const pay = btn("Pay securely with Tebex", () => launch(b), "primary");
+    const pay = btn("Pay securely with Tebex", () => { dlg.close(); launch(b); }, "primary");   // our panel closes so checkout is unobstructed; cart and basket stay if the buyer cancels
     body.append(pay, btn("Back", () => { basket = null; render(); }, "ghost"));
   }
 
   function launch(b) {
     const start = () => {
       try {
-        window.Tebex.checkout.init({ ident: b.ident, locale: "en_GB", theme: "light", colors: [{ name: "primary", color: "#d36ab8" }, { name: "secondary", color: "#7d4a33" }] });
+        window.Tebex.checkout.init({ ident: b.ident, locale: "en_GB", theme: "light", colors: [{ name: "primary", color: "#c25aa6" }, { name: "secondary", color: "#7d4a33" }] });
+        // Clear the cart only when Tebex.js itself reports a completed payment (if this build of Tebex.js offers the event)
+        try { if (window.Tebex.checkout.on) window.Tebex.checkout.on("payment:complete", () => { cart = []; basket = null; save(); setFab(); }); } catch (e) { /* optional */ }
         window.Tebex.checkout.launch();
       } catch (e) { fallback(b); }
     };
@@ -162,8 +164,9 @@
     // coming back from Tebex: say nothing about success, we only know the shopper came back
     const q = new URLSearchParams(location.search).get("checkout");
     if (q) {
-      cart = []; save(); setFab();
-      const n = el("div", "cart-return", q === "cancelled" ? "Checkout was cancelled. Nothing was charged by us." : "Thanks for visiting checkout. If your payment went through, your rank arrives in the game within a few minutes (rejoin if you are online). Tebex confirms the payment, not this page. Not there after 15 minutes? Message us on Discord.");
+      if (q !== "cancelled") { cart = []; save(); }   // coming back from a cancelled checkout keeps the cart
+      setFab();
+      const n = el("div", "cart-return", q === "cancelled" ? "Checkout was cancelled. Your cart is still here." : "Thanks for visiting checkout. If your payment went through, your rank arrives in the game within a few minutes (rejoin if you are online). Tebex confirms the payment, not this page. Not there after 15 minutes? Message us on Discord.");
       n.setAttribute("role", "status"); document.body.prepend(n);
       history.replaceState(null, "", location.pathname);
     }
