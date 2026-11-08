@@ -1,5 +1,3 @@
-// Set this to the deployed Worker endpoint (for example, your workers.dev URL).
-// This file is public; never put the Discord webhook URL or token here.
 export const staffApplicationConfig = {
-  submitUrl: "https://blossomvale-staff-applications.YOUR-SUBDOMAIN.workers.dev/submit"
+  webhookUrl: "https://discord.com/api/webhooks/1569060666323509288/9egyY0na7_0TFELEqGy4uV4SU0fQxLBs28We6an1chOgtn0tAMisggBrHMTbbiddmfnW"
 };
