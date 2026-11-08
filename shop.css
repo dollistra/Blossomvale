@@ -23,7 +23,8 @@
 .perk-list li{position:relative;padding-left:20px}
 .perk-list li::before{content:"";position:absolute;left:2px;top:.5em;width:8px;height:8px;background:var(--rc,#f28bdc);box-shadow:0 0 0 2px #4a2417;transform:rotate(45deg)}
 .perk-list b{color:#ffe08a;font-weight:400}
-.rank-buy{margin-top:auto;align-self:center;min-height:46px;min-width:200px;padding:10px 26px;font:inherit;font-size:.95rem;color:#fff5de;cursor:not-allowed;border:3px solid #4a2417;border-radius:3px;background:linear-gradient(#a4684a,#7d4a33);box-shadow:inset 0 0 0 2px #d49349,0 3px 0 #3a1c12;text-shadow:2px 2px 0 #3a1c12;opacity:.9}
+.rank-buy{margin-top:auto;align-self:center;min-height:46px;min-width:200px;padding:10px 26px;font:inherit;font-size:.95rem;color:#fff5de;cursor:pointer;border:3px solid #4a2417;border-radius:3px;background:linear-gradient(#a4684a,#7d4a33);box-shadow:inset 0 0 0 2px #d49349,0 3px 0 #3a1c12;text-shadow:2px 2px 0 #3a1c12;opacity:.9}
+.rank-buy:disabled{cursor:not-allowed}
 .rank-sprout{--rc:#8de08a}.rank-blossom{--rc:#c9a0ff}.rank-bloom{--rc:#f28bdc}.rank-everbloom{--rc:#ffd25e}
 .shop-board{--k:.5}
 .shop-board .shop-title{padding-top:calc(30px*var(--k))}
