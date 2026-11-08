@@ -21,6 +21,7 @@
       "package.json",
       "package-lock.json",
       "functions/**",
+      "staff-applications-worker/**",
       "**/node_modules/**",
       "**/.*"
     ],

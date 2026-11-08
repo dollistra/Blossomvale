@@ -1,12 +1,9 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-functions.js";
-import { firebaseConfig } from "./firebase-config.js";
+import { staffApplicationConfig } from "./staff-application-config.js";
 
 const form = document.getElementById("staff-application-form");
 const status = document.getElementById("staff-form-status");
 if (form && status) {
-  const app = initializeApp(firebaseConfig);
-  const submitApplication = httpsCallable(getFunctions(app, "us-central1"), "submitStaffApplication");
+  const submitUrl = staffApplicationConfig.submitUrl;
   const roleSelect = document.getElementById("app-role");
   const roleSections = [...form.querySelectorAll("[data-role-questions]")];
   const submitButton = form.querySelector(".staff-submit");
@@ -38,12 +35,7 @@ if (form && status) {
     for (const quality of [0.9, 0.84, 0.78, 0.7, 0.62]) {
       const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/webp", quality));
       if (blob && blob.size <= 480 * 1024) {
-        return await new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = () => reject(new Error("Could not read the screenshot."));
-          reader.readAsDataURL(blob);
-        });
+        return blob;
       }
     }
     throw new Error("The screenshot is too detailed to store safely. Please crop it to the channel name and audience overview, then try again.");
@@ -74,7 +66,9 @@ if (form && status) {
       availability: value(data, "availability"),
       experience: value(data, "experience"),
       reason: value(data, "reason"),
-      consented: data.get("consent") === "on"
+      consented: data.get("consent") === "on",
+      website: value(data, "website"),
+      startedAt: Number(form.dataset.startedAt || Date.now())
     };
 
     if (role === "helper") {
@@ -96,11 +90,10 @@ if (form && status) {
       }
       application.platforms = value(data, "platforms");
       application.contentLink = value(data, "contentLink");
-      application.proofFileName = proof.name.slice(0, 160);
       submitButton.disabled = true;
       status.textContent = "Preparing your screenshot…";
       try {
-        application.proofDataUrl = await compressProof(proof);
+        application.proof = await compressProof(proof);
       } catch (error) {
         status.textContent = error.message || "Could not prepare that screenshot. Please try another image.";
         submitButton.disabled = false;
@@ -109,28 +102,42 @@ if (form && status) {
     }
 
     submitButton.disabled = true;
-    status.textContent = "Submitting your application securely…";
+    status.textContent = "Sending your application securely…";
     try {
-      await submitApplication(application);
+      if (!submitUrl || submitUrl.includes("YOUR-SUBDOMAIN")) {
+        throw new Error("The application service is not configured yet. Please email hello@blossomvale.world.");
+      }
+      const payload = { ...application };
+      const proof = payload.proof;
+      delete payload.proof;
+      const requestBody = new FormData();
+      requestBody.append("application", JSON.stringify(payload));
+      if (proof) requestBody.append("channelProof", proof, "creator-proof.webp");
+      const response = await fetch(submitUrl, { method: "POST", body: requestBody });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        const failure = new Error(result.error || "Application submission failed.");
+        failure.code = result.code || "unknown";
+        throw failure;
+      }
       form.reset();
       updateRoleQuestions();
       status.textContent = "Your application has been submitted. Thank you! The Blossom Vale team will review it and contact you on Discord.";
     } catch (error) {
       console.error("Application submission failed", error);
       const code = error?.code || "";
-      if (code.endsWith("resource-exhausted")) {
+      if (code === "rate_limited") {
         status.textContent = "There have been too many applications from this connection. Please wait before trying again.";
-      } else if (code.endsWith("already-exists")) {
-        status.textContent = "You already have an application for this role being reviewed.";
-      } else if (code.endsWith("invalid-argument")) {
+      } else if (code === "invalid_application") {
         status.textContent = error.message || "Please check your application and try again.";
-      } else if (code.endsWith("failed-precondition")) {
-        status.textContent = error.message || "You can’t apply for this role yet.";
       } else {
-        status.textContent = "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
+        status.textContent = error?.message?.includes("not configured yet")
+          ? error.message
+          : "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
       }
     } finally {
       submitButton.disabled = false;
     }
   });
+  form.dataset.startedAt = String(Date.now());
 }

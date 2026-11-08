@@ -1,54 +1,58 @@
-# Blossom Vale Firebase setup
+# Blossom Vale website setup
 
-The home page reads one live document from Cloud Firestore:
+## Live server status
+
+The home page reads one public document from Cloud Firestore:
 
 - Collection: `siteConfig`
 - Document: `serverStats`
-- `status` — string: `online`, `offline`, or `maintenance`
-- `restartedAt` — timestamp
+- `status`: `online`, `offline`, or `maintenance`
+- `restartedAt`: timestamp
 
-Edit those values in Firebase Console under **Firestore Database → Data**. The page listens for changes to this document. Firestore rules allow public reads of this one document and deny client writes. The player count is queried from MCStatus using the Java server address in `mcstatus-config.js`.
+The player count is queried from MCStatus using the Java address in `mcstatus-config.js`.
 
-## Staff applications and reviewer access
+## Staff application delivery
 
-The Apps page links to the role-specific Helper and Content Creator application form. Submissions are stored in the `staffApplications` Firestore collection. Creator proof screenshots are resized and compressed into the application record; the screenshot and answers are visible only to the authorized reviewer. The form asks applicants for consent before submitting.
+New Helper and Content Creator applications are sent to the private Discord channel attached to a Cloudflare Worker webhook. Answers are included in a `.txt` attachment; Content Creator submissions also include the compressed YouTube Studio proof image. The Worker keeps the Discord webhook secret server-side, validates fields, checks the upload type and size, applies an approximate per-IP rate limit (5 submissions per minute), and blocks cross-origin requests from other sites. The Worker does not store application records in Firebase. Review new applications in the Discord channel. The `/apps-admin` panel remains for older applications previously stored in Firestore.
 
-Before enabling the panel:
+### Important: rotate the webhook first
 
-1. In Firebase Console, open **Authentication → Sign-in method** and enable **Email/Password**. Google sign-in is not used.
-2. Create an email/password user for `blossomvale0@gmail.com` in **Authentication → Users** and set its password there. Send/complete email verification; the panel only grants access to this verified account.
-3. Under **Authentication → Settings → Authorized domains**, add `blossomvale.world` and any preview domain you will use. For local preview, add `localhost` if it is not already listed.
-4. Make sure Cloud Firestore is enabled. Public form submissions now go through the `submitStaffApplication` Cloud Function; Firestore rules deny direct public creates. The function validates all fields, limits each IP address to five submissions per hour, blocks a second pending application for the same Discord ID and role, and applies a seven-day reapplication cooldown. Only the verified `blossomvale0@gmail.com` account can read, review, update or delete application records.
-5. Cloud Functions require the Firebase project to use the Blaze plan and have a linked billing account. Review Firebase's [Cloud Functions billing requirements](https://firebase.google.com/docs/functions) and set budget alerts before deploying.
-6. From this folder, install the Firebase CLI if needed (`npm install -g firebase-tools`), sign in (`firebase login`), then deploy the function first:
+The webhook URL was pasted into a chat, so treat that URL as exposed. Delete it in Discord and create a replacement webhook in the intended private staff review channel before deployment. Do not put the replacement URL in this repository, a website JavaScript file, or a message.
 
-   ```powershell
-   firebase deploy --only functions:submitStaffApplication
-   ```
+### Deploy the Worker
 
-   Then publish the rules, indexes (including rate-limit-record cleanup), and updated form:
+Install Node.js, then from `staff-applications-worker` run:
 
-   ```powershell
-   firebase deploy --only firestore:rules,firestore:indexes,hosting
-   ```
+```powershell
+npx wrangler login
+npx wrangler secret put DISCORD_WEBHOOK_URL
+npx wrangler deploy
+```
 
-   Open `https://blossomvale.world/apps` for the public role page and `https://blossomvale.world/apps-admin` to review applications. The function and form must both be deployed before the new form can submit.
+When prompted for `DISCORD_WEBHOOK_URL`, paste the newly rotated webhook URL into the terminal prompt. It is stored as a Cloudflare Worker secret and is not included in deploy output or source control. Cloudflare Workers Free has a daily request limit; the rate limit binding in `wrangler.toml` is approximate per Cloudflare location, so it is an anti-spam speed bump rather than a strict global quota. Because this first-pass limiter keys on IP, people sharing one network could hit it together.
 
-The admin form accepts username `Blossomvale` and the password for the Firebase Auth user above. The username maps to the allowlisted email; Firebase Authentication checks the password. Do not put the password in website code, a client-side environment variable, a URL, or source control. Variables embedded in a browser app are delivered to visitors and are not secrets. If the password was placed in a URL, change it in Firebase Console before using the panel.
+Wrangler prints the deployed `workers.dev` URL. Copy that URL and edit `submitUrl` in `staff-application-config.js` to append `/submit`, for example:
 
-Application status and private reviewer notes are stored on each document. Delete applications after they are no longer needed; deletion is available on the review panel.
+```js
+submitUrl: "https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/submit"
+```
+
+That config file is public and contains only the endpoint, never the webhook secret. Then publish the website using the Hosting instructions below. Until the Worker is deployed and its URL is configured and published, the form will show an unavailable message instead of silently losing applications.
+
+### Review access and privacy
+
+The webhook posts to the channel where it was created. Keep that channel private and grant access only to staff who review applications. The embed suppresses user and role mentions; complete answers and the creator screenshot are attached for staff review. Delete application messages when they are no longer needed. Applicants can request a copy or deletion by emailing `hello@blossomvale.world`.
 
 ## Local preview
 
-Run `npm start` in this folder and open `http://localhost:3000`. Then visit `http://localhost:3000/apps-admin`. Do not open the HTML file directly with `file://`; browser module scripts and Firebase authentication will not work correctly from a file URL. Firebase web app settings are in `firebase-config.js` and are public client configuration, not credentials.
+Run `npm start` in the website folder and open `http://localhost:3000`. For local form submission, temporarily set `ALLOW_LOCAL_ORIGIN = "true"` in the Worker environment and include `http://localhost:3000` as the configured endpoint in the local config. Turn local-origin access back off before deploying the production Worker. Do not use a webhook URL from browser code.
 
 ## Deploy to Firebase Hosting
 
-The Firebase project alias is set to `blossomvale-9721c`. From this folder, deploy the site and Firestore rules with:
+The Firebase project alias is set to `blossomvale-9721c`. From the website folder, after updating `staff-application-config.js`, publish the site with:
 
 ```powershell
-firebase deploy --only functions:submitStaffApplication
-firebase deploy --only firestore:rules,firestore:indexes,hosting
+firebase deploy --only hosting
 ```
 
-The Firebase web app config in `firebase-config.js` is public client configuration. Do not put service account keys in the website.
+Firestore still supplies the live server status and supports the legacy reviewer panel. The public application form no longer calls or requires the Firebase Cloud Function, so do not deploy `submitStaffApplication` for new applications. Firebase web app settings in `firebase-config.js` are public configuration, not credentials.

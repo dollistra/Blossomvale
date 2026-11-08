@@ -26,7 +26,7 @@
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=6"></script>
+  <script type="module" src="./staff-application.js?v=7"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -154,7 +154,7 @@
               <div class="staff-field">
                 <label for="app-channel-proof">Screenshot from YouTube Studio showing the channel is yours <span>(required)</span></label>
                 <input id="app-channel-proof" name="channelProof" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="channel-proof-help" data-required="true">
-                <p class="staff-field-hint" id="channel-proof-help">Choose a PNG, JPG, or WebP screenshot (up to 10 MB) showing your channel name or handle and audience size. Hide private details. We’ll store the screenshot with your application for reviewers.</p>
+                <p class="staff-field-hint" id="channel-proof-help">Choose a PNG, JPG, or WebP screenshot (up to 10 MB) showing your channel name or handle and audience size. Hide private details. It will be sent with your application to the Blossom Vale review team in Discord.</p>
               </div>
             </section>
             <div class="staff-field">
@@ -164,9 +164,9 @@
 
             <label class="staff-consent" for="app-consent">
               <input id="app-consent" name="consent" type="checkbox" required>
-              <span>I agree to send my application details to Blossom Vale for review. My answers and, if provided, creator proof screenshot will be stored securely and shown only to authorized application reviewers. I can ask for a copy or deletion by emailing hello@blossomvale.world.</span>
+              <span>I agree to send my application details and, for Content Creator applications, my proof screenshot to Blossom Vale’s private staff review channel in Discord. I can ask for a copy or deletion by emailing hello@blossomvale.world.</span>
             </label>
-            <p class="staff-privacy-note">Application answers and creator proof screenshots are stored in Blossom Vale’s Firebase project and can only be accessed by authorized reviewers. See our <a href="./privacy">privacy policy</a>.</p>
+            <p class="staff-privacy-note">Your application is delivered to the private Blossom Vale staff review channel in Discord. Access depends on that channel’s permissions. See our <a href="./privacy">privacy policy</a>.</p>
             <div class="staff-submit-row">
               <button class="staff-submit" type="submit">Submit application <span aria-hidden="true">✿</span></button>
               <p id="staff-form-status" role="status" aria-live="polite"></p>
