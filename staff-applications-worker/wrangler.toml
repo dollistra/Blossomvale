@@ -1,0 +1,14 @@
+name = "blossomvale-staff-applications"
+main = "src/index.js"
+compatibility_date = "2026-11-08"
+
+[vars]
+SITE_ORIGIN = "https://blossomvale.world"
+
+[[ratelimits]]
+name = "APPLICATION_RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60

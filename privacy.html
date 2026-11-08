@@ -133,7 +133,8 @@
 <p>You do not need an account to use this website, and it does not set cookies, show ads or use analytics or tracking tools. The shop saves your cart and, if you choose, your Minecraft name in your browser storage so you do not have to re-enter them. When you start checkout, the shop sends your selected items and Minecraft name to Tebex to create the order. To work, the pages ask a few other services for information, and those services can see your IP address when they do:</p>
 <ul>
 <li><strong>Our website host</strong> serves the pages and keeps ordinary access records.</li>
-<li><strong>Google Firebase</strong> supplies the live server status shown on the home page and securely stores staff applications for authorized reviewers.</li>
+<li><strong>Google Firebase</strong> supplies the live server status shown on the home page.</li>
+<li><strong>Cloudflare</strong> processes staff application submissions through a server-side form endpoint and applies basic rate limits. It receives the application fields and any creator proof screenshot to deliver them to our private Discord review channel.</li>
 <li><strong>mcstatus.io</strong> tells the home page whether the server is online and how many players are on.</li>
 <li><strong>mc-heads.net</strong> draws your skin picture, but only if you type your Minecraft name into a preview on the Shop page. Your name is sent to them to fetch the picture, and nothing else is stored by us.</li>
 </ul>
@@ -143,6 +144,7 @@
 <ul>
 <li><strong>Tebex</strong>, who take your payment and handle our store. They use your payment details under their own privacy policy. We may also share details of a payment with them, or with a bank or payment provider, if there is a dispute, a refund or suspected fraud.</li>
 <li><strong>Our staff</strong>, who see only what they need to do their job.</li>
+<li><strong>Discord</strong>, where application answers and creator proof screenshots are delivered to our private staff review channel. Access is controlled by that channel’s permissions.</li>
 <li><strong>The services we use to run the server and website</strong>, including hosting and the places we keep backups.</li>
 <li><strong>The authorities</strong>, if the law requires it or to protect someone from serious harm.</li>
 </ul>
