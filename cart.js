@@ -1,6 +1,7 @@
 // Blossom Vale cart: reads packages and builds baskets with the Tebex Headless API, then opens Tebex.js checkout.
 // Only Tebex's PUBLIC token is used here (safe in the browser). No private key or server secret belongs in this file.
 (() => {
+  const STORE_COMING_SOON = !((window.SHOP_CONFIG || {}).storeComingSoon === false);
   const TOKEN = "15853-876456fc55d71463b89e1e0146359a5e112dd8f4";
   const API = "https://headless.tebex.io/api/accounts/" + TOKEN;
   const IDS = {
@@ -11,6 +12,7 @@
     poppy1: "7797013", poppy3: "7797014", tulip1: "7797015", tulip3: "7797016"
   };
   const PETAL_PRODUCTS = [PRODUCTS.petals300, PRODUCTS.petals700, PRODUCTS.petals1500, PRODUCTS.petals3500];
+  const KEY_PRODUCTS = [PRODUCTS.poppy1, PRODUCTS.poppy3, PRODUCTS.tulip1, PRODUCTS.tulip3];
   const ALL_PRODUCTS = [...Object.values(IDS), ...Object.values(PRODUCTS)];
   const OLD_UPGRADES = {"7796380": IDS.blossom, "7796381": IDS.bloom, "7796384": IDS.bloom, "7796385": IDS.everbloom, "7796387": IDS.everbloom, "7796388": IDS.everbloom};
   const KEY = "bv_cart_v1";
@@ -195,9 +197,17 @@
 
   // ---- attach to the page
   function wire() {
+    if (STORE_COMING_SOON) {
+      document.querySelectorAll("[data-cart-package]").forEach((b) => { b.disabled = true; b.textContent = "Coming soon"; b.setAttribute("aria-disabled", "true"); });
+      document.querySelectorAll(".rd-soon").forEach((b) => { b.disabled = true; b.textContent = "Coming soon"; });
+      document.querySelectorAll("[data-checkout]").forEach((a) => { a.hidden = true; });
+      const codeButton = document.getElementById("open-cart-code");
+      if (codeButton) { codeButton.disabled = true; codeButton.textContent = "Coming soon"; }
+      return;
+    }
     document.body.append(dlg, fab); setFab();
     const codeButton = document.getElementById("open-cart-code");
-    if (codeButton) codeButton.addEventListener("click", open);
+    if (codeButton) { codeButton.disabled = false; codeButton.removeAttribute("aria-disabled"); codeButton.textContent = "Open cart"; codeButton.addEventListener("click", open); }
     // Put a one-click checkout action directly on each rank card.
     document.querySelectorAll(".rank-card [data-rank-open]").forEach((details) => {
       const id = IDS[String(details.dataset.rankOpen || "")];
@@ -223,7 +233,7 @@
       const id = String(b.dataset.cartPackage || "");
       if (!ALL_PRODUCTS.includes(id)) return;
       b.addEventListener("click", () => add(id));
-      if (PETAL_PRODUCTS.includes(id)) {
+      if (PETAL_PRODUCTS.includes(id) || KEY_PRODUCTS.includes(id)) {
         const buy = btn("Checking availability…", () => add(id, true), "primary cart-buy small");
         buy.dataset.purchasePackage = id;
         buy.disabled = true;
@@ -241,13 +251,15 @@
     }
   }
 
-  // prices straight from Tebex
-  api("/packages").then((j) => {
-    (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
-    catalogOk = true;
-    syncPackageButtons();
-    if (dlg.open) render();
-  }).catch(() => { catalogOk = false; catalogError = true; syncPackageButtons(); if (dlg.open) render(); });
+  // Do not load package data or create baskets while purchases are closed.
+  if (!STORE_COMING_SOON) {
+    api("/packages").then((j) => {
+      (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
+      catalogOk = true;
+      syncPackageButtons();
+      if (dlg.open) render();
+    }).catch(() => { catalogOk = false; catalogError = true; syncPackageButtons(); if (dlg.open) render(); });
+  }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else wire();
 })();
