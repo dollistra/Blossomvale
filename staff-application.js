@@ -3,7 +3,7 @@ import { staffApplicationConfig } from "./staff-application-config.js";
 const form = document.getElementById("staff-application-form");
 const status = document.getElementById("staff-form-status");
 if (form && status) {
-  const submitUrl = staffApplicationConfig.submitUrl;
+  const webhookUrl = staffApplicationConfig.webhookUrl;
   const roleSelect = document.getElementById("app-role");
   const roleSections = [...form.querySelectorAll("[data-role-questions]")];
   const submitButton = form.querySelector(".staff-submit");
@@ -21,6 +21,61 @@ if (form && status) {
   };
 
   const value = (data, name) => String(data.get(name) || "").trim();
+
+  const applicationLabels = {
+    name: "Name",
+    discordId: "Discord User ID",
+    minecraft: "Minecraft username",
+    availability: "Time zone and availability",
+    experience: "Relevant experience",
+    reason: "Why they want to join the team",
+    helper: "Damaged build report",
+    helperIssue: "Helping a new player",
+    helperBoundaries: "Argument and private information",
+    helperLimits: "Request outside permissions",
+    helperMistake: "Correcting a mistake",
+    platforms: "Platforms and audience size",
+    contentLink: "Channel link"
+  };
+
+  function applicationText(application) {
+    const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
+    const roleFields = application.role === "helper"
+      ? ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake"]
+      : ["platforms", "contentLink"];
+    return [...common, ...roleFields]
+      .filter((key) => application[key])
+      .map((key) => `${applicationLabels[key]}\n${application[key]}`)
+      .join("\n\n");
+  }
+
+  function discordEmbedValue(text) {
+    return String(text).replace(/[\\*_`~|>]/g, "\\$&").slice(0, 256);
+  }
+
+  function makeDiscordPayload(application) {
+    const creator = application.role === "creator";
+    const embed = {
+      title: creator ? "Content Creator application" : "Helper application",
+      color: creator ? 0xB8D7F0 : 0xEFB6D9,
+      fields: [
+        { name: "Applicant", value: discordEmbedValue(application.name), inline: true },
+        { name: "Discord User ID", value: application.discordId, inline: true },
+        { name: "Minecraft username", value: discordEmbedValue(application.minecraft), inline: true }
+      ],
+      footer: { text: "Blossom Vale • Staff applications" },
+      timestamp: new Date().toISOString()
+    };
+    if (creator) {
+      embed.fields.push({ name: "Channel", value: discordEmbedValue(application.contentLink).slice(0, 1024) });
+      embed.image = { url: "attachment://creator-proof.webp" };
+    }
+    return {
+      username: "Blossom Vale Applications",
+      embeds: [embed],
+      allowed_mentions: { parse: [] }
+    };
+  }
 
   async function compressProof(file) {
     const bitmap = await createImageBitmap(file);
@@ -102,39 +157,28 @@ if (form && status) {
     }
 
     submitButton.disabled = true;
-    status.textContent = "Sending your application securely…";
+    status.textContent = "Sending your application to Discord…";
     try {
-      if (!submitUrl || submitUrl.includes("YOUR-SUBDOMAIN")) {
-        throw new Error("The application service is not configured yet. Please email hello@blossomvale.world.");
-      }
+      if (!webhookUrl) throw new Error("The application webhook is not configured.");
       const payload = { ...application };
       const proof = payload.proof;
       delete payload.proof;
       const requestBody = new FormData();
-      requestBody.append("application", JSON.stringify(payload));
-      if (proof) requestBody.append("channelProof", proof, "creator-proof.webp");
-      const response = await fetch(submitUrl, { method: "POST", body: requestBody });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        const failure = new Error(result.error || "Application submission failed.");
-        failure.code = result.code || "unknown";
-        throw failure;
-      }
+      requestBody.append("payload_json", JSON.stringify(makeDiscordPayload(payload)));
+      requestBody.append(
+        "files[0]",
+        new Blob([applicationText(payload)], { type: "text/plain;charset=utf-8" }),
+        `blossom-vale-${payload.role}-application.txt`
+      );
+      if (proof) requestBody.append("files[1]", proof, "creator-proof.webp");
+      const response = await fetch(webhookUrl, { method: "POST", body: requestBody, mode: "no-cors" });
+      if (response.type !== "opaque" && !response.ok) throw new Error("Application submission failed.");
       form.reset();
       updateRoleQuestions();
       status.textContent = "Your application has been submitted. Thank you! The Blossom Vale team will review it and contact you on Discord.";
     } catch (error) {
       console.error("Application submission failed", error);
-      const code = error?.code || "";
-      if (code === "rate_limited") {
-        status.textContent = "There have been too many applications from this connection. Please wait before trying again.";
-      } else if (code === "invalid_application") {
-        status.textContent = error.message || "Please check your application and try again.";
-      } else {
-        status.textContent = error?.message?.includes("not configured yet")
-          ? error.message
-          : "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
-      }
+      status.textContent = "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
     } finally {
       submitButton.disabled = false;
     }
