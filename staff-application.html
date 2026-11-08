@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e58fc4">
+  <link rel="icon" href="./favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./favicon-192.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <title>Staff Applications | Blossom Vale</title>
+  <meta name="description" content="Apply to join the Blossom Vale team and help make our Minecraft community a welcoming place.">
+  <link rel="canonical" href="https://blossomvale.world/staff-application">
+  <meta property="og:site_name" content="Blossom Vale">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Staff Applications · Blossom Vale">
+  <meta property="og:description" content="Interested in helping Blossom Vale? Tell us a little about yourself and apply to join the team.">
+  <meta property="og:url" content="https://blossomvale.world/staff-application">
+  <meta property="og:image" content="https://blossomvale.world/og-home.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="./Backgroud-Image.jpg" as="image">
+  <link rel="preload" href="./Font.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <link rel="stylesheet" href="./wiki.css?v=5">
+  <link rel="stylesheet" href="./staff-application.css?v=3">
+  <script src="./blossoms.js?v=4" defer></script>
+  <script src="./script.js?v=8" defer></script>
+  <script src="./board.js?v=4" defer></script>
+  <script type="module" src="./staff-application.js?v=6"></script>
+</head>
+<body>
+  <div class="ambient-petals" aria-hidden="true">
+    <span class="petal-one"></span><span class="petal-two"></span><span class="petal-three"></span>
+    <span class="petal-four"></span><span class="petal-five"></span><span class="petal-six"></span>
+    <span class="petal-seven"></span><span class="petal-eight"></span><span class="petal-nine"></span>
+    <span class="petal-ten"></span><span class="petal-eleven"></span><span class="petal-twelve"></span>
+    <span class="petal-thirteen"></span><span class="petal-fourteen"></span><span class="petal-fifteen"></span>
+    <span class="petal-sixteen"></span><span class="petal-seventeen"></span><span class="petal-eighteen"></span>
+    <span class="petal-nineteen"></span><span class="petal-twenty"></span><span class="petal-twenty-one"></span>
+    <span class="petal-twenty-two"></span><span class="petal-twenty-three"></span><span class="petal-twenty-four"></span>
+    <span class="petal-twenty-five"></span><span class="petal-twenty-six"></span><span class="petal-twenty-seven"></span>
+    <span class="petal-twenty-eight"></span><span class="petal-twenty-nine"></span><span class="petal-thirty"></span>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell">
+    <header class="site-header bar board" data-static>
+      <div class="board-top" aria-hidden="true"></div>
+      <div class="board-body">
+        <a class="bar-brand" href="./#home"><img src="./flower-small.png?v=4" alt="" draggable="false"><span>Blossom Vale</span></a>
+        <nav class="bar-nav" aria-label="Main navigation">
+          <a href="./#home"><img src="./icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+          <a href="./wiki"><img src="./icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+          <a href="./shop"><img src="./icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+          <a href="./apps"><span>Apps</span></a>
+        </nav>
+      </div>
+      <div class="board-bottom" aria-hidden="true"></div>
+    </header>
+    <nav class="mobile-nav" aria-label="Main navigation (small screens)">
+      <a href="./#home"><img src="./icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
+      <a href="./wiki"><img src="./icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
+      <a href="./shop"><img src="./icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
+      <a href="./apps"><span>Apps</span></a>
+    </nav>
+
+    <main id="main" class="wiki-main staff-main">
+      <section class="board wiki-hero staff-hero" aria-labelledby="staff-heading">
+        <div class="board-top" aria-hidden="true"></div>
+        <div class="board-body">
+          <h1 id="staff-heading">Join the Blossom Vale Team</h1>
+          <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./flower-small.png?v=4" alt="" draggable="false"><span></span></div>
+          <p class="hero-intro">Would you like to help make Blossom Vale a friendly place to play? Tell us a little about yourself and the kind of help you’d like to offer. We’ll get back to you on Discord if there’s a suitable opening.</p>
+        </div>
+        <div class="board-bottom" aria-hidden="true"></div>
+      </section>
+
+      <section class="board staff-form-board" aria-labelledby="application-heading">
+        <div class="board-top" aria-hidden="true"></div>
+        <div class="board-body">
+          <h2 class="panel-title" id="application-heading">Staff Application</h2>
+          <p class="staff-form-intro">Please answer in your own words. A few questions will change depending on the role you choose. You don’t need previous staff experience to apply.</p>
+
+          <form id="staff-application-form" class="staff-form">
+            <div class="staff-field-grid">
+              <div class="staff-field">
+                <label for="app-name">What should we call you? <span>(required)</span></label>
+                <input id="app-name" name="name" autocomplete="name" maxlength="80" required>
+              </div>
+              <div class="staff-field">
+                <label for="app-discord">Discord User ID <span>(required)</span></label>
+                <input id="app-discord" name="discordId" autocomplete="off" inputmode="numeric" pattern="[0-9]{17,20}" maxlength="20" placeholder="Your 17–20 digit ID" aria-describedby="discord-id-help" required>
+                <p class="staff-field-hint" id="discord-id-help">Enable Developer Mode in Discord, then right-click your profile and choose <strong>Copy User ID</strong>. Please send the ID, not your username.</p>
+              </div>
+              <div class="staff-field">
+                <label for="app-role">Which team role interests you? <span>(required)</span></label>
+                <select id="app-role" name="role" required>
+                  <option value="" selected disabled>Choose a role</option>
+                  <option value="helper">Helper</option>
+                  <option value="creator">Content Creator</option>
+                </select>
+              </div>
+              <div class="staff-field">
+                <label for="app-minecraft">Minecraft username <span>(required)</span></label>
+                <input id="app-minecraft" name="minecraft" autocomplete="off" maxlength="40" placeholder="Java or Bedrock gamertag" required>
+              </div>
+              <div class="staff-field">
+                <label for="app-time">Time zone and usual availability <span>(required)</span></label>
+                <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time, evenings and weekends" required>
+              </div>
+              <div class="staff-field">
+                <label for="app-experience">Relevant experience <span>(optional)</span></label>
+                <input id="app-experience" name="experience" maxlength="240" placeholder="Community help, moderation, content, or none yet">
+              </div>
+            </div>
+
+            <section class="role-questions" data-role-questions="helper" aria-labelledby="helper-question-title" hidden>
+              <h3 id="helper-question-title">Helper questions</h3>
+              <p class="staff-field-hint helper-question-note">Please explain your reasoning and the steps you’d take, not just the final action. You don’t need to know any specific server commands, plugins, or tools.</p>
+              <div class="staff-field">
+                <label for="app-helper">A player reports that their build was damaged overnight. They have no proof yet, and the player they suspect is your friend. What would you ask or check, what would you tell them, and how would you keep the report fair?</label>
+                <textarea id="app-helper" name="helper" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-issue">A new player asks how to use a feature you haven’t used before, while chat is busy. What would you say right away, how would you find a reliable answer, and how would you make sure they aren’t left waiting?</label>
+                <textarea id="app-helper-issue" name="helperIssue" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-boundaries">Two players are arguing in public chat. One posts screenshots that include private messages and personal details. What would you do in the chat, how would you handle the screenshots, and when would you involve senior staff?</label>
+                <textarea id="app-helper-boundaries" name="helperBoundaries" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-limits">A player is upset and asks you to restore lost items or reverse a staff decision, but you don’t have permission to do that. What would you tell them, what would you avoid promising, and how would you follow up?</label>
+                <textarea id="app-helper-limits" name="helperLimits" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-mistake">You realize you gave a player incorrect information or missed their request earlier. How would you put it right with the player and let the team know?</label>
+                <textarea id="app-helper-mistake" name="helperMistake" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+            </section>
+            <section class="role-questions" data-role-questions="creator" aria-labelledby="creator-question-title" hidden>
+              <h3 id="creator-question-title">Content creator questions</h3>
+              <div class="staff-field">
+                <label for="app-platforms">What content do you make, which platforms do you post on, and roughly how many followers or subscribers do you have on each?</label>
+                <textarea id="app-platforms" name="platforms" rows="4" maxlength="1200" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-content-link">Link to your channel <span>(required)</span></label>
+                <input id="app-content-link" name="contentLink" type="url" maxlength="500" placeholder="https://" data-required="true">
+              </div>
+              <div class="staff-field">
+                <label for="app-channel-proof">Screenshot from YouTube Studio showing the channel is yours <span>(required)</span></label>
+                <input id="app-channel-proof" name="channelProof" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="channel-proof-help" data-required="true">
+                <p class="staff-field-hint" id="channel-proof-help">Choose a PNG, JPG, or WebP screenshot (up to 10 MB) showing your channel name or handle and audience size. Hide private details. We’ll store the screenshot with your application for reviewers.</p>
+              </div>
+            </section>
+            <div class="staff-field">
+              <label for="app-reason">Why would you like to join the team? <span>(required)</span></label>
+              <textarea id="app-reason" name="reason" rows="3" maxlength="900" required></textarea>
+            </div>
+
+            <label class="staff-consent" for="app-consent">
+              <input id="app-consent" name="consent" type="checkbox" required>
+              <span>I agree to send my application details to Blossom Vale for review. My answers and, if provided, creator proof screenshot will be stored securely and shown only to authorized application reviewers. I can ask for a copy or deletion by emailing hello@blossomvale.world.</span>
+            </label>
+            <p class="staff-privacy-note">Application answers and creator proof screenshots are stored in Blossom Vale’s Firebase project and can only be accessed by authorized reviewers. See our <a href="./privacy">privacy policy</a>.</p>
+            <div class="staff-submit-row">
+              <button class="staff-submit" type="submit">Submit application <span aria-hidden="true">✿</span></button>
+              <p id="staff-form-status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
+        <div class="board-bottom" aria-hidden="true"></div>
+      </section>
+
+      <p class="staff-back-link"><a href="./#home">← Back to Blossom Vale</a></p>
+    </main>
+
+    <footer class="site-footer"><span>Made with <b aria-label="love">♥</b> in Blossom Vale</span><span class="legal-links"><a href="./terms">Terms</a><a href="./privacy">Privacy</a><a href="./refunds">Refunds</a><a href="./staff-application" aria-current="page">Staff Applications</a><a href="./">Back Home</a></span></footer>
+    <p class="site-disclaimer">Blossom Vale is not an official Minecraft service. It is not approved by or associated with Mojang or Microsoft.</p>
+  </div>
+</body>
+</html>

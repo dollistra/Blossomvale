@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    if (new URLSearchParams(location.search).has("password") || new URLSearchParams(location.search).has("username")) history.replaceState(null, "", location.pathname);
+    if (location.protocol === "file:") addEventListener("DOMContentLoaded", () => {
+      const status = document.getElementById("reviewer-auth-status");
+      if (status) status.textContent = "Sign-in needs the website server. Run npm start and open http://localhost:3000/apps-admin.";
+    });
+  </script>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#e58fc4">
+  <link rel="icon" href="./favicon.ico" sizes="any"><link rel="stylesheet" href="./styles.css?v=11"><link rel="stylesheet" href="./wiki.css?v=5"><link rel="stylesheet" href="./apps.css?v=2">
+  <script type="module" src="./apps-admin.js?v=3"></script>
+  <title>Review Applications | Blossom Vale</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://blossomvale.world/apps-admin">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell">
+    <header class="site-header bar board" data-static><div class="board-top" aria-hidden="true"></div><div class="board-body"><a class="bar-brand" href="./#home"><img src="./flower-small.png?v=4" alt="" draggable="false"><span>Blossom Vale</span></a><nav class="bar-nav" aria-label="Main navigation"><a href="./apps"><span>Apps</span></a></nav></div><div class="board-bottom" aria-hidden="true"></div></header>
+    <main class="apps-admin-main" id="main">
+      <section class="board apps-admin-hero"><div class="board-top" aria-hidden="true"></div><div class="board-body"><p class="apps-eyebrow">✿ Team only ✿</p><h1>Application Review</h1><p>Sign in with the authorized Blossom Vale account to view applications.</p></div><div class="board-bottom" aria-hidden="true"></div></section>
+      <section class="board apps-admin-login" aria-label="Reviewer sign in"><div class="board-top" aria-hidden="true"></div><div class="board-body">
+        <form id="reviewer-password-form" class="reviewer-password-form">
+          <label for="reviewer-username">Username</label><input id="reviewer-username" name="username" value="Blossomvale" autocomplete="username" required>
+          <label for="reviewer-password">Password</label><input id="reviewer-password" name="password" type="password" autocomplete="current-password" required>
+          <button class="apps-button" type="submit">Sign in</button>
+        </form>
+        <button id="reviewer-resend-verification" class="apps-button apps-button-secondary" type="button" hidden>Resend verification email</button>
+        <button id="reviewer-sign-out" class="apps-button apps-button-secondary" type="button" hidden>Sign out</button>
+        <p id="reviewer-auth-status" class="apps-status" role="status" aria-live="polite">Only the verified blossomvale0@gmail.com account can access application records.</p>
+      </div><div class="board-bottom" aria-hidden="true"></div></section>
+      <section id="application-review" class="application-review" hidden aria-label="Applications">
+        <div class="review-toolbar"><div><h2>Applications</h2><p id="reviewer-account"></p></div><div class="review-filters"><label>Role <select id="filter-role"><option value="all">All roles</option><option value="helper">Helper</option><option value="creator">Content Creator</option></select></label><label>Status <select id="filter-status"><option value="all">All statuses</option><option>New</option><option>Reviewing</option><option>Accepted</option><option>Declined</option></select></label><button id="reload-applications" class="apps-button apps-button-small" type="button">Refresh</button></div></div>
+        <p id="applications-status" class="apps-status" role="status" aria-live="polite"></p><div id="application-list" class="application-list"></div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>Made with <b aria-label="love">♥</b> in Blossom Vale</span><span class="legal-links"><a href="./apps">Public Apps page</a><a href="./privacy">Privacy</a><a href="./">Back Home</a></span></footer>
+  </div>
+</body>
+</html>
