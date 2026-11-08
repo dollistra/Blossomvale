@@ -20,6 +20,7 @@ const appStatus = document.getElementById("applications-status");
 const roleFilter = document.getElementById("filter-role");
 const statusFilter = document.getElementById("filter-status");
 let applications = [];
+let loadedReviewerUid = null;
 
 const el = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -186,8 +187,9 @@ passwordForm.addEventListener("submit", async (event) => {
   const submitButton = passwordForm.querySelector('button[type="submit"]');
   submitButton.disabled = true;
   try {
-    await signInWithEmailAndPassword(auth, REVIEWER_EMAIL, password);
+    const credential = await signInWithEmailAndPassword(auth, REVIEWER_EMAIL, password);
     passwordInput.value = "";
+    await applyAuthState(credential.user);
   } catch (error) {
     console.error("Password sign-in failed", error);
     authStatus.textContent = error.code === "auth/operation-not-allowed"
@@ -218,9 +220,13 @@ document.getElementById("reload-applications").addEventListener("click", loadApp
 roleFilter.addEventListener("change", renderApplications);
 statusFilter.addEventListener("change", renderApplications);
 
-onAuthStateChanged(auth, async (user) => {
+async function applyAuthState(user) {
+  // Ignore a delayed initial auth callback if a sign-in has already completed.
+  if (!user && auth.currentUser) user = auth.currentUser;
   const authorized = user?.emailVerified && user.email?.toLowerCase() === REVIEWER_EMAIL;
   if (!user) {
+    loadedReviewerUid = null;
+    passwordForm.hidden = false;
     reviewSection.hidden = true;
     resendVerificationButton.hidden = true;
     signOutButton.hidden = true;
@@ -228,22 +234,30 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
   if (user.email?.toLowerCase() !== REVIEWER_EMAIL) {
+    passwordForm.hidden = true;
     reviewSection.hidden = true;
     authStatus.textContent = `This account isn’t authorized. Signing out ${user.email || "the current account"}.`;
     await signOut(auth);
     return;
   }
   if (!authorized) {
+    passwordForm.hidden = true;
     reviewSection.hidden = true;
     resendVerificationButton.hidden = false;
     signOutButton.hidden = false;
     authStatus.textContent = `Please verify ${REVIEWER_EMAIL} using the link sent to your inbox, then sign in again.`;
     return;
   }
+  passwordForm.hidden = true;
   resendVerificationButton.hidden = true;
   signOutButton.hidden = false;
   authStatus.textContent = "Authorized reviewer signed in.";
   reviewerAccount.textContent = user.email;
   reviewSection.hidden = false;
-  await loadApplications();
-});
+  if (loadedReviewerUid !== user.uid) {
+    loadedReviewerUid = user.uid;
+    await loadApplications();
+  }
+}
+
+onAuthStateChanged(auth, applyAuthState);
