@@ -11,6 +11,7 @@
     poppy1: "7797013", poppy3: "7797014", tulip1: "7797015", tulip3: "7797016"
   };
   const PETAL_PRODUCTS = [PRODUCTS.petals300, PRODUCTS.petals700, PRODUCTS.petals1500, PRODUCTS.petals3500];
+  const KEY_PRODUCTS = [PRODUCTS.poppy1, PRODUCTS.poppy3, PRODUCTS.tulip1, PRODUCTS.tulip3];
   const ALL_PRODUCTS = [...Object.values(IDS), ...Object.values(PRODUCTS)];
   const OLD_UPGRADES = {"7796380": IDS.blossom, "7796381": IDS.bloom, "7796384": IDS.bloom, "7796385": IDS.everbloom, "7796387": IDS.everbloom, "7796388": IDS.everbloom};
   const KEY = "bv_cart_v1";
@@ -223,7 +224,7 @@
       const id = String(b.dataset.cartPackage || "");
       if (!ALL_PRODUCTS.includes(id)) return;
       b.addEventListener("click", () => add(id));
-      if (PETAL_PRODUCTS.includes(id)) {
+      if (PETAL_PRODUCTS.includes(id) || KEY_PRODUCTS.includes(id)) {
         const buy = btn("Checking availability…", () => add(id, true), "primary cart-buy small");
         buy.dataset.purchasePackage = id;
         buy.disabled = true;
