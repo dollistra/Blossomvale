@@ -51,7 +51,7 @@
           <a href="./#home"><img src="./icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
           <a href="./wiki"><img src="./icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
           <a href="./shop"><img src="./icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
-          <a href="./apps"><span>Apps</span></a>
+          <a href="./apps"><img src="./icon-book.png?v=4" alt="" draggable="false"><span>Apps</span></a>
         </nav>
       </div>
       <div class="board-bottom" aria-hidden="true"></div>
@@ -60,7 +60,7 @@
       <a href="./#home"><img src="./icon-home.png?v=4" alt="" draggable="false"><span>Home</span></a>
       <a href="./wiki"><img src="./icon-wiki.png?v=4" alt="" draggable="false"><span>Wiki</span></a>
       <a href="./shop"><img src="./icon-shop.png?v=4" alt="" draggable="false"><span>Shop</span></a>
-      <a href="./apps"><span>Apps</span></a>
+      <a href="./apps"><img src="./icon-book.png?v=4" alt="" draggable="false"><span>Apps</span></a>
     </nav>
 
     <main id="main" class="wiki-main staff-main">
@@ -81,6 +81,10 @@
           <p class="staff-form-intro">Please answer in your own words. A few questions will change depending on the role you choose. You don’t need previous staff experience to apply.</p>
 
           <form id="staff-application-form" class="staff-form">
+            <div class="staff-field" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+              <label for="app-website">Leave this field empty</label>
+              <input id="app-website" name="website" tabindex="-1" autocomplete="off">
+            </div>
             <div class="staff-field-grid">
               <div class="staff-field">
                 <label for="app-name">What should we call you? <span>(required)</span></label>

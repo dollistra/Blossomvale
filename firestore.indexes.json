@@ -1,0 +1,35 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "staffApplications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "discordId", "order": "ASCENDING" },
+        { "fieldPath": "role", "order": "ASCENDING" },
+        { "fieldPath": "status", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "staffApplications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "discordId", "order": "ASCENDING" },
+        { "fieldPath": "role", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": [
+    {
+      "collectionGroup": "applicationRateLimits",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "applicationRateLimits",
+      "fieldPath": "recent",
+      "indexes": []
+    }
+  ]
+}

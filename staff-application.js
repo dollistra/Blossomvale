@@ -1,12 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
-import { addDoc, collection, getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-functions.js";
 import { firebaseConfig } from "./firebase-config.js";
 
 const form = document.getElementById("staff-application-form");
 const status = document.getElementById("staff-form-status");
 if (form && status) {
   const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  const submitApplication = httpsCallable(getFunctions(app, "us-central1"), "submitStaffApplication");
   const roleSelect = document.getElementById("app-role");
   const roleSections = [...form.querySelectorAll("[data-role-questions]")];
   const submitButton = form.querySelector(".staff-submit");
@@ -59,6 +59,12 @@ if (form && status) {
     if (!form.reportValidity()) return;
 
     const data = new FormData(form);
+    if (value(data, "website")) {
+      form.reset();
+      updateRoleQuestions();
+      status.textContent = "Your application has been submitted. Thank you! The Blossom Vale team will review it and contact you on Discord.";
+      return;
+    }
     const role = value(data, "role");
     const application = {
       name: value(data, "name"),
@@ -68,9 +74,7 @@ if (form && status) {
       availability: value(data, "availability"),
       experience: value(data, "experience"),
       reason: value(data, "reason"),
-      consented: data.get("consent") === "on",
-      createdAt: serverTimestamp(),
-      status: "New"
+      consented: data.get("consent") === "on"
     };
 
     if (role === "helper") {
@@ -107,13 +111,24 @@ if (form && status) {
     submitButton.disabled = true;
     status.textContent = "Submitting your application securely…";
     try {
-      await addDoc(collection(db, "staffApplications"), application);
+      await submitApplication(application);
       form.reset();
       updateRoleQuestions();
       status.textContent = "Your application has been submitted. Thank you! The Blossom Vale team will review it and contact you on Discord.";
     } catch (error) {
       console.error("Application submission failed", error);
-      status.textContent = "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
+      const code = error?.code || "";
+      if (code.endsWith("resource-exhausted")) {
+        status.textContent = "There have been too many applications from this connection. Please wait before trying again.";
+      } else if (code.endsWith("already-exists")) {
+        status.textContent = "You already have an application for this role being reviewed.";
+      } else if (code.endsWith("invalid-argument")) {
+        status.textContent = error.message || "Please check your application and try again.";
+      } else if (code.endsWith("failed-precondition")) {
+        status.textContent = error.message || "You can’t apply for this role yet.";
+      } else {
+        status.textContent = "We couldn’t submit your application just now. Please try again later or email hello@blossomvale.world.";
+      }
     } finally {
       submitButton.disabled = false;
     }
