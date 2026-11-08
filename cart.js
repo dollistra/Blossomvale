@@ -86,13 +86,15 @@
     if (rankCount > 1) body.append(msg("Please choose one rank for this player. Higher ranks include the benefits of lower ranks. Remove the extra rank to continue.", true));
     if (!catalogOk) body.append(msg("We could not load prices from Tebex just now. Please try again in a moment.", true));
     const form = el("form", "cart-form");
+    const couponLab = el("label", "", "Discount code (optional)"); couponLab.htmlFor = "cart-coupon";
+    const coupon = el("input"); coupon.id = "cart-coupon"; coupon.name = "coupon"; coupon.autocomplete = "off"; coupon.maxLength = 64; coupon.placeholder = "Enter a Tebex code";
     const lab = el("label", "", "Minecraft name"); lab.htmlFor = "cart-name";
     const inp = el("input"); inp.id = "cart-name"; inp.name = "mcname"; inp.autocomplete = "off"; inp.maxLength = 17; inp.placeholder = "Java name, or .Name on Bedrock"; inp.required = true;
     try { inp.value = localStorage.getItem("bv_mcname") || ""; } catch (e) { /* ignore */ }
     const note = el("p", "cart-fine", "Enter the Minecraft account that should receive your items. Bedrock players: put a dot in front, like .Willow. Check the spelling before checkout.");
     const err = msg("", true); err.hidden = true;
     const go = btn("Continue to checkout", null, "primary"); go.type = "submit"; go.disabled = rankCount > 1 || !catalogOk || cart.some((id) => !catalog[id]);
-    form.append(lab, inp, note, err, go);
+    form.append(couponLab, coupon, lab, inp, note, err, go);
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (cart.filter((id) => Object.values(IDS).includes(id)).length > 1) return;
@@ -100,14 +102,14 @@
       if (!NAME_OK.test(name)) { err.textContent = "Names are 3 to 16 letters, numbers or underscores. Bedrock names start with a dot."; err.hidden = false; return; }
       err.hidden = true; go.disabled = true; go.textContent = "Creating your basket...";
       try { localStorage.setItem("bv_mcname", name); } catch (x) { /* ignore */ }
-      try { await createBasket(name); render(); }
+      try { await createBasket(name, coupon.value.trim()); render(); }
       catch (x) { const detail = x.message || ""; err.textContent = /(?:isn.t|is not) purchasable/i.test(detail) ? "Tebex couldn't add this item. You may already own this rank or a higher rank, or the item may have another purchase restriction. Check your Minecraft name and contact us on Discord if you need help." : (detail || "Something went wrong. Please try again."); err.hidden = false; go.disabled = false; go.textContent = "Continue to checkout"; }
     });
     body.append(form);
   }
 
   // The basket Tebex returns is what we show and pay for. Prices on this page are only a preview.
-  async function createBasket(name) {
+  async function createBasket(name, couponCode) {
     const here = location.origin + location.pathname;
     const b = await api("/baskets", { method: "POST", body: JSON.stringify({ username: name, complete_url: here + "?checkout=return", cancel_url: here + "?checkout=cancelled", complete_auto_redirect: true }) });
     const ident = b.data && b.data.ident;
@@ -117,6 +119,11 @@
     for (const id of cart) {
       const addBody = JSON.stringify({ package_id: Number(id), quantity: 1 });
       await first([ROOT + "/baskets/" + ident + "/packages"], { method: "POST", body: addBody });
+    }
+    if (couponCode) {
+      await api("/baskets/" + encodeURIComponent(ident) + "/coupons", {
+        method: "POST", body: JSON.stringify({ coupon_code: couponCode })
+      });
     }
     const full = await first([API + "/baskets/" + ident, ROOT + "/baskets/" + ident], { method: "GET" });
     if (!full.data) throw new Error("Tebex could not load your basket. Please try again.");
@@ -128,6 +135,9 @@
   function renderReview() {
     const b = basket, cur = b.currency || "GBP";
     body.append(el("p", "cart-fine", "Review what Tebex has for " + b._name + ":"));
+    if (Array.isArray(b.coupons) && b.coupons.length) {
+      body.append(msg("Tebex applied discount code: " + b.coupons.map((c) => c.coupon_code).filter(Boolean).join(", ")));
+    }
     (b.packages || []).forEach((p) => {
       const row = el("div", "cart-row"), info = el("div", "cart-info");
       info.append(el("strong", "", p.name), el("span", "cart-sub", "Quantity: " + ((p.in_basket && p.in_basket.quantity) || 1)));
@@ -186,6 +196,8 @@
   // ---- attach to the page
   function wire() {
     document.body.append(dlg, fab); setFab();
+    const codeButton = document.getElementById("open-cart-code");
+    if (codeButton) codeButton.addEventListener("click", open);
     // Put a one-click checkout action directly on each rank card.
     document.querySelectorAll(".rank-card [data-rank-open]").forEach((details) => {
       const id = IDS[String(details.dataset.rankOpen || "")];

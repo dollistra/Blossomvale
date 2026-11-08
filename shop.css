@@ -3,6 +3,7 @@
 .shop-main .hero-board{width:min(1050px,100%)}
 .shop-copy .shop-soon{margin-top:12px;color:#f2c5e8;font-size:clamp(.78rem,1.1vw,.95rem)}
 .shop-section{width:min(1100px,100%)}
+.shop-section[hidden]{display:none}
 .shop-title{display:flex;align-items:center;justify-content:center;gap:12px;margin:0;color:#f28bdc;text-align:center;line-height:1.1;font-size:clamp(1.5rem,3vw,2.3rem);text-shadow:3px 4px 0 #66345a,0 0 12px rgba(242,139,220,.27)}
 .shop-title img{width:auto;height:1.15em;image-rendering:auto}
 .shop-lead{margin:12px auto 22px;max-width:62ch;text-align:center;color:#fff8e8;font-size:clamp(.82rem,1.2vw,1rem);line-height:1.7;text-shadow:2px 2px 0 #613a38}
