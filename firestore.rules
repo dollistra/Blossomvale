@@ -7,6 +7,70 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    function isApplicationReviewer() {
+      return request.auth != null
+        && request.auth.token.email == 'blossomvale0@gmail.com'
+        && request.auth.token.email_verified == true;
+    }
+
+    function validApplicationBase(data) {
+      return data.name is string && data.name.size() > 0 && data.name.size() <= 80
+        && data.discordId is string && data.discordId.matches('^[0-9]{17,20}$')
+        && data.minecraft is string && data.minecraft.size() > 0 && data.minecraft.size() <= 40
+        && data.availability is string && data.availability.size() > 0 && data.availability.size() <= 160
+        && data.experience is string && data.experience.size() <= 240
+        && data.reason is string && data.reason.size() > 0 && data.reason.size() <= 900
+        && data.consented == true
+        && data.status == 'New'
+        && data.createdAt == request.time;
+    }
+
+    match /staffApplications/{applicationId} {
+      allow create: if (request.resource.data.role == 'helper'
+        && request.resource.data.keys().hasAll([
+          'name', 'discordId', 'role', 'minecraft', 'availability', 'experience',
+          'reason', 'consented', 'createdAt', 'status', 'helper', 'helperIssue',
+          'helperBoundaries', 'helperLimits', 'helperMistake'
+        ])
+        && request.resource.data.keys().hasOnly([
+          'name', 'discordId', 'role', 'minecraft', 'availability', 'experience',
+          'reason', 'consented', 'createdAt', 'status', 'helper', 'helperIssue',
+          'helperBoundaries', 'helperLimits', 'helperMistake'
+        ])
+        && validApplicationBase(request.resource.data)
+        && request.resource.data.helper is string && request.resource.data.helper.size() > 0 && request.resource.data.helper.size() <= 1400
+        && request.resource.data.helperIssue is string && request.resource.data.helperIssue.size() > 0 && request.resource.data.helperIssue.size() <= 1400
+        && request.resource.data.helperBoundaries is string && request.resource.data.helperBoundaries.size() > 0 && request.resource.data.helperBoundaries.size() <= 1400
+        && request.resource.data.helperLimits is string && request.resource.data.helperLimits.size() > 0 && request.resource.data.helperLimits.size() <= 1400
+        && request.resource.data.helperMistake is string && request.resource.data.helperMistake.size() > 0 && request.resource.data.helperMistake.size() <= 1400)
+        || (request.resource.data.role == 'creator'
+          && request.resource.data.keys().hasAll([
+            'name', 'discordId', 'role', 'minecraft', 'availability', 'experience',
+            'reason', 'consented', 'createdAt', 'status', 'platforms', 'contentLink',
+            'proofDataUrl', 'proofFileName'
+          ])
+          && request.resource.data.keys().hasOnly([
+            'name', 'discordId', 'role', 'minecraft', 'availability', 'experience',
+            'reason', 'consented', 'createdAt', 'status', 'platforms', 'contentLink',
+            'proofDataUrl', 'proofFileName'
+          ])
+          && validApplicationBase(request.resource.data)
+          && request.resource.data.platforms is string && request.resource.data.platforms.size() > 0 && request.resource.data.platforms.size() <= 1200
+          && request.resource.data.contentLink is string && request.resource.data.contentLink.size() > 0 && request.resource.data.contentLink.size() <= 500
+          && request.resource.data.contentLink.matches('^https?://.+')
+          && request.resource.data.proofDataUrl is string && request.resource.data.proofDataUrl.matches('^data:image/(webp|jpeg|png);base64,[A-Za-z0-9+/=]+$') && request.resource.data.proofDataUrl.size() <= 700000
+          && request.resource.data.proofFileName is string && request.resource.data.proofFileName.size() > 0 && request.resource.data.proofFileName.size() <= 160);
+
+      allow read: if isApplicationReviewer();
+      allow update: if isApplicationReviewer()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'reviewerNotes', 'updatedAt'])
+        && request.resource.data.status in ['New', 'Reviewing', 'Accepted', 'Declined']
+        && request.resource.data.reviewerNotes is string
+        && request.resource.data.reviewerNotes.size() <= 2000
+        && request.resource.data.updatedAt == request.time;
+      allow delete: if isApplicationReviewer();
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
