@@ -452,7 +452,7 @@
           <div class="board-bottom" aria-hidden="true"></div>
         </div></section></div>
 
-      <div class="shop-panel" id="deals" role="tabpanel" aria-labelledby="tab-deals" tabindex="-1"><section class="shop-section" aria-labelledby="bundles-heading"><div class="shop-board board" style="--k:.5">
+      <div class="shop-panel" id="deals" role="tabpanel" aria-labelledby="tab-deals" tabindex="-1"><section class="shop-section" aria-labelledby="bundles-heading" hidden><div class="shop-board board" style="--k:.5">
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><h2 id="bundles-heading" class="shop-title"><img src="./flower-small.png?v=4" alt="" draggable="false">Bundles</h2>
             <p class="shop-lead">A rank and Petals together, for a little less.</p>
@@ -466,13 +466,11 @@
           <div class="board-top" aria-hidden="true"></div>
           <div class="board-body"><h2 id="codes-heading" class="shop-title"><img src="./icon-settings.png?v=4" alt="" draggable="false">Codes</h2>
             <div class="ug-cols">
-              <form class="gift-form" onsubmit="return false" aria-label="Discount code (coming soon)">
+              <div class="gift-form" aria-label="Discount code">
                 <h3 class="peek-sub">Discount code</h3>
-                <p class="shop-lead left">Got a code from an event or from our Discord? Enter it at checkout.</p>
-                <label for="disc-code">Your code</label>
-                <input id="disc-code" type="text" placeholder="e.g. BLOOM10" disabled>
-                <button class="rank-buy" type="button" disabled aria-disabled="true">Coming soon</button>
-              </form>
+                <p class="shop-lead left">Have a valid Tebex discount code? Add items to your cart, then enter the code before checkout. Tebex shows the final total before payment.</p>
+                <button class="rank-buy" id="open-cart-code" type="button">Open cart</button>
+              </div>
               <form class="gift-form" onsubmit="return false" aria-label="Creator code (coming soon)">
                 <h3 class="peek-sub">Creator code</h3>
                 <p class="shop-lead left">Support a creator who plays on Blossom Vale. They get credit when you use their code.</p>
