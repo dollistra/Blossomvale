@@ -10,11 +10,12 @@
     petals300: "7796999", petals700: "7797001", petals1500: "7797005", petals3500: "7797006",
     poppy1: "7797013", poppy3: "7797014", tulip1: "7797015", tulip3: "7797016"
   };
+  const PETAL_PRODUCTS = [PRODUCTS.petals300, PRODUCTS.petals700, PRODUCTS.petals1500, PRODUCTS.petals3500];
   const ALL_PRODUCTS = [...Object.values(IDS), ...Object.values(PRODUCTS)];
   const OLD_UPGRADES = {"7796380": IDS.blossom, "7796381": IDS.bloom, "7796384": IDS.bloom, "7796385": IDS.everbloom, "7796387": IDS.everbloom, "7796388": IDS.everbloom};
   const KEY = "bv_cart_v1";
   const NAME_OK = /^\.?[A-Za-z0-9_ ]{3,16}$/;       // Java names, or Bedrock names with the leading dot
-  let catalog = {}, catalogOk = false, cart = [], basket = null, migrated = false;
+  let catalog = {}, catalogOk = false, catalogError = false, cart = [], basket = null, migrated = false;
 
   const load = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "[]"); if (!Array.isArray(v)) return []; return [...new Set(v.map(String).map((x) => { if (OLD_UPGRADES[x]) { migrated = true; return OLD_UPGRADES[x]; } return x; }).filter((x) => ALL_PRODUCTS.includes(x)))]; } catch (e) { return []; } };
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch (e) { /* storage can be blocked */ } };
@@ -55,6 +56,17 @@
   dlg.addEventListener("close", () => { basket = null; });
 
   const msg = (t, bad) => { const m = el("p", "cart-msg" + (bad ? " bad" : ""), t); return m; };
+
+  function syncPackageButtons() {
+    document.querySelectorAll("[data-cart-package], [data-purchase-package]").forEach((b) => {
+      const id = String(b.dataset.cartPackage || b.dataset.purchasePackage || "");
+      const ready = catalogOk && Boolean(catalog[id]);
+      b.disabled = !ready;
+      b.setAttribute("aria-disabled", ready ? "false" : "true");
+      b.dataset.pkg = id;
+      b.textContent = catalogError ? "Temporarily unavailable" : !catalogOk ? "Checking availability…" : ready ? (b.hasAttribute("data-cart-package") ? "Add to cart" : "Buy now") : "Coming soon";
+    });
+  }
 
   function render() {
     body.textContent = "";
@@ -151,7 +163,7 @@
     if (!ALL_PRODUCTS.includes(String(id)) || !catalog[String(id)]) return;
     id = String(id);
     const isRank = Object.values(IDS).includes(id);
-    if (isRank && cart.some((item) => Object.values(IDS).includes(item) && item !== id)) {
+    if (!buyNow && isRank && cart.some((item) => Object.values(IDS).includes(item) && item !== id)) {
       let notice = document.getElementById("cart-added-notice");
       if (!notice) { notice = el("div", "cart-return"); notice.id = "cart-added-notice"; notice.setAttribute("role", "status"); document.body.prepend(notice); }
       notice.textContent = "Your cart can have one rank at a time. Remove the current rank before choosing another.";
@@ -159,7 +171,8 @@
       return;
     }
     const already = cart.includes(id);
-    if (!already) cart.push(id);
+    if (buyNow) cart = [id];
+    else if (!already) cart.push(id);
     basket = null; save(); setFab();
     if (buyNow) { open(); const n = body.querySelector("#cart-name"); if (n) n.focus(); }
     else {
@@ -173,6 +186,17 @@
   // ---- attach to the page
   function wire() {
     document.body.append(dlg, fab); setFab();
+    // Put a one-click checkout action directly on each rank card.
+    document.querySelectorAll(".rank-card [data-rank-open]").forEach((details) => {
+      const id = IDS[String(details.dataset.rankOpen || "")];
+      if (!id) return;
+      const actions = el("div", "rank-actions");
+      const buy = btn("Checking availability…", () => add(id, true), "primary cart-buy");
+      buy.dataset.purchasePackage = id;
+      buy.disabled = true;
+      details.parentNode.insertBefore(actions, details);
+      actions.append(buy, details);
+    });
     // rank windows: swap the checkout line for Add to cart
     document.querySelectorAll("dialog.rank-dialog").forEach((d) => {
       const slug = d.id.replace("rd-", ""), id = IDS[slug]; if (!id) return;
@@ -186,11 +210,15 @@
     document.querySelectorAll("[data-cart-package]").forEach((b) => {
       const id = String(b.dataset.cartPackage || "");
       if (!ALL_PRODUCTS.includes(id)) return;
-      b.disabled = true;
-      b.textContent = "Checking availability…";
-      b.dataset.pkg = id;
       b.addEventListener("click", () => add(id));
+      if (PETAL_PRODUCTS.includes(id)) {
+        const buy = btn("Checking availability…", () => add(id, true), "primary cart-buy small");
+        buy.dataset.purchasePackage = id;
+        buy.disabled = true;
+        b.insertAdjacentElement("afterend", buy);
+      }
     });
+    syncPackageButtons();
     // coming back from Tebex: say nothing about success, we only know the shopper came back
     const q = new URLSearchParams(location.search).get("checkout");
     if (q) {
@@ -205,14 +233,9 @@
   api("/packages").then((j) => {
     (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
     catalogOk = true;
-    document.querySelectorAll("[data-cart-package]").forEach((b) => {
-      const ready = Boolean(catalog[String(b.dataset.cartPackage || "")]);
-      b.disabled = !ready;
-      b.setAttribute("aria-disabled", ready ? "false" : "true");
-      b.textContent = ready ? "Add to cart" : "Coming soon";
-    });
+    syncPackageButtons();
     if (dlg.open) render();
-  }).catch(() => { catalogOk = false; document.querySelectorAll("[data-cart-package]").forEach((b) => { b.disabled = true; b.textContent = "Temporarily unavailable"; }); if (dlg.open) render(); });
+  }).catch(() => { catalogOk = false; catalogError = true; syncPackageButtons(); if (dlg.open) render(); });
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else wire();
 })();
