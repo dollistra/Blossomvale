@@ -27,7 +27,7 @@
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=14"></script>
+  <script type="module" src="./staff-application.js?v=15"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -222,7 +222,11 @@
               </div>
               </details>
               <details class="staff-qgroup">
-              <summary>Discord scenarios <span>3 questions</span></summary>
+              <summary>Discord questions <span>4 questions</span></summary>
+              <div class="staff-field">
+                <label for="app-discord-channels">In our Discord, where would you send a player who wants to report a bug, and where would you send one who has an idea or suggestion? What would you ask them to include so the team can act on it?</label>
+                <textarea id="app-discord-channels" name="helperDiscordChannels" rows="4" maxlength="700" data-min="80" data-required="true"></textarea>
+              </div>
               <div class="staff-field">
                 <label for="app-discord-scam">Someone posts a “free Nitro” or gift link in a busy channel, then sends the same link to members in their DMs. What would you do right away, who would you tell, and what would you say to a member who says they clicked it?</label>
                 <textarea id="app-discord-scam" name="helperDiscordScam" rows="4" maxlength="900" data-min="120" data-required="true"></textarea>

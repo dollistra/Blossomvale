@@ -43,6 +43,7 @@ if (form && status) {
     helper: "Damaged build report",
     helperLimits: "Request outside permissions",
     helperStaffAbuse: "Staff member misusing permissions",
+    helperDiscordChannels: "Discord: where to send bug reports and suggestions",
     helperDiscordScam: "Discord: scam link",
     helperDiscordAccusation: "Discord: public accusation",
     helperDiscordWellbeing: "Discord: a member who is struggling",
@@ -53,7 +54,7 @@ if (form && status) {
   function applicationText(application) {
     const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
     const roleFields = application.role === "helper"
-      ? ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      ? ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
@@ -169,7 +170,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {
