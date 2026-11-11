@@ -32,9 +32,13 @@ if (form && status) {
     minecraft: "Minecraft username",
     availability: "Time zone",
     experience: "Relevant experience",
+    reference: "Someone who can vouch for them",
     reason: "Why they want to join the team",
     helperTenure: "Time in the community and weekly hours",
     helperFeedback: "Responding to feedback",
+    helperStuck: "Something they stuck with",
+    helperRemoved: "Removed or punished before",
+    helperStepBack: "What would make them step back",
     helperLand: "Saving a spot and protecting it (SMP)",
     helperRanks: "Ranks and cosmetics",
     helperRules: "The rules and what happens when they are broken",
@@ -51,9 +55,9 @@ if (form && status) {
   };
 
   function applicationText(application) {
-    const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
+    const common = ["name", "discordId", "minecraft", "availability", "experience", "reference", "reason"];
     const roleFields = application.role === "helper"
-      ? ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      ? ["helperTenure", "helperFeedback", "helperStuck", "helperRemoved", "helperStepBack", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
@@ -161,6 +165,7 @@ if (form && status) {
       minecraft: value(data, "minecraft"),
       availability: value(data, "availability"),
       experience: value(data, "experience"),
+      reference: value(data, "reference"),
       reason: value(data, "reason"),
       consented: data.get("consent") === "on",
       requirementsConfirmed: data.get("requirements") === "on",
@@ -169,7 +174,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helperTenure", "helperFeedback", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperFeedback", "helperStuck", "helperRemoved", "helperStepBack", "helperLand", "helperRanks", "helperRules", "helperReport", "helperEarn", "helper", "helperLimits", "helperStaffAbuse", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {

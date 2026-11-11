@@ -27,7 +27,7 @@
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=14"></script>
+  <script type="module" src="./staff-application.js?v=15"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -167,13 +167,18 @@
                 <input id="app-experience-proof" name="experienceProof" type="file" accept="image/png,image/jpeg,image/webp" multiple aria-describedby="experience-proof-help">
                 <p class="staff-field-hint" id="experience-proof-help">Optional, but it helps. Add up to 3 screenshots (PNG, JPG or WebP, up to 10 MB each), such as a staff role list or a server you helped run. Hide private details like other people's names and messages.</p>
               </div>
+              <div class="staff-field staff-field-wide">
+                <label for="app-reference">Someone who can vouch for you <span>(optional)</span></label>
+                <input id="app-reference" name="reference" maxlength="120" placeholder="A member or staff member who knows you, for example their Discord name" aria-describedby="reference-help">
+                <p class="staff-field-hint" id="reference-help">Optional. Someone in our community who has played or talked with you, so we can ask what you’re like to work with.</p>
+              </div>
             </div>
 
             <section class="role-questions" data-role-questions="helper" aria-labelledby="helper-question-title" hidden>
               <h3 id="helper-question-title">Helper questions</h3>
               <p class="staff-field-hint helper-question-note">Be specific: say what you would actually do and what you would say, and why. Short, general answers won’t be enough. The section about Blossom Vale checks how well you know the server, so name the real commands and places where you can. You can look around our website, wiki and Discord first.</p>
               <details class="staff-qgroup" open>
-              <summary>About you <span>2 questions</span></summary>
+              <summary>About you and your reliability <span>5 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper-tenure">When did you first join Blossom Vale, and what keeps you coming back? In a normal week, how much time could you honestly give to helping out?</label>
                 <textarea id="app-helper-tenure" name="helperTenure" rows="4" maxlength="600" data-min="60" data-required="true"></textarea>
@@ -181,6 +186,18 @@
               <div class="staff-field">
                 <label for="app-helper-feedback">Think of a time someone told you that something you did could be better. How did you take it, and what did you change afterwards?</label>
                 <textarea id="app-helper-feedback" name="helperFeedback" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-stuck">Tell us about something you stuck with for months, like a job, club, team or project, even when it got dull or hard. What kept you going?</label>
+                <textarea id="app-helper-stuck" name="helperStuck" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-removed">Have you ever been removed from a team, role or server, or punished in a game or community? Tell us what happened and what you would do differently. If never, say so.</label>
+                <textarea id="app-helper-removed" name="helperRemoved" rows="4" maxlength="700" data-min="10" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-stepback">Staff work is unpaid and sometimes dull, like answering the same question again and again. What would make you want to step back, and how would you tell us if that happened?</label>
+                <textarea id="app-helper-stepback" name="helperStepBack" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
               </div>
               </details>
               <details class="staff-qgroup">
