@@ -13,7 +13,7 @@ The player count is queried from MCStatus using the Java address in `mcstatus-co
 
 ## Staff application delivery
 
-New Helper and Content Creator applications are sent to the private Discord channel attached to a Cloudflare Worker webhook. Answers are included in a `.txt` attachment; Content Creator submissions also include the compressed YouTube Studio proof image. The Worker keeps the Discord webhook secret server-side, validates fields, checks the upload type and size, applies an approximate per-IP rate limit (5 submissions per minute), and blocks cross-origin requests from other sites. The Worker does not store application records in Firebase. Review new applications in the Discord channel. The `/apps-admin` panel remains for older applications previously stored in Firestore.
+New Helper and Content Creator applications are sent to the private Discord channel attached to a Cloudflare Worker webhook. Answers are included in a `.txt` attachment; Content Creator submissions also include the compressed YouTube Studio proof image. The Worker keeps the Discord webhook secret server-side, validates fields, checks the upload type and size, applies an approximate per-IP rate limit (5 submissions per minute), and blocks cross-origin requests from other sites. The Worker does not store application records in Firebase. Review new applications in the Discord channel. The `/review-114f3c61cfb6` panel remains for older applications previously stored in Firestore.
 
 ### Important: rotate the webhook first
 
