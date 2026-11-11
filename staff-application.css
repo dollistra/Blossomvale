@@ -71,3 +71,7 @@
 .staff-check-options input:focus-visible{outline:3px solid #fff4d9;outline-offset:3px}
 .role-extra{grid-column:1/-1;display:grid;gap:0}
 .role-extra[hidden]{display:none}
+.staff-role-pick{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0 0 16px}
+.staff-role-btn{margin:0;cursor:pointer;font:inherit}
+.staff-role-btn.is-active{outline:3px solid #fff4d9;outline-offset:3px}
+.staff-pick-note{margin:0 0 12px!important;text-align:center}

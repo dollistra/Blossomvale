@@ -12,7 +12,25 @@ if (form && status) {
     if (section && !section.open) section.open = true;
   }, true);
 
+  // the requirements board only shows the lists for the role that is picked
+  function updateRequirements() {
+    const picked = roleSelect.value;
+    document.querySelectorAll("[data-for]").forEach((list) => { list.hidden = list.dataset.for !== picked; });
+    const note = document.getElementById("requirements-pick");
+    if (note) note.hidden = Boolean(picked);
+    document.querySelectorAll("[data-pick-role]").forEach((button) => {
+      const active = button.dataset.pickRole === picked;
+      button.setAttribute("aria-pressed", String(active));
+      button.classList.toggle("is-active", active);
+    });
+  }
+  document.querySelectorAll("[data-pick-role]").forEach((button) => button.addEventListener("click", () => {
+    roleSelect.value = button.dataset.pickRole;
+    roleSelect.dispatchEvent(new Event("change"));
+  }));
+
   const updateRoleQuestions = () => {
+    updateRequirements();
     const selectedRole = roleSelect.value;
     roleSections.forEach((section) => {
       const active = section.dataset.roleQuestions === selectedRole;
