@@ -23,11 +23,11 @@
   <link rel="stylesheet" href="./styles.css?v=11">
   <link rel="stylesheet" href="./wiki.css?v=5">
   <link rel="stylesheet" href="./apps.css?v=1">
-  <link rel="stylesheet" href="./staff-application.css?v=8">
+  <link rel="stylesheet" href="./staff-application.css?v=9">
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=10"></script>
+  <script type="module" src="./staff-application.js?v=11"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -155,7 +155,7 @@
                 <input id="app-minecraft" name="minecraft" autocomplete="off" maxlength="40" placeholder="Java or Bedrock gamertag" required>
               </div>
               <div class="staff-field">
-                <label for="app-time">Time zone and usual availability <span>(required)</span></label>
+                <label for="app-time">Time zone and usual online times <span>(required)</span></label>
                 <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time, evenings and weekends" required>
               </div>
               <div class="staff-field staff-field-wide">
@@ -171,24 +171,39 @@
 
             <section class="role-questions" data-role-questions="helper" aria-labelledby="helper-question-title" hidden>
               <h3 id="helper-question-title">Helper questions</h3>
-              <p class="staff-field-hint helper-question-note">Please explain your reasoning and the steps you’d take, not just the final action. You don’t need to know any specific server commands, plugins, or tools.</p>
+              <p class="staff-field-hint helper-question-note">Please explain your reasoning and the steps you’d take, not just the final action. You don’t need to know any server commands, but a quick look around our website and Discord will help with the first section.</p>
               <details class="staff-qgroup" open>
-              <summary>In-game questions <span>5 questions</span></summary>
+              <summary>About you and Blossom Vale <span>4 questions</span></summary>
               <div class="staff-field">
-                <label for="app-helper">A player reports that their build was damaged overnight. They have no proof yet, and the player they suspect is your friend. What would you ask or check, what would you tell them, and how would you keep the report fair?</label>
-                <textarea id="app-helper" name="helper" rows="4" maxlength="1400" data-required="true"></textarea>
+                <label for="app-helper-tenure">How long have you been part of Blossom Vale (on Discord and in Minecraft), and how many hours a week can you realistically commit to helping?</label>
+                <textarea id="app-helper-tenure" name="helperTenure" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-helper-issue">A new player asks how to use a feature you haven’t used before, while chat is busy. What would you say right away, how would you find a reliable answer, and how would you make sure they aren’t left waiting?</label>
-                <textarea id="app-helper-issue" name="helperIssue" rows="4" maxlength="1400" data-required="true"></textarea>
+                <label for="app-helper-ranks">What are ranks and cosmetics on Blossom Vale? A new player asks how to get one. How would you explain it, and where would you point them?</label>
+                <textarea id="app-helper-ranks" name="helperRanks" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-helper-boundaries">Two players are arguing in public chat. One posts screenshots that include private messages and personal details. What would you do in the chat, how would you handle the screenshots, and when would you involve senior staff?</label>
-                <textarea id="app-helper-boundaries" name="helperBoundaries" rows="4" maxlength="1400" data-required="true"></textarea>
+                <label for="app-helper-feedback">How do you usually respond to constructive feedback, and how do you use it to improve? Give an example if you can.</label>
+                <textarea id="app-helper-feedback" name="helperFeedback" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-helper-limits">A player is upset and asks you to restore lost items or reverse a staff decision, but you don’t have permission to do that. What would you tell them, what would you avoid promising, and how would you follow up?</label>
-                <textarea id="app-helper-limits" name="helperLimits" rows="4" maxlength="1400" data-required="true"></textarea>
+                <label for="app-helper-newplayer">A new player has just joined and has no idea what to do first. What would you tell them about Blossom Vale, and where would you send them for more help?</label>
+                <textarea id="app-helper-newplayer" name="helperNewPlayer" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              </details>
+              <details class="staff-qgroup">
+              <summary>Staff conduct and teamwork <span>4 questions</span></summary>
+              <div class="staff-field">
+                <label for="app-helper-abuse">You see another staff member using their staff permissions for something that isn’t staff work, for example giving themselves items or teleporting to a friend’s base. What would you do after seeing it?</label>
+                <textarea id="app-helper-abuse" name="helperStaffAbuse" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-disagree">A senior staff member makes a decision you don’t agree with. What would you do, and how would you say it?</label>
+                <textarea id="app-helper-disagree" name="helperDisagree" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-favour">A friend asks you to bend a rule for them, or to give them an item or rank because you’re staff. What would you say, and would you tell anyone?</label>
+                <textarea id="app-helper-favour" name="helperFavour" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
                 <label for="app-helper-mistake">You realize you gave a player incorrect information or missed their request earlier. How would you put it right with the player and let the team know?</label>
@@ -196,14 +211,21 @@
               </div>
               </details>
               <details class="staff-qgroup">
-              <summary>Discord community questions <span>4 questions</span></summary>
+              <summary>In-game scenarios <span>2 questions</span></summary>
+              <div class="staff-field">
+                <label for="app-helper">A player reports that their build was damaged overnight. They have no proof yet, and the player they suspect is your friend. What would you ask or check, what would you tell them, and how would you keep the report fair?</label>
+                <textarea id="app-helper" name="helper" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-limits">A player is upset and asks you to restore lost items or reverse a staff decision, but you don’t have permission to do that. What would you tell them, what would you avoid promising, and how would you follow up?</label>
+                <textarea id="app-helper-limits" name="helperLimits" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              </details>
+              <details class="staff-qgroup">
+              <summary>Discord scenarios <span>3 questions</span></summary>
               <div class="staff-field">
                 <label for="app-discord-scam">Someone posts a “free Nitro” or gift link in a busy channel, then sends the same link to members in their DMs. What would you do right away, who would you tell, and what would you say to a member who says they clicked it?</label>
                 <textarea id="app-discord-scam" name="helperDiscordScam" rows="4" maxlength="1400" data-required="true"></textarea>
-              </div>
-              <div class="staff-field">
-                <label for="app-discord-friend">A longtime member, who is also your friend, breaks a small rule in public, for example advertising their own server. Other members notice. What would you do, what would you say to them, and how would you keep it fair?</label>
-                <textarea id="app-discord-friend" name="helperDiscordFriend" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
                 <label for="app-discord-accusation">A member posts in a public channel that another member is a cheater or a scammer, with no proof, and others start piling on. What would you do in the channel, what would you do privately, and when would you bring in other staff?</label>

@@ -33,13 +33,17 @@ if (form && status) {
     availability: "Time zone and availability",
     experience: "Relevant experience",
     reason: "Why they want to join the team",
-    helper: "Damaged build report",
-    helperIssue: "Helping a new player",
-    helperBoundaries: "Argument and private information",
-    helperLimits: "Request outside permissions",
+    helperTenure: "Time in the community and weekly hours",
+    helperRanks: "Ranks and cosmetics",
+    helperFeedback: "Responding to feedback",
+    helperNewPlayer: "Helping a brand-new player",
+    helperStaffAbuse: "Staff member misusing permissions",
+    helperDisagree: "Disagreeing with a senior staff member",
+    helperFavour: "A friend asks for a favour",
     helperMistake: "Correcting a mistake",
+    helper: "Damaged build report",
+    helperLimits: "Request outside permissions",
     helperDiscordScam: "Discord: scam link",
-    helperDiscordFriend: "Discord: a friend breaks a rule",
     helperDiscordAccusation: "Discord: public accusation",
     helperDiscordWellbeing: "Discord: a member who is struggling",
     platforms: "Platforms and audience size",
@@ -49,7 +53,7 @@ if (form && status) {
   function applicationText(application) {
     const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
     const roleFields = application.role === "helper"
-      ? ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      ? ["helperTenure", "helperRanks", "helperFeedback", "helperNewPlayer", "helperStaffAbuse", "helperDisagree", "helperFavour", "helperMistake", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
@@ -139,7 +143,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperRanks", "helperFeedback", "helperNewPlayer", "helperStaffAbuse", "helperDisagree", "helperFavour", "helperMistake", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {
