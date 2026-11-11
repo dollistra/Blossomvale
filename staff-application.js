@@ -30,17 +30,14 @@ if (form && status) {
     name: "Name",
     discordId: "Discord User ID",
     minecraft: "Minecraft username",
-    availability: "Time zone and availability",
+    availability: "Time zone",
     experience: "Relevant experience",
     reason: "Why they want to join the team",
     helperTenure: "Time in the community and weekly hours",
     helperRanks: "Ranks and cosmetics",
     helperFeedback: "Responding to feedback",
-    helperNewPlayer: "Helping a brand-new player",
     helperStaffAbuse: "Staff member misusing permissions",
-    helperDisagree: "Disagreeing with a senior staff member",
     helperFavour: "A friend asks for a favour",
-    helperMistake: "Correcting a mistake",
     helper: "Damaged build report",
     helperLimits: "Request outside permissions",
     helperDiscordScam: "Discord: scam link",
@@ -53,7 +50,7 @@ if (form && status) {
   function applicationText(application) {
     const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
     const roleFields = application.role === "helper"
-      ? ["helperTenure", "helperRanks", "helperFeedback", "helperNewPlayer", "helperStaffAbuse", "helperDisagree", "helperFavour", "helperMistake", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      ? ["helperTenure", "helperRanks", "helperFeedback", "helperStaffAbuse", "helperFavour", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
@@ -143,7 +140,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helperTenure", "helperRanks", "helperFeedback", "helperNewPlayer", "helperStaffAbuse", "helperDisagree", "helperFavour", "helperMistake", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperRanks", "helperFeedback", "helperStaffAbuse", "helperFavour", "helper", "helperLimits", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {

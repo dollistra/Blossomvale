@@ -27,7 +27,7 @@
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=11"></script>
+  <script type="module" src="./staff-application.js?v=12"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -155,8 +155,8 @@
                 <input id="app-minecraft" name="minecraft" autocomplete="off" maxlength="40" placeholder="Java or Bedrock gamertag" required>
               </div>
               <div class="staff-field">
-                <label for="app-time">Time zone and usual online times <span>(required)</span></label>
-                <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time, evenings and weekends" required>
+                <label for="app-time">Your time zone <span>(required)</span></label>
+                <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time (GMT)" required>
               </div>
               <div class="staff-field staff-field-wide">
                 <label for="app-experience">Your relevant experience <span>(required)</span></label>
@@ -173,7 +173,7 @@
               <h3 id="helper-question-title">Helper questions</h3>
               <p class="staff-field-hint helper-question-note">Please explain your reasoning and the steps you’d take, not just the final action. You don’t need to know any server commands, but a quick look around our website and Discord will help with the first section.</p>
               <details class="staff-qgroup" open>
-              <summary>About you and Blossom Vale <span>4 questions</span></summary>
+              <summary>About you and Blossom Vale <span>3 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper-tenure">When did you first join Blossom Vale, and what keeps you coming back? In a normal week, how much time could you honestly give to helping out?</label>
                 <textarea id="app-helper-tenure" name="helperTenure" rows="4" maxlength="1400" data-required="true"></textarea>
@@ -186,28 +186,16 @@
                 <label for="app-helper-feedback">Think of a time someone told you that something you did could be better. How did you take it, and what did you change afterwards?</label>
                 <textarea id="app-helper-feedback" name="helperFeedback" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
-              <div class="staff-field">
-                <label for="app-helper-newplayer">A new player has just joined and has no idea what to do first. What would you tell them about Blossom Vale, and where would you send them for more help?</label>
-                <textarea id="app-helper-newplayer" name="helperNewPlayer" rows="4" maxlength="1400" data-required="true"></textarea>
-              </div>
               </details>
               <details class="staff-qgroup">
-              <summary>Staff conduct and teamwork <span>4 questions</span></summary>
+              <summary>Staff conduct and teamwork <span>2 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper-abuse">While you’re on duty, you notice a teammate using their powers for their own benefit, like spawning items for themselves or popping into someone’s base for fun. What is your next move, and who do you talk to?</label>
                 <textarea id="app-helper-abuse" name="helperStaffAbuse" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-helper-disagree">A senior staff member makes a decision you don’t agree with. What would you do, and how would you say it?</label>
-                <textarea id="app-helper-disagree" name="helperDisagree" rows="4" maxlength="1400" data-required="true"></textarea>
-              </div>
-              <div class="staff-field">
                 <label for="app-helper-favour">A friend asks you to bend a rule for them, or to give them an item or rank because you’re staff. What would you say, and would you tell anyone?</label>
                 <textarea id="app-helper-favour" name="helperFavour" rows="4" maxlength="1400" data-required="true"></textarea>
-              </div>
-              <div class="staff-field">
-                <label for="app-helper-mistake">You realize you gave a player incorrect information or missed their request earlier. How would you put it right with the player and let the team know?</label>
-                <textarea id="app-helper-mistake" name="helperMistake" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
               </details>
               <details class="staff-qgroup">
