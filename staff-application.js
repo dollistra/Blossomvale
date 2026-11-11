@@ -50,7 +50,7 @@ if (form && status) {
     return [...common, ...roleFields]
       .filter((key) => application[key])
       .map((key) => `${applicationLabels[key]}\n${application[key]}`)
-      .concat(application.requirementsConfirmed ? ["Requirements\nThey confirmed they have read and meet the requirements."] : [])
+      .concat(application.requirementsConfirmed ? ["Requirements\nThey confirmed they read the guidelines, meet the requirements and wrote their answers without AI."] : [])
       .join("\n\n");
   }
 
