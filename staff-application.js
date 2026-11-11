@@ -7,8 +7,30 @@ if (form && status) {
   const roleSelect = document.getElementById("app-role");
   const roleSections = [...form.querySelectorAll("[data-role-questions]")];
   const submitButton = form.querySelector(".staff-submit");
+  form.addEventListener("invalid", (event) => {
+    const section = event.target.closest("details");
+    if (section && !section.open) section.open = true;
+  }, true);
+
+  // the requirements board only shows the lists for the role that is picked
+  function updateRequirements() {
+    const picked = roleSelect.value;
+    document.querySelectorAll("[data-for]").forEach((list) => { list.hidden = list.dataset.for !== picked; });
+    const note = document.getElementById("requirements-pick");
+    if (note) note.hidden = Boolean(picked);
+    document.querySelectorAll("[data-pick-role]").forEach((button) => {
+      const active = button.dataset.pickRole === picked;
+      button.setAttribute("aria-pressed", String(active));
+      button.classList.toggle("is-active", active);
+    });
+  }
+  document.querySelectorAll("[data-pick-role]").forEach((button) => button.addEventListener("click", () => {
+    roleSelect.value = button.dataset.pickRole;
+    roleSelect.dispatchEvent(new Event("change"));
+  }));
 
   const updateRoleQuestions = () => {
+    updateRequirements();
     const selectedRole = roleSelect.value;
     roleSections.forEach((section) => {
       const active = section.dataset.roleQuestions === selectedRole;
@@ -26,30 +48,41 @@ if (form && status) {
     name: "Name",
     discordId: "Discord User ID",
     minecraft: "Minecraft username",
-    availability: "Time zone and availability",
+    availability: "Time zone",
+    age: "Age",
     experience: "Relevant experience",
-    reason: "Why they want to join the team",
-    helper: "Damaged build report",
-    helperIssue: "Helping a new player",
-    helperBoundaries: "Argument and private information",
-    helperLimits: "Request outside permissions",
-    helperMistake: "Correcting a mistake",
+    extra: "Anything else",
+    reason: "About them and why they want to join",
+    helperTenure: "Time in the community and weekly hours",
+    helperRole: "What a Helper does, and whether they can do it",
+    helperLand: "Saving a spot and protecting it (SMP)",
+    helperRanks: "Ranks and cosmetics",
+    helperReport: "Reporting a rule breaker",
+    helperEarn: "Getting started and earning money",
+    helper: "Damaged build and items you can’t restore",
+    helperStaffAbuse: "Staff member misusing permissions",
+    helperDiscordChannels: "Discord: where to send bug reports and suggestions",
     helperDiscordScam: "Discord: scam link",
-    helperDiscordFriend: "Discord: a friend breaks a rule",
     helperDiscordAccusation: "Discord: public accusation",
     helperDiscordWellbeing: "Discord: a member who is struggling",
-    platforms: "Platforms and audience size",
+    platforms: "Content and where they post",
+    audience: "Followers or subscribers",
+    exampleLinks: "Example videos or posts",
+    creatorPlayed: "Have they played, and what they liked",
+    creatorPlan: "What they would make, and how often",
+    creatorSafety: "Keeping content friendly and suitable for all ages",
     contentLink: "Channel link"
   };
 
   function applicationText(application) {
-    const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
+    const common = ["name", "discordId", "minecraft", "age", "availability", "experience", "reason", "extra"];
     const roleFields = application.role === "helper"
-      ? ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]
-      : ["platforms", "contentLink"];
+      ? ["helperTenure", "helperRole", "helperLand", "helperRanks", "helperReport", "helperEarn", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      : ["platforms", "audience", "contentLink", "exampleLinks", "creatorPlayed", "creatorPlan", "creatorSafety"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
       .map((key) => `${applicationLabels[key]}\n${application[key]}`)
+      .concat(application.experienceProofCount ? [`Experience proof\n${application.experienceProofCount} screenshot${application.experienceProofCount === 1 ? "" : "s"} attached`] : [])
       .concat(application.requirementsConfirmed ? ["Requirements\nThey confirmed they read the guidelines, meet the requirements and wrote their answers without AI."] : [])
       .join("\n\n");
   }
@@ -71,6 +104,7 @@ if (form && status) {
       footer: { text: "Blossom Vale • Staff applications" },
       timestamp: new Date().toISOString()
     };
+    if (application.experienceProofCount) embed.fields.push({ name: "Experience proof", value: String(application.experienceProofCount) + " screenshot(s) attached", inline: true });
     if (creator) {
       embed.fields.push({ name: "Channel", value: discordEmbedValue(application.contentLink).slice(0, 1024) });
       embed.image = { url: "attachment://creator-proof.webp" };
@@ -101,6 +135,23 @@ if (form && status) {
     throw new Error("The screenshot is too detailed to store safely. Please crop it to the channel name and audience overview, then try again.");
   }
 
+  // answer length: a live counter under each long answer, and a minimum so one-liners can't be sent
+  const countedFields = [...form.querySelectorAll("textarea[data-min]")];
+  countedFields.forEach((field) => {
+    const note = document.createElement("p");
+    note.className = "staff-field-hint staff-count";
+    field.insertAdjacentElement("afterend", note);
+    const update = () => {
+      const length = field.value.trim().length;
+      const min = Number(field.dataset.min);
+      note.textContent = length + " / " + field.maxLength + " characters" + (length < min ? " · write at least " + min : " · long enough");
+      note.classList.toggle("is-short", length < min);
+    };
+    field.addEventListener("input", update);
+    form.addEventListener("reset", () => setTimeout(update));
+    update();
+  });
+
   const requestedRole = new URLSearchParams(window.location.search).get("role");
   if (["helper", "creator"].includes(requestedRole)) roleSelect.value = requestedRole;
   roleSelect.addEventListener("change", updateRoleQuestions);
@@ -109,6 +160,22 @@ if (form && status) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
+
+    const ageInput = document.getElementById("app-age");
+    if (Number(ageInput.value) < 13) {
+      status.textContent = "You need to be at least 13 to join the team.";
+      ageInput.focus();
+      return;
+    }
+
+    const tooShort = countedFields.find((field) => !field.disabled && field.value.trim().length < Number(field.dataset.min));
+    if (tooShort) {
+      const group = tooShort.closest("details");
+      if (group) group.open = true;
+      status.textContent = "Please write a little more in the answer we’ve taken you to (at least " + tooShort.dataset.min + " characters). Specific answers help us get to know you.";
+      tooShort.focus();
+      return;
+    }
 
     const data = new FormData(form);
     if (value(data, "website")) {
@@ -124,7 +191,9 @@ if (form && status) {
       role,
       minecraft: value(data, "minecraft"),
       availability: value(data, "availability"),
+      age: value(data, "age"),
       experience: value(data, "experience"),
+      extra: value(data, "extra"),
       reason: value(data, "reason"),
       consented: data.get("consent") === "on",
       requirementsConfirmed: data.get("requirements") === "on",
@@ -133,7 +202,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperRole", "helperLand", "helperRanks", "helperReport", "helperEarn", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {
@@ -151,6 +220,7 @@ if (form && status) {
       }
       application.platforms = value(data, "platforms");
       application.contentLink = value(data, "contentLink");
+      for (const field of ["audience", "exampleLinks", "creatorPlayed", "creatorPlan", "creatorSafety"]) application[field] = value(data, field);
       submitButton.disabled = true;
       status.textContent = "Preparing your screenshot…";
       try {
@@ -160,6 +230,33 @@ if (form && status) {
         submitButton.disabled = false;
         return;
       }
+    }
+
+    const proofFiles = data.getAll("experienceProof").filter((file) => file && file.size > 0);
+    const proofImages = [];
+    if (proofFiles.length) {
+      const allowedProof = ["image/png", "image/jpeg", "image/webp"];
+      const proofInput = document.getElementById("app-experience-proof");
+      if (proofFiles.length > 3) {
+        status.textContent = "Please attach no more than 3 screenshots of your experience.";
+        proofInput.focus();
+        return;
+      }
+      if (proofFiles.some((file) => !allowedProof.includes(file.type) || file.size > 10 * 1024 * 1024)) {
+        status.textContent = "Experience screenshots must be PNG, JPG, or WebP files up to 10 MB each.";
+        proofInput.focus();
+        return;
+      }
+      submitButton.disabled = true;
+      status.textContent = "Preparing your screenshots…";
+      try {
+        for (const file of proofFiles) proofImages.push(await compressProof(file));
+      } catch (error) {
+        status.textContent = error.message || "Could not prepare those screenshots. Please try other images.";
+        submitButton.disabled = false;
+        return;
+      }
+      application.experienceProofCount = proofImages.length;
     }
 
     submitButton.disabled = true;
@@ -177,6 +274,7 @@ if (form && status) {
         `blossom-vale-${payload.role}-application.txt`
       );
       if (proof) requestBody.append("files[1]", proof, "creator-proof.webp");
+      proofImages.forEach((image, index) => requestBody.append("files[" + (2 + index) + "]", image, "experience-proof-" + (index + 1) + ".webp"));
       const response = await fetch(webhookUrl, { method: "POST", body: requestBody, mode: "no-cors" });
       if (response.type !== "opaque" && !response.ok) throw new Error("Application submission failed.");
       form.reset();
