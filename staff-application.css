@@ -33,3 +33,13 @@
 #staff-form-status{flex:1 1 240px;margin:0;color:#fff3df;font-size:.86rem;line-height:1.5}
 .staff-back-link{margin:18px 0 0;text-align:center;font-size:.9rem}
 @media(max-width:700px){.staff-field-grid{grid-template-columns:minmax(0,1fr);gap:0}.staff-form-board{margin-top:18px}.staff-form-intro{text-align:left}.staff-submit-row{align-items:flex-start;flex-direction:column}.role-questions{padding:14px 12px 1px}}
+
+.staff-reqs-board{margin-top:24px}
+.staff-reqs-board .panel-title{margin:0 0 8px;color:#f28bdc;text-shadow:3px 4px 0 #66345a,0 0 12px rgba(242,139,220,.27)}
+.staff-reqs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 26px;max-width:820px;margin:0 auto}
+.staff-reqs-col h3{margin:0 0 10px;color:#f6a4e1;font-size:1.05rem;text-shadow:2px 2px 0 #5b2e45}
+.staff-reqs ul{margin:0;padding:0;list-style:none}
+.staff-reqs li{position:relative;margin:0 0 9px;padding-left:22px;color:#fff3df;font-size:.92rem;line-height:1.55}
+.staff-reqs li::before{content:"\273F";position:absolute;left:0;top:0;color:#f6a4e1}
+.staff-question-group{margin:18px 0 12px;color:#ffe0a3;font-size:.95rem;line-height:1.4;text-shadow:1px 2px 0 #512b27}
+@media(max-width:700px){.staff-reqs{grid-template-columns:minmax(0,1fr)}}

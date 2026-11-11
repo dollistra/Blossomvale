@@ -34,6 +34,10 @@ if (form && status) {
     helperBoundaries: "Argument and private information",
     helperLimits: "Request outside permissions",
     helperMistake: "Correcting a mistake",
+    helperDiscordScam: "Discord: scam link",
+    helperDiscordFriend: "Discord: a friend breaks a rule",
+    helperDiscordAccusation: "Discord: public accusation",
+    helperDiscordWellbeing: "Discord: a member who is struggling",
     platforms: "Platforms and audience size",
     contentLink: "Channel link"
   };
@@ -41,11 +45,12 @@ if (form && status) {
   function applicationText(application) {
     const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
     const roleFields = application.role === "helper"
-      ? ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake"]
+      ? ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
       .map((key) => `${applicationLabels[key]}\n${application[key]}`)
+      .concat(application.requirementsConfirmed ? ["Requirements\nThey confirmed they have read and meet the requirements."] : [])
       .join("\n\n");
   }
 
@@ -122,12 +127,13 @@ if (form && status) {
       experience: value(data, "experience"),
       reason: value(data, "reason"),
       consented: data.get("consent") === "on",
+      requirementsConfirmed: data.get("requirements") === "on",
       website: value(data, "website"),
       startedAt: Number(form.dataset.startedAt || Date.now())
     };
 
     if (role === "helper") {
-      for (const field of ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake"]) {
+      for (const field of ["helper", "helperIssue", "helperBoundaries", "helperLimits", "helperMistake", "helperDiscordScam", "helperDiscordFriend", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {
