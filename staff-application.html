@@ -22,11 +22,11 @@
   <link rel="preload" href="./Font.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="./styles.css?v=11">
   <link rel="stylesheet" href="./wiki.css?v=5">
-  <link rel="stylesheet" href="./staff-application.css?v=3">
+  <link rel="stylesheet" href="./staff-application.css?v=5">
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=7"></script>
+  <script type="module" src="./staff-application.js?v=9"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -70,6 +70,54 @@
           <h1 id="staff-heading">Join the Blossom Vale Team</h1>
           <div class="floral-divider" aria-hidden="true"><span></span><img class="divider-flower" src="./flower-small.png?v=4" alt="" draggable="false"><span></span></div>
           <p class="hero-intro">Would you like to help make Blossom Vale a friendly place to play? Tell us a little about yourself and the kind of help you’d like to offer. We’ll get back to you on Discord if there’s a suitable opening.</p>
+        </div>
+        <div class="board-bottom" aria-hidden="true"></div>
+      </section>
+
+      <section class="board staff-reqs-board" aria-labelledby="requirements-heading">
+        <div class="board-top" aria-hidden="true"></div>
+        <div class="board-body">
+          <h2 class="panel-title" id="requirements-heading">Before you apply</h2>
+          <p class="staff-form-intro">Please read these first. They are the same for everyone, and they help us keep Blossom Vale a kind place.</p>
+          <div class="staff-reqs">
+            <div class="staff-reqs-col">
+              <h3>Requirements</h3>
+              <ul>
+                <li>You are at least 14 years old.</li>
+                <li>You are in our Discord server and have played on the Minecraft server.</li>
+                <li>You have turned on two-factor authentication on your Discord account.</li>
+                <li>You have no active punishments and haven’t broken a rule in the last 30 days.</li>
+                <li>You can give about 3 to 5 hours a week, and you’ll tell us if you’ll be away.</li>
+                <li>You can chat clearly and kindly in English.</li>
+                <li><strong>Helper:</strong> no experience needed. We’ll show you the rest.</li>
+                <li><strong>Content Creator:</strong> your own channel that posts regularly, with a screenshot to show it’s yours.</li>
+              </ul>
+            </div>
+            <div class="staff-reqs-col">
+              <h3>What we expect from the team</h3>
+              <ul>
+                <li>Be kind and fair to everyone, including your friends.</li>
+                <li>Keep private things private: reports, staff chat, player details and screenshots.</li>
+                <li>Never ask for or accept items, ranks, money or favours for anything you do as staff.</li>
+                <li>Only use your permissions for the job, never for fun or to help yourself or friends.</li>
+                <li>Follow the rules yourself. Staff are held to them too.</li>
+                <li>If you’re not sure, ask a senior team member. It’s fine not to know.</li>
+                <li>New team members start with a short trial period.</li>
+                <li>Tell us if you’ll be away for more than two weeks. You can step down at any time.</li>
+              </ul>
+            </div>
+            <div class="staff-reqs-col staff-reqs-wide">
+              <h3>Application guidelines</h3>
+              <ul>
+                <li><strong>Write your answers yourself, in your own words.</strong> Applications written or rewritten with AI (like ChatGPT) will be declined straight away, and so will copied or shared answers.</li>
+                <li>Be honest. We would rather hear “I’m not sure, but I would ask” than a perfect-sounding answer.</li>
+                <li>Send one application only. Please don’t send another while yours is being looked at.</li>
+                <li>Use your real Discord User ID and Minecraft username, so we can check them.</li>
+                <li>Don’t message staff to ask about your application. We’ll contact you on Discord if there’s a suitable opening, and we may ask follow-up questions.</li>
+                <li>If you’re declined, you can apply again after 30 days.</li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div class="board-bottom" aria-hidden="true"></div>
       </section>
@@ -120,6 +168,7 @@
             <section class="role-questions" data-role-questions="helper" aria-labelledby="helper-question-title" hidden>
               <h3 id="helper-question-title">Helper questions</h3>
               <p class="staff-field-hint helper-question-note">Please explain your reasoning and the steps you’d take, not just the final action. You don’t need to know any specific server commands, plugins, or tools.</p>
+              <h4 class="staff-question-group">In-game questions</h4>
               <div class="staff-field">
                 <label for="app-helper">A player reports that their build was damaged overnight. They have no proof yet, and the player they suspect is your friend. What would you ask or check, what would you tell them, and how would you keep the report fair?</label>
                 <textarea id="app-helper" name="helper" rows="4" maxlength="1400" data-required="true"></textarea>
@@ -139,6 +188,23 @@
               <div class="staff-field">
                 <label for="app-helper-mistake">You realize you gave a player incorrect information or missed their request earlier. How would you put it right with the player and let the team know?</label>
                 <textarea id="app-helper-mistake" name="helperMistake" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <h4 class="staff-question-group">Discord community questions</h4>
+              <div class="staff-field">
+                <label for="app-discord-scam">Someone posts a “free Nitro” or gift link in a busy channel, then sends the same link to members in their DMs. What would you do right away, who would you tell, and what would you say to a member who says they clicked it?</label>
+                <textarea id="app-discord-scam" name="helperDiscordScam" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-discord-friend">A longtime member, who is also your friend, breaks a small rule in public, for example advertising their own server. Other members notice. What would you do, what would you say to them, and how would you keep it fair?</label>
+                <textarea id="app-discord-friend" name="helperDiscordFriend" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-discord-accusation">A member posts in a public channel that another member is a cheater or a scammer, with no proof, and others start piling on. What would you do in the channel, what would you do privately, and when would you bring in other staff?</label>
+                <textarea id="app-discord-accusation" name="helperDiscordAccusation" rows="4" maxlength="1400" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-discord-wellbeing">A member says in chat that they’re having a really hard time and mentions hurting themselves. What would you say, what would you avoid doing, and who would you tell?</label>
+                <textarea id="app-discord-wellbeing" name="helperDiscordWellbeing" rows="4" maxlength="1400" data-required="true"></textarea>
               </div>
             </section>
             <section class="role-questions" data-role-questions="creator" aria-labelledby="creator-question-title" hidden>
@@ -162,6 +228,10 @@
               <textarea id="app-reason" name="reason" rows="3" maxlength="900" required></textarea>
             </div>
 
+            <label class="staff-consent" for="app-requirements">
+              <input id="app-requirements" name="requirements" type="checkbox" required>
+              <span>I have read the requirements, team expectations and application guidelines, and I meet the requirements. I wrote my answers myself without AI.</span>
+            </label>
             <label class="staff-consent" for="app-consent">
               <input id="app-consent" name="consent" type="checkbox" required>
               <span>I agree to send my application details and, for Content Creator applications, my proof screenshot to Blossom Vale’s private staff review channel in Discord. I can ask for a copy or deletion by emailing hello@blossomvale.world.</span>
