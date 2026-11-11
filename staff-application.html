@@ -27,7 +27,7 @@
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=13"></script>
+  <script type="module" src="./staff-application.js?v=14"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -171,16 +171,12 @@
 
             <section class="role-questions" data-role-questions="helper" aria-labelledby="helper-question-title" hidden>
               <h3 id="helper-question-title">Helper questions</h3>
-              <p class="staff-field-hint helper-question-note">Be specific: say what you would actually do and what you would say, and why. Short, general answers like “I’d stay calm and be fair” won’t be enough. There’s no need to know server commands, but a quick look around our website and Discord will help with the first section.</p>
+              <p class="staff-field-hint helper-question-note">Be specific: say what you would actually do and what you would say, and why. Short, general answers won’t be enough. The section about Blossom Vale checks how well you know the server, so name the real commands and places where you can. You can look around our website, wiki and Discord first.</p>
               <details class="staff-qgroup" open>
-              <summary>About you and Blossom Vale <span>3 questions</span></summary>
+              <summary>About you <span>2 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper-tenure">When did you first join Blossom Vale, and what keeps you coming back? In a normal week, how much time could you honestly give to helping out?</label>
                 <textarea id="app-helper-tenure" name="helperTenure" rows="4" maxlength="600" data-min="60" data-required="true"></textarea>
-              </div>
-              <div class="staff-field">
-                <label for="app-helper-ranks">A new player is curious about our ranks and cosmetics and wants to know how to get them. Write the reply you would send them.</label>
-                <textarea id="app-helper-ranks" name="helperRanks" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
               </div>
               <div class="staff-field">
                 <label for="app-helper-feedback">Think of a time someone told you that something you did could be better. How did you take it, and what did you change afterwards?</label>
@@ -188,18 +184,30 @@
               </div>
               </details>
               <details class="staff-qgroup">
-              <summary>Staff conduct and teamwork <span>2 questions</span></summary>
+              <summary>Knowing Blossom Vale <span>5 questions</span></summary>
               <div class="staff-field">
-                <label for="app-helper-abuse">While you’re on duty, you notice a teammate using their powers for their own benefit, like spawning items for themselves or popping into someone’s base for fun. What is your next move, and who do you talk to?</label>
-                <textarea id="app-helper-abuse" name="helperStaffAbuse" rows="4" maxlength="900" data-min="120" data-required="true"></textarea>
+                <label for="app-helper-land">A player on the SMP wants to save a spot to come back to, and make sure nobody can grief or blow up what they build there. Which commands would you tell them to use, in what order, and what does each one do?</label>
+                <textarea id="app-helper-land" name="helperLand" rows="4" maxlength="900" data-min="150" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-helper-favour">A friend asks you to bend a rule for them, or to give them an item or rank because you’re staff. What would you say, and would you tell anyone?</label>
-                <textarea id="app-helper-favour" name="helperFavour" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+                <label for="app-helper-ranks">A new player is curious about our ranks and cosmetics and wants to know how to get them. Write the reply you would send them.</label>
+                <textarea id="app-helper-ranks" name="helperRanks" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-rules">Where can players read our rules? Name three of them, and explain what usually happens to someone who breaks one.</label>
+                <textarea id="app-helper-rules" name="helperRules" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-report">A player tells you someone is cheating. What is the right way for them to report it, what should they avoid doing, and what do you do with the report once you have it?</label>
+                <textarea id="app-helper-report" name="helperReport" rows="4" maxlength="800" data-min="120" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-earn">A brand-new player asks, “What do I do here, and how do I earn money?” Name the commands and places you would send them to, and say what each one does.</label>
+                <textarea id="app-helper-earn" name="helperEarn" rows="4" maxlength="900" data-min="150" data-required="true"></textarea>
               </div>
               </details>
               <details class="staff-qgroup">
-              <summary>In-game scenarios <span>2 questions</span></summary>
+              <summary>In-game scenarios <span>3 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper">A player reports that their build was damaged overnight. They have no proof yet, and the player they suspect is your friend. What would you ask or check, what would you tell them, and how would you keep the report fair?</label>
                 <textarea id="app-helper" name="helper" rows="4" maxlength="1000" data-min="150" data-required="true"></textarea>
@@ -207,6 +215,10 @@
               <div class="staff-field">
                 <label for="app-helper-limits">A player is upset and asks you to restore lost items or reverse a staff decision, but you don’t have permission to do that. What would you tell them, what would you avoid promising, and how would you follow up?</label>
                 <textarea id="app-helper-limits" name="helperLimits" rows="4" maxlength="900" data-min="120" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-helper-abuse">While you’re on duty, you notice a teammate using their powers for their own benefit, like spawning items for themselves or popping into someone’s base for fun. What is your next move, and who do you talk to?</label>
+                <textarea id="app-helper-abuse" name="helperStaffAbuse" rows="4" maxlength="900" data-min="120" data-required="true"></textarea>
               </div>
               </details>
               <details class="staff-qgroup">
