@@ -47,7 +47,12 @@ if (form && status) {
     helperDiscordScam: "Discord: scam link",
     helperDiscordAccusation: "Discord: public accusation",
     helperDiscordWellbeing: "Discord: a member who is struggling",
-    platforms: "Platforms and audience size",
+    platforms: "Content and where they post",
+    audience: "Followers or subscribers",
+    exampleLinks: "Example videos or posts",
+    creatorPlayed: "Have they played, and what they liked",
+    creatorPlan: "What they would make, and how often",
+    creatorSafety: "Keeping content friendly and suitable for all ages",
     contentLink: "Channel link"
   };
 
@@ -55,7 +60,7 @@ if (form && status) {
     const common = ["name", "discordId", "minecraft", "age", "availability", "experience", "reason", "extra"];
     const roleFields = application.role === "helper"
       ? ["helperTenure", "helperRole", "helperLand", "helperRanks", "helperReport", "helperEarn", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
-      : ["platforms", "contentLink"];
+      : ["platforms", "audience", "contentLink", "exampleLinks", "creatorPlayed", "creatorPlan", "creatorSafety"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
       .map((key) => `${applicationLabels[key]}\n${application[key]}`)
@@ -197,6 +202,7 @@ if (form && status) {
       }
       application.platforms = value(data, "platforms");
       application.contentLink = value(data, "contentLink");
+      for (const field of ["audience", "exampleLinks", "creatorPlayed", "creatorPlan", "creatorSafety"]) application[field] = value(data, field);
       submitButton.disabled = true;
       status.textContent = "Preparing your screenshot…";
       try {

@@ -23,11 +23,11 @@
   <link rel="stylesheet" href="./styles.css?v=11">
   <link rel="stylesheet" href="./wiki.css?v=5">
   <link rel="stylesheet" href="./apps.css?v=1">
-  <link rel="stylesheet" href="./staff-application.css?v=11">
+  <link rel="stylesheet" href="./staff-application.css?v=12">
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=21"></script>
+  <script type="module" src="./staff-application.js?v=22"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -82,19 +82,27 @@
           <h2 class="panel-title" id="requirements-heading">Before you apply</h2>
           <p class="staff-form-intro">Please read these three short lists first. Tap one to open it. They are the same for everyone, and they help us keep Blossom Vale a kind place.</p>
           <div class="staff-reqs">
-          <details class="staff-details"><summary>Requirements <span>8 points</span></summary>
+          <details class="staff-details"><summary>Requirements for everyone <span>4 points</span></summary>
             <ul>
                 <li>You are at least 14 years old.</li>
                 <li>You are in our Discord server and have played on the Minecraft server.</li>
-                <li>You have turned on two-factor authentication on your Discord account.</li>
                 <li>You have no active punishments and haven’t broken a rule in the last 30 days.</li>
-                <li>You can give about 3 to 5 hours a week, and you’ll tell us if you’ll be away.</li>
-                <li>You can chat clearly and kindly in English.</li>
-                <li><strong>Helper:</strong> no experience needed. We’ll show you the rest.</li>
-                <li><strong>Content Creator:</strong> your own channel that posts regularly, with a screenshot to show it’s yours.</li>
-              </ul>
+                <li>You can chat clearly and kindly in English.</li></ul>
           </details>
-          <details class="staff-details"><summary>What we expect from the team <span>8 points</span></summary>
+          <details class="staff-details"><summary>Helper requirements <span>3 points</span></summary>
+            <ul>
+                <li>You have turned on two-factor authentication on your Discord account.</li>
+                <li>You can give about 3 to 5 hours a week, and you’ll tell us if you’ll be away.</li>
+                <li>No experience is needed. We’ll show you the rest.</li></ul>
+          </details>
+          <details class="staff-details"><summary>Content Creator requirements <span>4 points</span></summary>
+            <ul>
+                <li>You have your own channel or account on YouTube, TikTok, Twitch or similar, and you post regularly.</li>
+                <li>Your content is your own, and it is friendly and suitable for all ages.</li>
+                <li>You can show us the channel is yours with a screenshot, and share 1 to 3 examples of your work.</li>
+                <li>You have a plan for what you would make about Blossom Vale.</li></ul>
+          </details>
+          <details class="staff-details"><summary>What we expect from Helpers <span>8 points</span></summary>
             <ul>
                 <li>Be kind and fair to everyone, including your friends.</li>
                 <li>Keep private things private: reports, staff chat, player details and screenshots.</li>
@@ -103,18 +111,25 @@
                 <li>Follow the rules yourself. Staff are held to them too.</li>
                 <li>If you’re not sure, ask a senior team member. It’s fine not to know.</li>
                 <li>New team members start with a short trial period.</li>
-                <li>Tell us if you’ll be away for more than two weeks. You can step down at any time.</li>
-              </ul>
+                <li>Tell us if you’ll be away for more than two weeks. You can step down at any time.</li></ul>
+          </details>
+          <details class="staff-details"><summary>What we expect from Content Creators <span>6 points</span></summary>
+            <ul>
+                <li>Show Blossom Vale honestly. Don’t promise things the server doesn’t have.</li>
+                <li>Follow our rules when you record. No hacked clients, no griefing, no x-ray.</li>
+                <li>Keep other players’ privacy: don’t show private chats, and ask before featuring someone.</li>
+                <li>Share the correct server address and Discord link where you post.</li>
+                <li>Keep it friendly and suitable for all ages.</li>
+                <li>If your content breaks our rules or you stop posting, we may take the creator role away. What creators receive is agreed with the team.</li></ul>
           </details>
           <details class="staff-details"><summary>Application guidelines <span>6 points</span></summary>
             <ul>
-                <li><strong>Write your answers yourself, in your own words.</strong> Applications written or rewritten with AI (like ChatGPT) will be declined straight away, and so will copied or shared answers.</li>
+                <li>Write your answers yourself, in your own words. Applications written or rewritten with AI (like ChatGPT) will be declined straight away, and so will copied or shared answers.</li>
                 <li>Be honest. We would rather hear “I’m not sure, but I would ask” than a perfect-sounding answer.</li>
                 <li>Send one application only. Please don’t send another while yours is being looked at.</li>
                 <li>Use your real Discord User ID and Minecraft username, so we can check them.</li>
                 <li>Don’t message staff to ask about your application. We’ll contact you on Discord if there’s a suitable opening, and we may ask follow-up questions.</li>
-                <li>If you’re declined, you can apply again after 30 days.</li>
-              </ul>
+                <li>If you’re declined, you can apply again after 30 days.</li></ul>
           </details>
           </div>
         </div>
@@ -162,14 +177,16 @@
                 <label for="app-time">Your time zone <span>(required)</span></label>
                 <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time (GMT)" required>
               </div>
+              <div class="role-extra" data-role-questions="helper" hidden>
               <div class="staff-field staff-field-wide">
                 <label for="app-experience">Your relevant experience <span>(required)</span></label>
-                <textarea id="app-experience" name="experience" rows="3" maxlength="600" data-min="30" required placeholder="Roles you've held, communities you've helped with, or content you've made. If you have none yet, say so and tell us what you've done that helps."></textarea>
+                <textarea id="app-experience" name="experience" rows="3" maxlength="600" data-min="30" data-required="true" placeholder="Roles you've held, communities you've helped with, or content you've made. If you have none yet, say so and tell us what you've done that helps."></textarea>
               </div>
               <div class="staff-field staff-field-wide">
                 <label for="app-experience-proof">Proof of your past experience <span>(optional)</span></label>
                 <input id="app-experience-proof" name="experienceProof" type="file" accept="image/png,image/jpeg,image/webp" multiple aria-describedby="experience-proof-help">
                 <p class="staff-field-hint" id="experience-proof-help">Optional, but it helps. Add up to 3 screenshots (PNG, JPG or WebP, up to 10 MB each), such as a staff role list or a server you helped run. Hide private details like other people's names and messages.</p>
+              </div>
               </div>
             </div>
 
@@ -239,18 +256,39 @@
             </section>
             <section class="role-questions" data-role-questions="creator" aria-labelledby="creator-question-title" hidden>
               <h3 id="creator-question-title">Content creator questions</h3>
+              <p class="staff-field-hint helper-question-note">We would like to see your work and hear your plan for Blossom Vale. Please play on the server a little before you apply, so you can tell us what you really thought.</p>
               <div class="staff-field">
-                <label for="app-platforms">What content do you make, which platforms do you post on, and roughly how many followers or subscribers do you have on each?</label>
+                <label for="app-platforms">What kind of content do you make, and where do you post it?</label>
                 <textarea id="app-platforms" name="platforms" rows="4" maxlength="600" data-min="30" data-required="true"></textarea>
               </div>
               <div class="staff-field">
-                <label for="app-content-link">Link to your channel <span>(required)</span></label>
+                <label for="app-audience">Roughly how many followers or subscribers do you have on each platform? <span>(required)</span></label>
+                <input id="app-audience" name="audience" maxlength="160" placeholder="For example: YouTube 1.2k, TikTok 800" data-required="true">
+              </div>
+              <div class="staff-field">
+                <label for="app-content-link">Link to your main channel or profile <span>(required)</span></label>
                 <input id="app-content-link" name="contentLink" type="url" maxlength="500" placeholder="https://" data-required="true">
               </div>
               <div class="staff-field">
-                <label for="app-channel-proof">Screenshot from YouTube Studio showing the channel is yours <span>(required)</span></label>
+                <label for="app-example-links">Share 1 to 3 links to videos or posts you are proud of, and say why you picked them.</label>
+                <textarea id="app-example-links" name="exampleLinks" rows="4" maxlength="600" data-min="20" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-channel-proof">Screenshot showing the channel is yours <span>(required)</span></label>
                 <input id="app-channel-proof" name="channelProof" type="file" accept="image/png,image/jpeg,image/webp" aria-describedby="channel-proof-help" data-required="true">
-                <p class="staff-field-hint" id="channel-proof-help">Choose a PNG, JPG, or WebP screenshot (up to 10 MB) showing your channel name or handle and audience size. Hide private details. It will be sent with your application to the Blossom Vale review team in Discord.</p>
+                <p class="staff-field-hint" id="channel-proof-help">Choose a PNG, JPG, or WebP screenshot (up to 10 MB) from YouTube Studio, TikTok analytics, your Twitch dashboard or similar, showing your channel name or handle and audience size. Hide private details. It will be sent with your application to the Blossom Vale review channel in Discord.</p>
+              </div>
+              <div class="staff-field">
+                <label for="app-creator-played">Have you played on Blossom Vale? Tell us what you did there and what you liked.</label>
+                <textarea id="app-creator-played" name="creatorPlayed" rows="4" maxlength="600" data-min="50" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-creator-plan">What would you make about Blossom Vale, and how often would you post it?</label>
+                <textarea id="app-creator-plan" name="creatorPlan" rows="4" maxlength="700" data-min="70" data-required="true"></textarea>
+              </div>
+              <div class="staff-field">
+                <label for="app-creator-safety">How would you keep your videos friendly and suitable for all ages, including how you show other players?</label>
+                <textarea id="app-creator-safety" name="creatorSafety" rows="4" maxlength="600" data-min="60" data-required="true"></textarea>
               </div>
             </section>
             <div class="staff-field">

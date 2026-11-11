@@ -69,3 +69,5 @@
 .staff-check-options label{display:inline-flex;align-items:center;gap:9px;cursor:pointer}
 .staff-check-options input{width:19px;height:19px;margin:0;accent-color:#91c879}
 .staff-check-options input:focus-visible{outline:3px solid #fff4d9;outline-offset:3px}
+.role-extra{grid-column:1/-1;display:grid;gap:0}
+.role-extra[hidden]{display:none}
