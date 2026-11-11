@@ -162,8 +162,8 @@ if (form && status) {
     if (!form.reportValidity()) return;
 
     const ageInput = document.getElementById("app-age");
-    if (Number(ageInput.value) < 14) {
-      status.textContent = "You need to be at least 14 to join the team.";
+    if (Number(ageInput.value) < 13) {
+      status.textContent = "You need to be at least 13 to join the team.";
       ageInput.focus();
       return;
     }
