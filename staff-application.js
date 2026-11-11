@@ -7,6 +7,10 @@ if (form && status) {
   const roleSelect = document.getElementById("app-role");
   const roleSections = [...form.querySelectorAll("[data-role-questions]")];
   const submitButton = form.querySelector(".staff-submit");
+  form.addEventListener("invalid", (event) => {
+    const section = event.target.closest("details");
+    if (section && !section.open) section.open = true;
+  }, true);
 
   const updateRoleQuestions = () => {
     const selectedRole = roleSelect.value;
@@ -50,6 +54,7 @@ if (form && status) {
     return [...common, ...roleFields]
       .filter((key) => application[key])
       .map((key) => `${applicationLabels[key]}\n${application[key]}`)
+      .concat(application.experienceProofCount ? [`Experience proof\n${application.experienceProofCount} screenshot${application.experienceProofCount === 1 ? "" : "s"} attached`] : [])
       .concat(application.requirementsConfirmed ? ["Requirements\nThey confirmed they read the guidelines, meet the requirements and wrote their answers without AI."] : [])
       .join("\n\n");
   }
@@ -71,6 +76,7 @@ if (form && status) {
       footer: { text: "Blossom Vale • Staff applications" },
       timestamp: new Date().toISOString()
     };
+    if (application.experienceProofCount) embed.fields.push({ name: "Experience proof", value: String(application.experienceProofCount) + " screenshot(s) attached", inline: true });
     if (creator) {
       embed.fields.push({ name: "Channel", value: discordEmbedValue(application.contentLink).slice(0, 1024) });
       embed.image = { url: "attachment://creator-proof.webp" };
@@ -162,6 +168,33 @@ if (form && status) {
       }
     }
 
+    const proofFiles = data.getAll("experienceProof").filter((file) => file && file.size > 0);
+    const proofImages = [];
+    if (proofFiles.length) {
+      const allowedProof = ["image/png", "image/jpeg", "image/webp"];
+      const proofInput = document.getElementById("app-experience-proof");
+      if (proofFiles.length > 3) {
+        status.textContent = "Please attach no more than 3 screenshots of your experience.";
+        proofInput.focus();
+        return;
+      }
+      if (proofFiles.some((file) => !allowedProof.includes(file.type) || file.size > 10 * 1024 * 1024)) {
+        status.textContent = "Experience screenshots must be PNG, JPG, or WebP files up to 10 MB each.";
+        proofInput.focus();
+        return;
+      }
+      submitButton.disabled = true;
+      status.textContent = "Preparing your screenshots…";
+      try {
+        for (const file of proofFiles) proofImages.push(await compressProof(file));
+      } catch (error) {
+        status.textContent = error.message || "Could not prepare those screenshots. Please try other images.";
+        submitButton.disabled = false;
+        return;
+      }
+      application.experienceProofCount = proofImages.length;
+    }
+
     submitButton.disabled = true;
     status.textContent = "Sending your application to Discord…";
     try {
@@ -177,6 +210,7 @@ if (form && status) {
         `blossom-vale-${payload.role}-application.txt`
       );
       if (proof) requestBody.append("files[1]", proof, "creator-proof.webp");
+      proofImages.forEach((image, index) => requestBody.append("files[" + (2 + index) + "]", image, "experience-proof-" + (index + 1) + ".webp"));
       const response = await fetch(webhookUrl, { method: "POST", body: requestBody, mode: "no-cors" });
       if (response.type !== "opaque" && !response.ok) throw new Error("Application submission failed.");
       form.reset();
