@@ -1,7 +1,6 @@
 // Blossom Vale cart: reads packages and builds baskets with the Tebex Headless API, then opens Tebex.js checkout.
 // Only Tebex's PUBLIC token is used here (safe in the browser). No private key or server secret belongs in this file.
 (() => {
-  const STORE_COMING_SOON = !((window.SHOP_CONFIG || {}).storeComingSoon === false);
   const TOKEN = "15853-876456fc55d71463b89e1e0146359a5e112dd8f4";
   const API = "https://headless.tebex.io/api/accounts/" + TOKEN;
   const IDS = {
@@ -197,17 +196,9 @@
 
   // ---- attach to the page
   function wire() {
-    if (STORE_COMING_SOON) {
-      document.querySelectorAll("[data-cart-package]").forEach((b) => { b.disabled = true; b.textContent = "Coming soon"; b.setAttribute("aria-disabled", "true"); });
-      document.querySelectorAll(".rd-soon").forEach((b) => { b.disabled = true; b.textContent = "Coming soon"; });
-      document.querySelectorAll("[data-checkout]").forEach((a) => { a.hidden = true; });
-      const codeButton = document.getElementById("open-cart-code");
-      if (codeButton) { codeButton.disabled = true; codeButton.textContent = "Coming soon"; }
-      return;
-    }
     document.body.append(dlg, fab); setFab();
     const codeButton = document.getElementById("open-cart-code");
-    if (codeButton) { codeButton.disabled = false; codeButton.removeAttribute("aria-disabled"); codeButton.textContent = "Open cart"; codeButton.addEventListener("click", open); }
+    if (codeButton) codeButton.addEventListener("click", open);
     // Put a one-click checkout action directly on each rank card.
     document.querySelectorAll(".rank-card [data-rank-open]").forEach((details) => {
       const id = IDS[String(details.dataset.rankOpen || "")];
@@ -251,15 +242,13 @@
     }
   }
 
-  // Do not load package data or create baskets while purchases are closed.
-  if (!STORE_COMING_SOON) {
-    api("/packages").then((j) => {
-      (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
-      catalogOk = true;
-      syncPackageButtons();
-      if (dlg.open) render();
-    }).catch(() => { catalogOk = false; catalogError = true; syncPackageButtons(); if (dlg.open) render(); });
-  }
+  // prices straight from Tebex
+  api("/packages").then((j) => {
+    (j.data || []).forEach((p) => { catalog[String(p.id)] = p; });
+    catalogOk = true;
+    syncPackageButtons();
+    if (dlg.open) render();
+  }).catch(() => { catalogOk = false; catalogError = true; syncPackageButtons(); if (dlg.open) render(); });
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", wire); else wire();
 })();
