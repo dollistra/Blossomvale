@@ -57,3 +57,6 @@
 .staff-qgroup{margin:0 0 14px}
 .staff-qgroup>.staff-field{margin:0 16px 17px}
 .staff-qgroup>summary{margin-bottom:12px}
+.staff-reqs-board,.staff-form-board{max-width:920px;margin-left:auto;margin-right:auto}
+.staff-hero{margin:12px auto 24px}
+.staff-hero .hero-intro{max-width:700px;margin-left:auto;margin-right:auto}
