@@ -39,7 +39,7 @@ if (form && status) {
     helperRole: "What a Helper does, and whether they can do it",
     helperLand: "Saving a spot and protecting it (SMP)",
     helperRanks: "Ranks and cosmetics",
-    helperReport: "Rules and reporting",
+    helperReport: "Reporting a rule breaker",
     helperEarn: "Getting started and earning money",
     helper: "Damaged build and items you can’t restore",
     helperStaffAbuse: "Staff member misusing permissions",
