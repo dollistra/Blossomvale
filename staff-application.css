@@ -62,3 +62,5 @@
 .staff-qgroup>.staff-field{margin:16px 16px 0}
 .staff-qgroup>.staff-field:last-child{margin-bottom:16px}
 .staff-qgroup textarea{min-height:92px}
+.staff-count{margin:-2px 0 0!important;text-align:right;color:#f2c5e8}
+.staff-count.is-short{color:#ffd3a3}

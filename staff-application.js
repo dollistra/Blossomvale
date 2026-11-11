@@ -108,6 +108,23 @@ if (form && status) {
     throw new Error("The screenshot is too detailed to store safely. Please crop it to the channel name and audience overview, then try again.");
   }
 
+  // answer length: a live counter under each long answer, and a minimum so one-liners can't be sent
+  const countedFields = [...form.querySelectorAll("textarea[data-min]")];
+  countedFields.forEach((field) => {
+    const note = document.createElement("p");
+    note.className = "staff-field-hint staff-count";
+    field.insertAdjacentElement("afterend", note);
+    const update = () => {
+      const length = field.value.trim().length;
+      const min = Number(field.dataset.min);
+      note.textContent = length + " / " + field.maxLength + " characters" + (length < min ? " · write at least " + min : " · long enough");
+      note.classList.toggle("is-short", length < min);
+    };
+    field.addEventListener("input", update);
+    form.addEventListener("reset", () => setTimeout(update));
+    update();
+  });
+
   const requestedRole = new URLSearchParams(window.location.search).get("role");
   if (["helper", "creator"].includes(requestedRole)) roleSelect.value = requestedRole;
   roleSelect.addEventListener("change", updateRoleQuestions);
@@ -116,6 +133,15 @@ if (form && status) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
+
+    const tooShort = countedFields.find((field) => !field.disabled && field.value.trim().length < Number(field.dataset.min));
+    if (tooShort) {
+      const group = tooShort.closest("details");
+      if (group) group.open = true;
+      status.textContent = "Please write a little more in the answer we’ve taken you to (at least " + tooShort.dataset.min + " characters). Specific answers help us get to know you.";
+      tooShort.focus();
+      return;
+    }
 
     const data = new FormData(form);
     if (value(data, "website")) {
