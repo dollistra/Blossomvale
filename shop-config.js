@@ -1,7 +1,5 @@
 // Edit these values; the Shop page reads them.
 window.SHOP_CONFIG = {
-  // Keep every purchase route closed until Tebex review is complete. Set false only when ready to sell.
-  storeComingSoon: true,
   // Where "Discord" links on the Shop page go.
   discord: "https://discord.gg/YCUe6CXVaB",
   // Java address shown in "How it works" (with a Copy button).
@@ -18,7 +16,7 @@ window.SHOP_CONFIG = {
   // Supporter of the month, by name only. Example: { name: "Willow", rank: "bloom" }. null = hidden
   topSupporter: null,
   // Where each rank's "Continue to checkout" button goes (your Tebex package links, https only). Leave "" until the store is open:
-  // the window then says Coming soon.
+  // the window then says checkout opens when the village opens.
   store: { sprout: "", blossom: "", bloom: "", everbloom: "" },
   // Names on the Supporters wall. rank is one of: "sprout", "blossom", "bloom", "everbloom".
   // Example: { name: "Willow", rank: "bloom" }

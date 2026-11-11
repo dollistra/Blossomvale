@@ -140,7 +140,6 @@ document.addEventListener('toggle',(e)=>{ if(e.target.classList&&e.target.classL
 (() => {
   const cfg = window.SHOP_CONFIG || {};
   const store = cfg.store || {};
-  const storeComingSoon = cfg.storeComingSoon !== false;
   const buttons = [...document.querySelectorAll("[data-rank-open]")];
   if (!buttons.length || typeof HTMLDialogElement === "undefined") return;
   const NAME = /^[A-Za-z0-9_]{3,16}$/;
@@ -150,7 +149,7 @@ document.addEventListener('toggle',(e)=>{ if(e.target.classList&&e.target.classL
     // checkout: a real link only when you have put one in shop-config.js (https only)
     const url = typeof store[slug] === "string" ? store[slug].trim() : "";
     const link = d.querySelector("[data-checkout]"), soon = d.querySelector(".rd-soon");
-    if (!storeComingSoon && /^https:\/\//i.test(url) && link) { link.href = url; link.hidden = false; if (soon) soon.hidden = true; }
+    if (/^https:\/\//i.test(url) && link) { link.href = url; link.hidden = false; if (soon) soon.hidden = true; }
     d.querySelectorAll("[data-rank-close]").forEach((b) => b.addEventListener("click", () => d.close()));
     d.addEventListener("click", (e) => { if (e.target === d) d.close(); });   // click on the dark backdrop
     d.addEventListener("close", () => { lock(false); const o = document.querySelector("[data-rank-open='" + slug + "']"); if (o) o.focus(); });
