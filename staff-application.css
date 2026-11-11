@@ -64,3 +64,8 @@
 .staff-qgroup textarea{min-height:92px}
 .staff-count{margin:-2px 0 0!important;text-align:right;color:#f2c5e8}
 .staff-count.is-short{color:#ffd3a3}
+.staff-check-q{margin:0;color:#fff3df;font-size:.95rem;line-height:1.5;text-shadow:1px 2px 0 #512b27}
+.staff-check-options{display:flex;gap:22px;margin-top:2px}
+.staff-check-options label{display:inline-flex;align-items:center;gap:9px;cursor:pointer}
+.staff-check-options input{width:19px;height:19px;margin:0;accent-color:#91c879}
+.staff-check-options input:focus-visible{outline:3px solid #fff4d9;outline-offset:3px}

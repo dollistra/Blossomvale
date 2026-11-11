@@ -23,11 +23,11 @@
   <link rel="stylesheet" href="./styles.css?v=11">
   <link rel="stylesheet" href="./wiki.css?v=5">
   <link rel="stylesheet" href="./apps.css?v=1">
-  <link rel="stylesheet" href="./staff-application.css?v=10">
+  <link rel="stylesheet" href="./staff-application.css?v=11">
   <script src="./blossoms.js?v=4" defer></script>
   <script src="./script.js?v=8" defer></script>
   <script src="./board.js?v=4" defer></script>
-  <script type="module" src="./staff-application.js?v=18"></script>
+  <script type="module" src="./staff-application.js?v=19"></script>
 </head>
 <body>
   <div class="ambient-petals" aria-hidden="true">
@@ -155,6 +155,10 @@
                 <input id="app-minecraft" name="minecraft" autocomplete="off" maxlength="40" placeholder="Java or Bedrock gamertag" required>
               </div>
               <div class="staff-field">
+                <label for="app-age">Your age <span>(required)</span></label>
+                <input id="app-age" name="age" type="number" min="14" max="99" inputmode="numeric" placeholder="You must be at least 14" required>
+              </div>
+              <div class="staff-field">
                 <label for="app-time">Your time zone <span>(required)</span></label>
                 <input id="app-time" name="availability" maxlength="160" placeholder="For example: UK time (GMT)" required>
               </div>
@@ -173,14 +177,18 @@
               <h3 id="helper-question-title">Helper questions</h3>
               <p class="staff-field-hint helper-question-note">Be specific: say what you would actually do and what you would say, and why. Short, general answers won’t be enough. The section about Blossom Vale checks how well you know the server, so name the real commands and places where you can. You can look around our website, wiki and Discord first.</p>
               <details class="staff-qgroup" open>
-              <summary>About you <span>1 question</span></summary>
+              <summary>About you <span>2 questions</span></summary>
               <div class="staff-field">
                 <label for="app-helper-tenure">When did you first join Blossom Vale, and what keeps you coming back? In a normal week, how much time could you honestly give to helping out?</label>
                 <textarea id="app-helper-tenure" name="helperTenure" rows="4" maxlength="600" data-min="60" data-required="true"></textarea>
               </div>
+              <div class="staff-field">
+                <label for="app-helper-role">What do you think a Helper does at Blossom Vale? Are you able to do all of it, and is there any part you think you would find difficult?</label>
+                <textarea id="app-helper-role" name="helperRole" rows="4" maxlength="800" data-min="100" data-required="true"></textarea>
+              </div>
               </details>
               <details class="staff-qgroup">
-              <summary>Knowing Blossom Vale <span>4 questions</span></summary>
+              <summary>Knowing Blossom Vale <span>4 questions + 4 true or false</span></summary>
               <div class="staff-field">
                 <label for="app-helper-land">A player on the SMP wants to save a spot to come back to, and make sure nobody can grief or blow up what they build there. Which commands would you tell them to use, in what order, and what does each one do?</label>
                 <textarea id="app-helper-land" name="helperLand" rows="4" maxlength="900" data-min="150" data-required="true"></textarea>
@@ -196,6 +204,34 @@
               <div class="staff-field">
                 <label for="app-helper-earn">A brand-new player asks, “What do I do here, and how do I earn money?” Name the commands and places you would send them to, and say what each one does.</label>
                 <textarea id="app-helper-earn" name="helperEarn" rows="4" maxlength="900" data-min="150" data-required="true"></textarea>
+              </div>
+              <div class="staff-field staff-check" role="radiogroup" aria-labelledby="checkHacks-q">
+                <p class="staff-check-q" id="checkHacks-q">True or false: using a hacked client is fine as long as you don’t hurt anyone.</p>
+                <div class="staff-check-options">
+                  <label><input type="radio" name="checkHacks" value="True" data-required="true"> True</label>
+                  <label><input type="radio" name="checkHacks" value="False" data-required="true"> False</label>
+                </div>
+              </div>
+              <div class="staff-field staff-check" role="radiogroup" aria-labelledby="checkPvp-q">
+                <p class="staff-check-q" id="checkPvp-q">True or false: PvP is switched on for everyone by default on the SMP.</p>
+                <div class="staff-check-options">
+                  <label><input type="radio" name="checkPvp" value="True" data-required="true"> True</label>
+                  <label><input type="radio" name="checkPvp" value="False" data-required="true"> False</label>
+                </div>
+              </div>
+              <div class="staff-field staff-check" role="radiogroup" aria-labelledby="checkChests-q">
+                <p class="staff-check-q" id="checkChests-q">True or false: taking items from another player’s chest is fine if their land isn’t claimed.</p>
+                <div class="staff-check-options">
+                  <label><input type="radio" name="checkChests" value="True" data-required="true"> True</label>
+                  <label><input type="radio" name="checkChests" value="False" data-required="true"> False</label>
+                </div>
+              </div>
+              <div class="staff-field staff-check" role="radiogroup" aria-labelledby="checkStaffDiscord-q">
+                <p class="staff-check-q" id="checkStaffDiscord-q">True or false: if you disagree with a staff decision, you can tell us politely in our Discord.</p>
+                <div class="staff-check-options">
+                  <label><input type="radio" name="checkStaffDiscord" value="True" data-required="true"> True</label>
+                  <label><input type="radio" name="checkStaffDiscord" value="False" data-required="true"> False</label>
+                </div>
               </div>
               </details>
               <details class="staff-qgroup">
@@ -246,13 +282,21 @@
               </div>
             </section>
             <div class="staff-field">
-              <label for="app-reason">Why would you like to join the team? <span>(required)</span></label>
+              <label for="app-reason">Tell us about yourself and why you would like to join the team <span>(required)</span></label>
               <textarea id="app-reason" name="reason" rows="3" maxlength="900" data-min="100" required></textarea>
+            </div>
+            <div class="staff-field">
+              <label for="app-extra">Is there anything else you would like us to know? <span>(optional)</span></label>
+              <textarea id="app-extra" name="extra" rows="3" maxlength="600"></textarea>
             </div>
 
             <label class="staff-consent" for="app-requirements">
               <input id="app-requirements" name="requirements" type="checkbox" required>
-              <span>I have read the requirements, team expectations and application guidelines, and I meet the requirements. I wrote my answers myself without AI.</span>
+              <span>I have read the requirements, team expectations and application guidelines, and I meet the requirements.</span>
+            </label>
+            <label class="staff-consent" for="app-aware">
+              <input id="app-aware" name="aware" type="checkbox" required>
+              <span>I understand that lying or using AI in my application, discussing it with other players or asking them for answers, and past punishments or disruptive behaviour can each lead to my application being denied.</span>
             </label>
             <label class="staff-consent" for="app-consent">
               <input id="app-consent" name="consent" type="checkbox" required>

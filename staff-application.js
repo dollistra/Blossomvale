@@ -31,13 +31,20 @@ if (form && status) {
     discordId: "Discord User ID",
     minecraft: "Minecraft username",
     availability: "Time zone",
+    age: "Age",
     experience: "Relevant experience",
-    reason: "Why they want to join the team",
+    extra: "Anything else",
+    reason: "About them and why they want to join",
     helperTenure: "Time in the community and weekly hours",
+    helperRole: "What a Helper does, and whether they can do it",
     helperLand: "Saving a spot and protecting it (SMP)",
     helperRanks: "Ranks and cosmetics",
     helperReport: "Rules and reporting",
     helperEarn: "Getting started and earning money",
+    checkHacks: "True or false: hacked clients are fine if you don’t hurt anyone",
+    checkPvp: "True or false: PvP is on for everyone by default",
+    checkChests: "True or false: taking from an unclaimed chest is fine",
+    checkStaffDiscord: "True or false: you can politely question a staff decision in Discord",
     helper: "Damaged build and items you can’t restore",
     helperStaffAbuse: "Staff member misusing permissions",
     helperDiscordChannels: "Discord: where to send bug reports and suggestions",
@@ -49,9 +56,9 @@ if (form && status) {
   };
 
   function applicationText(application) {
-    const common = ["name", "discordId", "minecraft", "availability", "experience", "reason"];
+    const common = ["name", "discordId", "minecraft", "age", "availability", "experience", "reason", "extra"];
     const roleFields = application.role === "helper"
-      ? ["helperTenure", "helperLand", "helperRanks", "helperReport", "helperEarn", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
+      ? ["helperTenure", "helperRole", "helperLand", "helperRanks", "helperReport", "helperEarn", "checkHacks", "checkPvp", "checkChests", "checkStaffDiscord", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]
       : ["platforms", "contentLink"];
     return [...common, ...roleFields]
       .filter((key) => application[key])
@@ -135,6 +142,13 @@ if (form && status) {
     event.preventDefault();
     if (!form.reportValidity()) return;
 
+    const ageInput = document.getElementById("app-age");
+    if (Number(ageInput.value) < 14) {
+      status.textContent = "You need to be at least 14 to join the team.";
+      ageInput.focus();
+      return;
+    }
+
     const tooShort = countedFields.find((field) => !field.disabled && field.value.trim().length < Number(field.dataset.min));
     if (tooShort) {
       const group = tooShort.closest("details");
@@ -158,7 +172,9 @@ if (form && status) {
       role,
       minecraft: value(data, "minecraft"),
       availability: value(data, "availability"),
+      age: value(data, "age"),
       experience: value(data, "experience"),
+      extra: value(data, "extra"),
       reason: value(data, "reason"),
       consented: data.get("consent") === "on",
       requirementsConfirmed: data.get("requirements") === "on",
@@ -167,7 +183,7 @@ if (form && status) {
     };
 
     if (role === "helper") {
-      for (const field of ["helperTenure", "helperLand", "helperRanks", "helperReport", "helperEarn", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
+      for (const field of ["helperTenure", "helperRole", "helperLand", "helperRanks", "helperReport", "helperEarn", "checkHacks", "checkPvp", "checkChests", "checkStaffDiscord", "helper", "helperStaffAbuse", "helperDiscordChannels", "helperDiscordScam", "helperDiscordAccusation", "helperDiscordWellbeing"]) {
         application[field] = value(data, field);
       }
     } else if (role === "creator") {
